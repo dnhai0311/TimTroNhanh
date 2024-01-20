@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect } from "react";
-import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,6 +11,9 @@ import * as actions from "../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "./navigation";
+import icons from "../../ultils/icons";
+
+const { FaCircleUser, FaUserPlus } = icons;
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,24 +21,26 @@ const Header = () => {
 
   const { isLoggedIn, msg } = useSelector((state) => state.auth);
 
-  const goLogin = useCallback((flag) => {
-    navigate(path.LOGIN, { state: { flag } });
-  }, []);
+  const goLogin = useCallback(
+    (flag) => {
+      navigate(path.LOGIN, { state: { flag } });
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     isLoggedIn && toast.success(msg);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, msg]);
 
   return (
     <>
-      <Navbar className="sticky-sm-top bg-light">
-        <Container className="flex-column flex-sm-row">
+      <Navbar className=" bg-light ">
+        <div className="d-flex flex-column flex-sm-row w-75 m-auto  justify-content-between align-items-center">
           <Link to={"/home"}>
             <Navbar.Brand style={{ margin: 0 }}>
               <img
                 src={logo}
-                width="175"
-                height="80"
+                width="200"
                 className="d-inline-block align-top"
                 alt="React Bootstrap logo"
               />
@@ -44,11 +48,19 @@ const Header = () => {
           </Link>
           {!isLoggedIn ? (
             <Navbar>
-              <Button className="bg-primary m-1" onClick={() => goLogin(false)}>
-                Đăng nhập
+              <Button
+                className="bg-primary m-1 d-flex align-items-center"
+                onClick={() => goLogin(false)}
+              >
+                <FaCircleUser className="mx-1" />
+                <span>Đăng nhập</span>
               </Button>
-              <Button className="bg-primary m-1" onClick={() => goLogin(true)}>
-                Đăng ký
+              <Button
+                className="bg-primary m-1 d-flex align-items-center"
+                onClick={() => goLogin(true)}
+              >
+                <FaUserPlus className="mx-1" />
+                <span>Đăng ký</span>
               </Button>
             </Navbar>
           ) : (
@@ -66,7 +78,7 @@ const Header = () => {
               </Button>
             </Navbar>
           )}
-        </Container>
+        </div>
         <ToastContainer autoClose={1000} position="bottom-right" />
       </Navbar>
       <Navigation />

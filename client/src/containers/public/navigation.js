@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Container from "react-bootstrap/esm/Container";
+
 import { NavLink } from "react-router-dom";
-import "../../App.css";
+import "../../App.scss";
 import { apiGetCategories } from "../../services/category";
 
 const Navigation = () => {
@@ -16,35 +16,37 @@ const Navigation = () => {
     fetchCategories();
   }, []);
   return (
-    <div className="bg-primary">
-      <Container className="d-flex justify-content-center flex-wrap flex-sm-nowrap">
-        <div key={0} className="">
-          <NavLink
-            to="/"
-            className={
-              "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
-            }
-          >
-            Trang chủ
-          </NavLink>
+    <>
+      <div className="bg-primary sticky-top">
+        <div className="w-100 w-sm-75 m-auto d-flex justify-content-start flex-wrap flex-md-nowrap text-nowrap">
+          <div key={0} className="">
+            <NavLink
+              to="/"
+              className={
+                "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
+              }
+            >
+              Trang chủ
+            </NavLink>
+          </div>
+          {categories?.length > 0 &&
+            categories.map((item) => {
+              return (
+                <div key={item.id} className="">
+                  <NavLink
+                    to={item.name}
+                    className={
+                      "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
+                    }
+                  >
+                    {item.value}
+                  </NavLink>
+                </div>
+              );
+            })}
         </div>
-        {categories?.length > 0 &&
-          categories.map((item) => {
-            return (
-              <div key={item.id} className="">
-                <NavLink
-                  to={item.name}
-                  className={
-                    "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
-                  }
-                >
-                  {item.value}
-                </NavLink>
-              </div>
-            );
-          })}
-      </Container>
-    </div>
+      </div>
+    </>
   );
 };
 

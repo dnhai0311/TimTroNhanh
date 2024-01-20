@@ -1,7 +1,7 @@
 import React from "react";
 
 export const RentalRoom = () => {
-  return <div>rentalRoom</div>;
+  return <>RentalRoom</>;
 };
 
 export default RentalRoom;

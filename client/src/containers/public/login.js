@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Header from "./header";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputForm from "../../components/InputForm";
-import Button from "../../components/Button";
+import Button from "react-bootstrap/Button";
 import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../App.css";
+import "../../App.scss";
 
 const Login = () => {
   const location = useLocation();
@@ -116,152 +116,151 @@ const Login = () => {
   };
 
   return (
-    <div className=" vh-100 theme-login">
-      <Header />
-      <div className="d-flex justify-content-center align-items-center h-75">
-        <Form
-          className="p-5 rounded bg-white"
-          style={{ width: 25 + "em" }}
-          noValidate
-          validated={validated}
-        >
-          <Form.Group>
-            <h3 className="text-center">
-              {isRegister ? "Đăng ký" : "Đăng nhập"}
-            </h3>
-          </Form.Group>
-          <Form.Group>
-            {isRegister && (
+    <>
+      <div className=" vh-100 theme-login">
+        <Header />
+        <div className="d-flex justify-content-center align-items-center h-75">
+          <Form
+            className="p-5 rounded bg-white"
+            style={{ width: 25 + "em" }}
+            noValidate
+            validated={validated}
+          >
+            <Form.Group>
+              <h3 className="text-center">
+                {isRegister ? "Đăng ký" : "Đăng nhập"}
+              </h3>
+            </Form.Group>
+            <Form.Group>
+              {isRegister && (
+                <div className="mb-2">
+                  <InputForm
+                    label={"Tên người dùng"}
+                    type={"name"}
+                    typeValue={"name"}
+                    placeHolder={"Nhập tên người dùng"}
+                    value={payload.name}
+                    setValue={setPayload}
+                    invalidFields={invalidFields}
+                    setInvalidFields={setInvalidFields}
+                    maxLength={25}
+                  ></InputForm>
+                </div>
+              )}
+            </Form.Group>
+            <Form.Group>
               <div className="mb-2">
                 <InputForm
-                  label={"Tên người dùng"}
-                  type={"name"}
-                  typeValue={"name"}
-                  placeHolder={"Nhập tên người dùng"}
-                  value={payload.name}
+                  label={"Số điện thoại"}
+                  type={"phone"}
+                  typeValue={"phone"}
+                  placeHolder={"Nhập số điện thoại"}
+                  value={payload.phone}
                   setValue={setPayload}
                   invalidFields={invalidFields}
                   setInvalidFields={setInvalidFields}
-                  maxLength={25}
+                  pattern={"[0]{1}[0-9]{9,10}"}
+                  maxLength={11}
                 ></InputForm>
               </div>
-            )}
-          </Form.Group>
-          <Form.Group>
-            <div className="mb-2">
-              <InputForm
-                label={"Số điện thoại"}
-                type={"phone"}
-                typeValue={"phone"}
-                placeHolder={"Nhập số điện thoại"}
-                value={payload.phone}
-                setValue={setPayload}
-                invalidFields={invalidFields}
-                setInvalidFields={setInvalidFields}
-                pattern={"[0]{1}[0-9]{9,10}"}
-                maxLength={11}
-              ></InputForm>
-            </div>
-          </Form.Group>
-          <Form.Group>
-            <div className="mb-2">
-              <InputForm
-                label={"Mật khẩu"}
-                type={"password"}
-                typeValue={"password"}
-                placeHolder={"Nhập mật khẩu"}
-                value={payload.password}
-                setValue={setPayload}
-                invalidFields={invalidFields}
-                setInvalidFields={setInvalidFields}
-                minlength={6}
-                maxLength={20}
-              ></InputForm>
-            </div>
-          </Form.Group>
+            </Form.Group>
+            <Form.Group>
+              <div className="mb-2">
+                <InputForm
+                  label={"Mật khẩu"}
+                  type={"password"}
+                  typeValue={"password"}
+                  placeHolder={"Nhập mật khẩu"}
+                  value={payload.password}
+                  setValue={setPayload}
+                  invalidFields={invalidFields}
+                  setInvalidFields={setInvalidFields}
+                  minlength={6}
+                  maxLength={20}
+                ></InputForm>
+              </div>
+            </Form.Group>
 
-          {!isRegister && (
-            <div className="row mb-2">
-              <div className="col-md-6 d-flex justify-content-center">
-                <div className="form-check mb-2 mb-md-0">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="loginCheck"
-                  />
-                  <label
-                    className="form-check-label is-valid:checked"
-                    htmlFor="loginCheck"
-                  >
-                    Nhớ tài khoản
-                  </label>
+            {!isRegister && (
+              <div className="row mb-2">
+                <div className="col-md-6 d-flex justify-content-center">
+                  <div className="form-check mb-2 mb-md-0">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="loginCheck"
+                    />
+                    <label
+                      className="form-check-label is-valid:checked"
+                      htmlFor="loginCheck"
+                    >
+                      Nhớ tài khoản
+                    </label>
+                  </div>
+                </div>
+                <div className="col-md-6 d-flex justify-content-center">
+                  <a href="#!" className="text-decoration-none">
+                    Quên mật khẩu?
+                  </a>
                 </div>
               </div>
-              <div className="col-md-6 d-flex justify-content-center">
-                <a href="#!" className="text-decoration-none">
-                  Quên mật khẩu?
-                </a>
-              </div>
-            </div>
-          )}
-          <Form.Group>
-            <div className="d-grid mb-2">
-              <Button
-                text={isRegister ? "Đăng ký" : "Đăng nhập"}
-                className={"btn btn-primary"}
-                type={"button"}
-                onClick={handleSubmit}
-              />
-            </div>
-          </Form.Group>
-          <Form.Group>
-            {!isRegister ? (
-              <div className="text-center">
-                <p>
-                  Chưa là thành viên?{" "}
-                  <span
-                    role="button"
-                    className="text-primary"
-                    onClick={() => {
-                      setIsRegister(true);
-                      setPayload({
-                        name: "",
-                        phone: "",
-                        password: "",
-                      });
-                    }}
-                  >
-                    Đăng ký
-                  </span>
-                </p>
-              </div>
-            ) : (
-              <div className="text-center">
-                <p>
-                  Đã có tài khoản?{" "}
-                  <span
-                    role="button"
-                    className="text-primary"
-                    onClick={() => {
-                      setIsRegister(false);
-                      setPayload({
-                        name: "",
-                        phone: "",
-                        password: "",
-                      });
-                    }}
-                  >
-                    Đăng nhập
-                  </span>
-                </p>
-              </div>
             )}
-          </Form.Group>
-        </Form>
+            <Form.Group>
+              <div className="d-grid mb-2">
+                <Button onClick={handleSubmit}>
+                  {isRegister ? "Đăng ký" : "Đăng nhập"}
+                </Button>
+              </div>
+            </Form.Group>
+            <Form.Group>
+              {!isRegister ? (
+                <div className="text-center">
+                  <p>
+                    Chưa là thành viên?{" "}
+                    <span
+                      role="button"
+                      className="text-primary"
+                      onClick={() => {
+                        setIsRegister(true);
+                        setPayload({
+                          name: "",
+                          phone: "",
+                          password: "",
+                        });
+                      }}
+                    >
+                      Đăng ký
+                    </span>
+                  </p>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <p>
+                    Đã có tài khoản?{" "}
+                    <span
+                      role="button"
+                      className="text-primary"
+                      onClick={() => {
+                        setIsRegister(false);
+                        setPayload({
+                          name: "",
+                          phone: "",
+                          password: "",
+                        });
+                      }}
+                    >
+                      Đăng nhập
+                    </span>
+                  </p>
+                </div>
+              )}
+            </Form.Group>
+          </Form>
+        </div>
+        <ToastContainer autoClose={1000} position="bottom-right" />
       </div>
-      <ToastContainer autoClose={1000} position="bottom-right" />
-    </div>
+    </>
   );
 };
 
