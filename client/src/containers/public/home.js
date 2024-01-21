@@ -1,7 +1,12 @@
 import React from "react";
+import ListPost from "./ListPost";
 
 const Home = () => {
-  return <>Home</>;
+  return (
+    <>
+      <ListPost />
+    </>
+  );
 };
 
 export default Home;

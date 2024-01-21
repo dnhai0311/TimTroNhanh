@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const SearchItem = ({ text, IconBefore, IconAfter, fontWeight }) => {
   return (
@@ -14,4 +14,4 @@ const SearchItem = ({ text, IconBefore, IconAfter, fontWeight }) => {
   );
 };
 
-export default SearchItem;
+export default memo(SearchItem);

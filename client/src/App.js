@@ -7,7 +7,7 @@ import {
   RentalHouse,
   RentalRoom,
   RentalSpace,
-} from "./containers/public";
+} from "./containers/public/index";
 import { path } from "./ultils/constant";
 
 function App() {

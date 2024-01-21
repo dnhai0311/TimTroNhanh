@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "./header";
-import Footer from "./footer";
-import Search from "./search";
+import Header from "./Header";
+import Footer from "./Footer";
+import Search from "./Search";
+import Banner from "./Banner";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Outlet } from "react-router-dom";
 import "../../App.scss";
@@ -9,14 +10,15 @@ import "../../App.scss";
 const Main = () => {
   return (
     <>
-      <Header />
-      <Search />
-      <div className=" test">
-        <div className="w-75 m-auto d-block">
+      <div className="bg-gray">
+        <Header />
+        <Search />
+        <Banner />
+        <div className="test w-75 m-auto d-block">
           <Outlet />
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

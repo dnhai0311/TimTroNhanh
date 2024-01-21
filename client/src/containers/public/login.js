@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Header from "./header";
+import Header from "./Header";
+import Footer from "./Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputForm from "../../components/InputForm";
 import Button from "react-bootstrap/Button";
@@ -117,7 +118,7 @@ const Login = () => {
 
   return (
     <>
-      <div className=" vh-100 theme-login">
+      <div className=" vh-100 bg-gray">
         <Header />
         <div className="d-flex justify-content-center align-items-center h-75">
           <Form
@@ -258,6 +259,7 @@ const Login = () => {
             </Form.Group>
           </Form>
         </div>
+        <Footer />
         <ToastContainer autoClose={1000} position="bottom-right" />
       </div>
     </>

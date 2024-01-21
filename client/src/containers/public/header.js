@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navigation from "./navigation";
+import Navigation from "./Navigation";
 import icons from "../../ultils/icons";
 
 const { FaCircleUser, FaUserPlus } = icons;
