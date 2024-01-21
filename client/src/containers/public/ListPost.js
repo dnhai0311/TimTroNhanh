@@ -8,7 +8,7 @@ const ListPost = () => {
         <div className="row gx-5">
           <div className="col-12 col-md-8 border rounded bg-light">
             <h5 className="py-3 fw-bold">Danh sách các bài đăng</h5>
-            <div className="row gy-3">
+            <div className="row">
               <Post />
               <Post />
               <Post />

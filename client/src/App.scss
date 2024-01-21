@@ -60,6 +60,13 @@ $text-color: black;
     }
 }
 
+.line-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+  }
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
     .sticky-top-1 {
       position: -webkit-sticky;
