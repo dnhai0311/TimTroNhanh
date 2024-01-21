@@ -60,12 +60,18 @@ $text-color: black;
     }
 }
 
+.post-thumb {
+    margin-left: 10px;
+    width: 100%;
+    max-height: 230px;
+}
+
 .line-clamp {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
-  }
+}
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {
     .sticky-top-1 {

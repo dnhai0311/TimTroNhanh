@@ -14,7 +14,7 @@ const Main = () => {
         <Header />
         <Search />
         <Banner />
-        <div className="test w-75 m-auto d-block">
+        <div className="w-75 m-auto d-block">
           <Outlet />
         </div>
         <Footer />
