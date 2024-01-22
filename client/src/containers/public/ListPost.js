@@ -76,7 +76,7 @@ const ListPost = () => {
             nextLabel="Tiếp tục >"
             onPageChange={handlePageClick}
             pageRangeDisplayed={3}
-            pageCount={total / 3}
+            pageCount={Math.floor(total / 3) + 1}
             previousLabel="< Trở lại"
             pageClassName="page-item"
             pageLinkClassName="page-link"
@@ -88,7 +88,7 @@ const ListPost = () => {
             breakLinkClassName="page-link"
             containerClassName="pagination justify-content-center"
             activeClassName="active"
-            forcePage={currentPage}
+            forcePage={currentPage >= 0 ? currentPage : 0}
             renderOnZeroPageCount={null}
           />
         </div>
