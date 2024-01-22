@@ -1,19 +1,21 @@
 
 
 $background-color: #f2f2f2;
+$color-red: #DC3545;
+$color-blue: #0D6EFD;
 $font-size: 14px;
 $text-color: black;
 
 
 .navItem {
-    background-color: #0D6EFD;
+    background-color: $color-blue;
     &:hover {
-        background-color: #DC3545;
+        background-color: $color-red;
     }
 }
 
 .active {
-    background-color: #DC3545;
+    background-color: $color-red;
 }
 
 .form-check-input.is-valid, .was-validated .form-check-input:valid {
@@ -71,6 +73,12 @@ $text-color: black;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
+}
+
+.icon-heart {
+    :hover {
+        color: $color-red;
+    }
 }
 
 @supports ((position: -webkit-sticky) or (position: sticky)) {

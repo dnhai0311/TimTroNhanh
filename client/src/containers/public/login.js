@@ -35,13 +35,13 @@ const Login = () => {
 
   useEffect(() => {
     isLoggedIn && navigate("/");
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     msg && toast.error(msg);
-    if (msg != "Đăng nhập thành công" && msg != "Đăng ký thành công")
+    if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
       dispatch(actions.logout());
-  }, [msg, update]);
+  }, [msg, update, dispatch]);
 
   const handleSubmit = async (event) => {
     let finalPayload = isRegister
@@ -97,7 +97,7 @@ const Login = () => {
           }
           break;
         case "phone":
-          if (item[1].length < 10 || item[1].indexOf(0) != "0") {
+          if (item[1].length < 10 || item[1].indexOf(0) !== Number("0")) {
             setInvalidFields((prev) => [
               ...prev,
               {

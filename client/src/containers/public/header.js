@@ -21,13 +21,16 @@ const Header = () => {
 
   const { isLoggedIn, msg } = useSelector((state) => state.auth);
 
-  const goLogin = useCallback((flag) => {
-    navigate(path.LOGIN, { state: { flag } });
-  }, []);
+  const goLogin = useCallback(
+    (flag) => {
+      navigate(path.LOGIN, { state: { flag } });
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     isLoggedIn && toast.success(msg);
-  }, [isLoggedIn]);
+  }, [isLoggedIn, msg]);
 
   return (
     <>

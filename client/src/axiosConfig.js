@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
@@ -8,6 +7,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     const token = localStorage.getItem("persist:auth");
+    console.log(token);
     return config;
   },
   function (error) {

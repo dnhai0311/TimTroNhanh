@@ -8,7 +8,7 @@ const ListPost = () => {
   const { posts } = useSelector((state) => state.post);
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  }, [dispatch]);
   console.log(posts);
   return (
     <>
@@ -36,6 +36,7 @@ const ListPost = () => {
                       img={
                         process.env.PUBLIC_URL + JSON.parse(item.images.path)[0]
                       }
+                      phone={item.user.phone}
                     />
                   );
                 })}
