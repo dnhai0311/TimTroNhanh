@@ -1,6 +1,8 @@
 import React, { memo, useState } from "react";
 import icons from "../ultils/icons";
 import "../App.scss";
+import { Link } from "react-router-dom";
+import { formatVietnameseToString } from "../ultils/commons/formatVietnameseToString";
 
 const { FaStar, FaRegUserCircle, FaHeart } = icons;
 
@@ -15,13 +17,17 @@ const Post = ({
   uploader,
   img,
   phone,
+  id,
 }) => {
   const [isRed, setIsRed] = useState(false);
 
   return (
-    <div className="col-12 py-3 border-top border-bottom border-dark">
+    <div className="col-12 py-3 border-top border-bottom border-dark post">
       <div className="row gx-4">
-        <div className="col-4 d-flex position-relative">
+        <Link
+          to={`chi-tiet/${formatVietnameseToString(name)}/${id}`}
+          className="col-4 d-flex position-relative"
+        >
           <img
             src={process.env.PUBLIC_URL + img}
             alt="thumbnail"
@@ -38,11 +44,14 @@ const Post = ({
               }}
             />
           </div>
-        </div>
+        </Link>
         <div className="col-8 bg-light">
-          <div className="px-2 fw-bold text-danger line-clamp text-justify ">
+          <Link
+            to={`chi-tiet/${formatVietnameseToString(name)}/${id}`}
+            className="px-2 fw-bold text-danger line-clamp-2 text-justify text-decoration-none text-uppercase"
+          >
             {name}
-          </div>
+          </Link>
           <div className="px-2 ">
             {Array(5)
               .fill()
@@ -60,7 +69,7 @@ const Post = ({
             <div className="text-truncate">{location}</div>
             <div className="text-truncate">Hôm nay</div>
           </div>
-          <div className="px-2 my-2 line-clamp text-justify fw-light">
+          <div className="px-2 my-2 line-clamp-3 text-justify fw-light">
             {value}
           </div>
           <div className="px-2">
@@ -69,7 +78,7 @@ const Post = ({
                 <FaRegUserCircle fontSize={"20px"} />
                 <span className="px-2 text-truncate">{uploader}</span>
               </div>
-              <div className="col-6 text-end text-truncate p-1 text-light">
+              <div className="col-6 text-end text-truncate px-2 py-1 text-light">
                 <span className="border p-1 rounded bg-primary ">
                   Liên hệ: {phone}
                 </span>

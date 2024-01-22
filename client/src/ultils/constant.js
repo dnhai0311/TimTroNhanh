@@ -6,4 +6,5 @@ export const path = {
   RENTAL_HOUSE: "nha-cho-thue",
   RENTAL_APARTMENT: "cho-thue-can-ho",
   RENTAL_SPACE: "cho-thue-mat-bang",
+  DETAIL_POST__TITLE__POST_ID: `chi-tiet/:title/:postId`,
 };

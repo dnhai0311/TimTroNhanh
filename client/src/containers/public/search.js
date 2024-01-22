@@ -15,8 +15,8 @@ const {
 const Search = () => {
   return (
     <>
-      <div className="w-100 searchBar sticky-top-1 sticky-top-md-1">
-        <div className="w-75 mx-auto p-3 bg-danger border rounded d-flex flex-column flex-lg-row justify-content-start">
+      <div className="w-100 searchBar ">
+        <div className="mx-auto p-3 bg-danger border rounded d-flex flex-column flex-lg-row justify-content-start">
           <SearchItem
             text={"Phòng trọ"}
             IconBefore={<BsHouseDoor className="mx-1" color="#C2C2C2" />}
