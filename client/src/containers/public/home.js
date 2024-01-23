@@ -1,7 +1,7 @@
 import React from "react";
-import ListPost from "./ListPost";
-import Search from "./Search";
-import Banner from "./Banner";
+import ListPost from "./ViewPost/ListPost";
+import Search from "./Header/Search";
+import Banner from "./Header/Banner";
 
 const Home = () => {
   return (

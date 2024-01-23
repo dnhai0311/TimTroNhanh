@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Navigation from "./Navigation";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import Navigation from "./Header/Navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Outlet } from "react-router-dom";
 import "../../App.scss";

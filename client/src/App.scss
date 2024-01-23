@@ -1,136 +1,9 @@
-
 $background-color: #f2f2f2;
 $color-red: #DC3545;
 $color-blue: #0D6EFD;
-$color-paginate: #51BAE8;
-$font-size: 14px;
-$text-color: black;
-
-
-.navItem {
-    background-color: $color-blue;
-    &:hover {
-        background-color: $color-red;
-    }
-}
-
-.active {
-    background-color: $color-red;
-}
-
-.form-check-input.is-valid, .was-validated .form-check-input:valid {
-    border-color: black
-}
-
-.form-check-input.is-valid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
-    color: black
-}
 
 .bg-gray {
     background-color: $background-color;
-}
-
-.searchBar {
-    font-size: 15px;
-    padding: 10px 0px;
-}
-
-.banner {
-    height: 400px;
-    margin: 1% auto;
-    background-image: url("../src/assets/banner/banner.png");
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    ::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 400px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 25%, rgba(0, 0, 0, 1) 100%);
-        pointer-events: none;
-        z-index: 1;
-    }
-    .header-banner {
-        -webkit-text-stroke: 1px black;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        color: white;
-        padding: 25px 40px;
-    }
-}
-
-.post {
-    height: 250px;
-    .post-thumb {
-        margin-left: 10px;
-        width: 95%;
-        height: 215px;
-    }
-}
-
-
-.line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
-}
-
-.line-clamp-3 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
-}
-
-.icon-heart {
-    :hover {
-        color: $color-red;
-    }
-}
-
-.pagination {
-    .page-item {
-        background: $background-color;
-        .page-link {
-            font-weight: bold;
-            margin: 5px;
-            padding: var(--bs-pagination-padding-y) calc(var(--bs-pagination-padding-x) + 2px);
-            border-radius: 50%;
-        }
-    }
-}
-
-.sidebarTab{
-    color: gray;
-    &:not(:last-child){
-        border-bottom: dashed;
-        border-bottom-width: 1px;
-    }
-    .sidebarItem {
-        color: black;
-        font-weight: lighter;
-        font-size: 15px;
-        &:hover {
-            color:red;
-        }
-    }
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sticky-top-1 {
-      position: -webkit-sticky;
-      position: sticky;
-      top: calc(5% + 5px);
-      z-index: 1019;
-    }
-  } 
-
-.test {
-    height: 2000px;
-    padding-top: 10px;
 }
 
 /* Small devices (landscape phones, 576px and up)*/
@@ -202,12 +75,6 @@ $text-color: black;
     .h-md-25 {
         height: 25% !important;
     }
-    .sticky-top-md-1 {
-        position: -webkit-sticky;
-        position: sticky;
-        top: calc(6%);
-        z-index: 1019;
-      }
 }
 
 /* Large devices (desktops, 992px and up)*/

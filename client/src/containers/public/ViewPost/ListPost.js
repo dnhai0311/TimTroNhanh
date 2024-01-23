@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Post from "../../components/Post";
-import { getAllPosts, getPosts } from "../../store/actions/post";
+import Post from "../../../components/Post";
+import { getAllPosts, getPosts } from "../../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import "../../App.scss";
+import "./ListPost.scss";
 
 const ListPost = () => {
   const dispatch = useDispatch();

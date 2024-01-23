@@ -1,6 +1,7 @@
 import React, { memo } from "react";
-import SidebarTab from "../../components/SidebarTab";
+import SidebarTab from "../../../components/SidebarTab";
 import { useSelector } from "react-redux";
+import "./Sidebar.scss";
 
 const Sidebar = () => {
   const { categories } = useSelector((state) => state.category);

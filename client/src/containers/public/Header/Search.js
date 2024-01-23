@@ -1,7 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import SearchItem from "../../components/SearchItem";
-import icons from "../../ultils/icons";
+import SearchItem from "../../../components/SearchItem";
+import icons from "../../../ultils/icons";
+import "./Search.scss";
 
 const Search = () => {
   const {

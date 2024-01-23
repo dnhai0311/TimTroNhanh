@@ -1,0 +1,7 @@
+.form-check-input.is-valid, .was-validated .form-check-input:valid {
+    border-color: black
+}
+
+.form-check-input.is-valid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
+    color: black
+}

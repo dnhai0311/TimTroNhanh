@@ -1,0 +1,44 @@
+$color-red: #DC3545;
+$background-color: #f2f2f2;
+
+.post {
+    height: 250px;
+    .post-thumb {
+        margin-left: 10px;
+        width: 95%;
+        height: 215px;
+    }
+}
+
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
+.line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+}
+
+.icon-heart {
+    :hover {
+        color: $color-red;
+    }
+}
+
+
+.pagination {
+    .page-item {
+        background: $background-color;
+        .page-link {
+            font-weight: bold;
+            margin: 5px;
+            padding: var(--bs-pagination-padding-y) calc(var(--bs-pagination-padding-x) + 2px);
+            border-radius: 50%;
+        }
+    }
+}

@@ -1,8 +1,8 @@
 import React, { useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import "../../App.scss";
-import { getCategories } from "../../store/actions/category";
+import "./Navigation.scss";
+import { getCategories } from "../../../store/actions/category";
 
 const Navigation = () => {
   const { categories } = useSelector((state) => state.category);

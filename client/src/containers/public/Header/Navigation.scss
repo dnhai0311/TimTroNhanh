@@ -1,0 +1,13 @@
+$color-red: #DC3545;
+$color-blue: #0D6EFD;
+
+.navItem {
+    background-color: $color-blue;
+    &:hover {
+        background-color: $color-red;
+    }
+}
+
+.active {
+    background-color: $color-red;
+}

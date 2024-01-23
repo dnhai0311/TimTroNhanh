@@ -2,15 +2,15 @@ import React, { useCallback, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { path } from "../../ultils/constant";
+import { path } from "../../../ultils/constant";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../store/actions";
+import * as actions from "../../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import icons from "../../ultils/icons";
+import icons from "../../../ultils/icons";
 
 const Header = () => {
   const navigate = useNavigate();

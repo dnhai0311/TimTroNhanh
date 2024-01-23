@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import InputForm from "../../components/InputForm";
+import InputForm from "../../../components/InputForm";
 import Button from "react-bootstrap/Button";
-import * as actions from "../../store/actions";
+import * as actions from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../App.scss";
+import "./Login.scss";
 
 const Login = () => {
   const location = useLocation();
