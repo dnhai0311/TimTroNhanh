@@ -3,11 +3,13 @@ import Post from "../../components/Post";
 import { getAllPosts, getPosts } from "../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
-import { createSearchParams } from "react-router-dom";
+import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import "../../App.scss";
 
 const ListPost = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const titleListRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -16,12 +18,14 @@ const ListPost = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const pageParam = queryParams.get("page");
-    setCurrentPage(+pageParam - 1);
-    pageParam ? dispatch(getPosts(+pageParam - 1)) : dispatch(getPosts(0));
-  }, [dispatch]);
+    const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
+    dispatch(getPosts(selectedPage));
+    setCurrentPage(selectedPage);
+  }, [dispatch, location]);
 
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
+    setCurrentPage(selectedPage);
     dispatch(getPosts(selectedPage));
     const newSearchParams = createSearchParams({
       page: selectedPage + 1,
@@ -73,11 +77,11 @@ const ListPost = () => {
         <div className="col-8 pt-2">
           <ReactPaginate
             breakLabel="..."
-            nextLabel="Tiếp tục >"
+            nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={3}
-            pageCount={Math.floor(total / 3) + 1}
-            previousLabel="< Trở lại"
+            pageCount={Math.floor(total / 3 + 1)}
+            previousLabel="<"
             pageClassName="page-item"
             pageLinkClassName="page-link"
             previousClassName="page-item"
@@ -88,7 +92,7 @@ const ListPost = () => {
             breakLinkClassName="page-link"
             containerClassName="pagination justify-content-center"
             activeClassName="active"
-            forcePage={currentPage >= 0 ? currentPage : 0}
+            forcePage={currentPage}
             renderOnZeroPageCount={null}
           />
         </div>

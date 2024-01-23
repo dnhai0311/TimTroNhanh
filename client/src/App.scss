@@ -1,8 +1,8 @@
 
-
 $background-color: #f2f2f2;
 $color-red: #DC3545;
 $color-blue: #0D6EFD;
+$color-paginate: #51BAE8;
 $font-size: 14px;
 $text-color: black;
 
@@ -88,6 +88,18 @@ $text-color: black;
 .icon-heart {
     :hover {
         color: $color-red;
+    }
+}
+
+.pagination {
+    .page-item {
+        background: $background-color;
+        .page-link {
+            font-weight: bold;
+            margin: 5px;
+            padding: var(--bs-pagination-padding-y) calc(var(--bs-pagination-padding-x) + 2px);
+            border-radius: 50%;
+        }
     }
 }
 
