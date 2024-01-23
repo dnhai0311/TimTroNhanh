@@ -3,16 +3,16 @@ import Button from "react-bootstrap/Button";
 import SearchItem from "../../components/SearchItem";
 import icons from "../../ultils/icons";
 
-const {
-  BsChevronRight,
-  IoLocationOutline,
-  BsHouseDoor,
-  IoPricetagsOutline,
-  BiArea,
-  FaSearch,
-} = icons;
-
 const Search = () => {
+  const {
+    BsChevronRight,
+    IoLocationOutline,
+    BsHouseDoor,
+    IoPricetagsOutline,
+    BiArea,
+    FaSearch,
+  } = icons;
+
   return (
     <>
       <div className="w-100 searchBar ">

@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path={path.MAIN} element={<Main />}>
           <Route path={"*"} element={<Home />} />
+          <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.RENTAL_ROOM} element={<RentalRoom />} />
           <Route path={path.RENTAL_HOUSE} element={<RentalHouse />} />
           <Route path={path.RENTAL_APARTMENT} element={<RentalApartment />} />
@@ -26,7 +27,6 @@ function App() {
             element={<DetailPost />}
           />
         </Route>
-        <Route path={path.LOGIN} element={<Login />} />
       </Routes>
     </div>
   );

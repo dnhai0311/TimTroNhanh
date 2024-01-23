@@ -103,6 +103,22 @@ $text-color: black;
     }
 }
 
+.sidebarTab{
+    color: gray;
+    &:not(:last-child){
+        border-bottom: dashed;
+        border-bottom-width: 1px;
+    }
+    .sidebarItem {
+        color: black;
+        font-weight: lighter;
+        font-size: 15px;
+        &:hover {
+            color:red;
+        }
+    }
+}
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
     .sticky-top-1 {
       position: -webkit-sticky;

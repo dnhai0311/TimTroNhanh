@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import InputForm from "../../components/InputForm";
 import Button from "react-bootstrap/Button";
@@ -31,6 +29,11 @@ const Login = () => {
 
   useEffect(() => {
     setIsRegister(location.state?.flag);
+    setPayload({
+      name: "",
+      phone: "",
+      password: "",
+    });
   }, [location.state?.flag]);
 
   useEffect(() => {
@@ -38,6 +41,7 @@ const Login = () => {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
+    if (msg == "Đăng nhập thành công" || msg == "Đăng ký thành công") return;
     msg && toast.error(msg);
     if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
       dispatch(actions.logout());
@@ -118,9 +122,11 @@ const Login = () => {
 
   return (
     <>
-      <div className=" vh-100 bg-gray">
-        <Header />
-        <div className="d-flex justify-content-center align-items-center h-75">
+      <div className="p-5 m-3 bg-gray">
+        <div
+          key={isRegister ? "Đăng ký" : "Đăng nhập"}
+          className="d-flex justify-content-center align-items-center h-75"
+        >
           <Form
             className="p-5 rounded bg-white"
             style={{ width: 25 + "em" }}
@@ -259,7 +265,6 @@ const Login = () => {
             </Form.Group>
           </Form>
         </div>
-        <Footer />
         <ToastContainer autoClose={1000} position="bottom-right" />
       </div>
     </>

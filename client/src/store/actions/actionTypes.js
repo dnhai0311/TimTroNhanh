@@ -6,6 +6,7 @@ const actionTypes = {
   LOGOUT: "LOGOUT",
   GET_ALL_POSTS: "GET_ALL_POSTS",
   GET_POSTS: "GET_POSTS",
+  GET_CATEGORIES: "GET_CATEGORIES",
 };
 
 export default actionTypes;

@@ -1,21 +1,18 @@
-import React from "react";
+import React, { memo } from "react";
+import SidebarTab from "../../components/SidebarTab";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const { categories } = useSelector((state) => state.category);
   return (
     <>
       <div className="row gy-4">
-        <div className="col-12  border rounded bg-light">
-          <h6 className="py-3 fw-bold">Danh mục cho thuê</h6>
-        </div>
-        <div className="col-12  border rounded bg-light">
-          <h6 className="py-3 fw-bold">Xem theo giá</h6>
-        </div>
-        <div className="col-12  border rounded bg-light">
-          <h6 className="py-3 fw-bold">Xem theo diện tích</h6>
-        </div>
+        <SidebarTab name={"Danh mục cho thuê"} value={categories} />
+        <SidebarTab name={"Xem theo giá"} value={""} />
+        <SidebarTab name={"Xem theo diện tích"} value={""} />
       </div>
     </>
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

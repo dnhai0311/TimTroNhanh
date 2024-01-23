@@ -10,14 +10,12 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navigation from "./Navigation";
 import icons from "../../ultils/icons";
-
-const { FaCircleUser, FaUserPlus } = icons;
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { FaCircleUser, FaUserPlus } = icons;
 
   const { isLoggedIn, msg } = useSelector((state) => state.auth);
 
@@ -36,7 +34,7 @@ const Header = () => {
     <>
       <Navbar className=" bg-light ">
         <div className="d-flex flex-column flex-sm-row w-75 m-auto  justify-content-between align-items-center">
-          <Link to={"/home"}>
+          <Link to={"/"}>
             <Navbar.Brand style={{ margin: 0 }}>
               <img
                 src={logo}
@@ -81,7 +79,6 @@ const Header = () => {
         </div>
         <ToastContainer autoClose={1000} position="bottom-right" />
       </Navbar>
-      <Navigation />
     </>
   );
 };

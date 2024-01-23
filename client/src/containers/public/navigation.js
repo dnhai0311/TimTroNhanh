@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "../../App.scss";
-import { apiGetCategories } from "../../services/category";
+import { getCategories } from "../../store/actions/category";
 
 const Navigation = () => {
-  const [categories, setCategories] = useState([]);
+  const { categories } = useSelector((state) => state.category);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetCategories();
-      if (response?.data.err === 0) {
-        setCategories(response.data.response);
-      }
-    };
-    fetchCategories();
-  }, []);
+    dispatch(getCategories());
+  }, [dispatch]);
   return (
     <>
       <div className="bg-primary sticky-top">
@@ -50,4 +45,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default memo(Navigation);
