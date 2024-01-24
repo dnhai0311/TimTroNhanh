@@ -1,7 +1,6 @@
 import db from "../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { v4 } from "uuid";
 require("dotenv").config();
 
 const HashPassword = (password) =>
@@ -13,7 +12,6 @@ export const RegisterService = ({ name, phone, password }) =>
       const response = await db.USER.findOrCreate({
         where: { phone },
         defaults: {
-          id: v4(),
           name,
           phone,
           password: HashPassword(password),

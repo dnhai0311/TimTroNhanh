@@ -52,7 +52,7 @@ export const getPostsService = (page) =>
           {
             model: db.ATTRIBUTE,
             as: "attribute",
-            attributes: ["price", "area", "location"],
+            attributes: ["price", "acreage", "address"],
           },
           {
             model: db.USER,

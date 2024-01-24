@@ -6,21 +6,22 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       price: {
         type: Sequelize.STRING,
       },
-      area: {
+      acreage: {
         type: Sequelize.STRING,
       },
-      location: {
+      address: {
         type: Sequelize.STRING,
       },
       districtId: {
         type: Sequelize.STRING,
       },
-      categoryId: {
+      categoryCode: {
         type: Sequelize.STRING,
       },
       createdAt: {

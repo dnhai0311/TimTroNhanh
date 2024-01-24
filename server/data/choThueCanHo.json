@@ -1,0 +1,51 @@
+{
+    "header": {
+        "title": "Cho Thuê Căn Hộ Chung Cư, Giá Rẻ, Mới Nhất 2022",
+        "description": "Cho thuê căn hộ - Kênh đăng tin cho thuê căn hộ số 1: giá rẻ, chính chủ, đầy đủ tiện nghi. Cho thuê chung cư với nhiều mức giá, diện tích cho thuê khác nhau."
+    },
+    "body": [
+        {
+            "images": [
+                
+            ],
+            "header": {
+                "title": "Phòng Cho Nam Trong Chung Cư Cao Cấp",
+                "star": "5",
+                "address": "Địa chỉ: 57 Quốc Lộ 13, Phường 26, Quận Bình Thạnh, Hồ Chí Minh",
+                "attributes": {
+                    "price": "5 triệu/tháng",
+                    "acreage": "120m2",
+                    "published": "Hôm nay"
+                }
+            },
+            "mainContent": {
+                "header": "Thông tin mô tả",
+                "content": [
+                    "Cho Nam share phòng trong căn hộ 3PN 120m2 :",
+                    "2 ban công, 2 wc",
+                    "Full NT ( Máy nước nóng, máy lạnh, giường, tủ, bếp, tủ lạnh, máy giặc cửa ngang mới, phòng khách & phòng bếp )",
+                    "Tầng 3 nội khu : hồ bơi, phòng gym, khu sinh hoạt cộng đồng, spa & coffee , quán ăn",
+                    "Tầng trệt : Siêu thị win mart , anh văn Việt Mỹ",
+                    "Chung cư mặt tiền, sảnh ra vào rộng rãi",
+                    "- có chỗ đậu oto & xe máy trên sảnh",
+                    "- 2 hầm xe rộng rãi"
+                ]
+            },
+            "contact": {
+                "header": "Thông tin liên hệ",
+                "content": [
+                    {
+                        "name": "Liên hệ:",
+                        "content": "vylost297"
+                    },
+                    {
+                        "name": "Điện thoại:",
+                        "content": "0767326068"
+                    }
+                ]
+            }
+        }
+            
+        
+    ]
+}

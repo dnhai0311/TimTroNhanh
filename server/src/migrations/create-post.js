@@ -6,7 +6,8 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -30,6 +31,12 @@ module.exports = {
         type: Sequelize.STRING,
       },
       userId: {
+        type: Sequelize.STRING,
+      },
+      areaCode: {
+        type: Sequelize.STRING,
+      },
+      priceCode: {
         type: Sequelize.STRING,
       },
       typeId: {

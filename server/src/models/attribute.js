@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         as: "district",
       });
       ATTRIBUTE.belongsTo(models.CATEGORY, {
-        foreignKey: "categoryId",
-        targetKey: "id",
+        foreignKey: "categoryCode",
+        targetKey: "code",
         as: "category",
       });
     }
@@ -27,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   ATTRIBUTE.init(
     {
       price: DataTypes.STRING,
-      area: DataTypes.STRING,
-      location: DataTypes.STRING,
+      acreage: DataTypes.STRING,
+      address: DataTypes.STRING,
       districtId: DataTypes.STRING,
-      categoryId: DataTypes.STRING,
+      categoryCode: DataTypes.STRING,
     },
     {
       sequelize,
