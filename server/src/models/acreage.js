@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ACREAGE.init(
     {
-      code: DataTypes.STRING,
-      name: DataTypes.STRING,
+      value: DataTypes.STRING,
     },
     {
       sequelize,

@@ -33,7 +33,7 @@ module.exports = {
       userId: {
         type: Sequelize.STRING,
       },
-      areaCode: {
+      acreageCode: {
         type: Sequelize.STRING,
       },
       priceCode: {

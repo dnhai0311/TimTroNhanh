@@ -41,7 +41,7 @@ const Login = () => {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    if (msg == "Đăng nhập thành công" || msg == "Đăng ký thành công") return;
+    if (msg === "Đăng nhập thành công" || msg === "Đăng ký thành công") return;
     msg && toast.error(msg);
     if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
       dispatch(actions.logout());
@@ -151,6 +151,8 @@ const Login = () => {
                     invalidFields={invalidFields}
                     setInvalidFields={setInvalidFields}
                     maxLength={25}
+                    onSubmit={handleSubmit}
+                    autoFocus={true}
                   ></InputForm>
                 </div>
               )}
@@ -168,6 +170,8 @@ const Login = () => {
                   setInvalidFields={setInvalidFields}
                   pattern={"[0]{1}[0-9]{9,10}"}
                   maxLength={11}
+                  onSubmit={handleSubmit}
+                  autoFocus={isRegister ? false : true}
                 ></InputForm>
               </div>
             </Form.Group>
@@ -184,6 +188,7 @@ const Login = () => {
                   setInvalidFields={setInvalidFields}
                   minlength={6}
                   maxLength={20}
+                  onSubmit={handleSubmit}
                 ></InputForm>
               </div>
             </Form.Group>
@@ -197,6 +202,7 @@ const Login = () => {
                       type="checkbox"
                       value=""
                       id="loginCheck"
+                      defaultChecked={true}
                     />
                     <label
                       className="form-check-label is-valid:checked"

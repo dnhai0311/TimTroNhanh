@@ -1,6 +1,6 @@
 import db from "../models";
-import { v4 } from "uuid";
 import ChoThueCanHo from "../../data/choThueCanHo.json";
+import { dataPrices, dataAcreages } from "../../data/prices-acreages.js";
 
 require("dotenv").config();
 
@@ -8,35 +8,38 @@ export const insertService = () =>
   new Promise(async (resolve, reject) => {
     try {
       ChoThueCanHo.body.forEach(async (item) => {
-        let postId = v4();
-        let attributesId = v4();
-        let imgsId = v4();
         let desc = (item?.mainContent?.content || []).join("\n");
+        let idPost = await db.POST.max("id");
+        let idAttribute = await db.ATTRIBUTE.max("id");
+        let idImg = await db.IMAGE.max("id");
+        let totalUser = await db.USER.count();
+
         await db.POST.create({
-          id: postId,
+          id: +idPost + 1,
           name: item?.header?.title,
           info: desc,
           star: item?.header?.star,
-          attributesId,
+          attributeId: +idAttribute + 1,
           categoryCode: "CTCH",
-          userId: "a059a3fb-098d-42da-a841-3e3c37ed6552",
-          imgsId,
-          // areaCode: dataArea.find(
-          //   (area) => area.max > currentArea && area.min <= currentArea
-          // )?.code,
-          // priceCode: dataPrice.find(
-          //   (area) => area.max > currentPrice && area.min <= currentPrice
-          // )?.code,
+          userId: Math.floor(Math.random() * totalUser),
+          imgsId: +idImg + 1,
+          acreageCode: dataAcreages.find(
+            (acreage) =>
+              acreage.max > currentAcreages && acreage.min <= currentAcreages
+          )?.id,
+          priceCode: dataPrices.find(
+            (price) => price.max > currentPrice && price.min <= currentPrice
+          )?.id,
         });
         await db.ATTRIBUTE.create({
-          id: attributesId,
+          id: +idAttribute + 1,
           price: item?.header?.attributes?.price,
           categoryCode: "CTCH",
           acreage: item?.header?.attributes?.acreage,
           address: item?.header?.address,
         });
         await db.IMAGE.create({
-          id: imgsId,
+          id: +idImg + 1,
           path: JSON.stringify(item?.images),
         });
       });
@@ -46,21 +49,19 @@ export const insertService = () =>
     }
   });
 
-export const createPricesAndAcreages = () =>
+export const insertPricesAndAcreages = () =>
   new Promise((resolve, reject) => {
     try {
-      dataPrice.forEach(async (item, index) => {
-        await db.Price.create({
-          code: item.code,
+      dataPrices.forEach(async (item) => {
+        await db.PRICE.create({
+          id: item.id,
           value: item.value,
-          order: index + 1,
         });
       });
-      dataArea.forEach(async (item, index) => {
-        await db.Area.create({
-          code: item.code,
+      dataAcreages.forEach(async (item) => {
+        await db.ACREAGE.create({
+          id: item.id,
           value: item.value,
-          order: index + 1,
         });
       });
       resolve("OK");

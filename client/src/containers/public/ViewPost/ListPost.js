@@ -56,7 +56,7 @@ const ListPost = () => {
                       star={+item?.star}
                       price={item?.attribute.price}
                       area={item?.attribute.acreage}
-                      location={item?.attribute.addresss}
+                      location={item?.attribute.address}
                       uploader={item?.user.name}
                       time={item?.updatedAt}
                       img={

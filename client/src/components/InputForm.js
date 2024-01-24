@@ -10,29 +10,42 @@ const InputForm = ({
   invalidFields,
   setInvalidFields,
   maxLength,
-  minlength,
+  minLength,
   pattern,
+  onSubmit,
+  autoFocus,
 }) => {
+  const handleChange = (e) => {
+    setValue((prev) => ({
+      ...prev,
+      [typeValue]: e.target.value,
+    }));
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmit(e);
+    }
+  };
+
   return (
     <div>
       <label>{label}</label>
       <input
         required
         maxLength={maxLength}
-        minLength={minlength}
+        minLength={minLength}
         type={type}
         pattern={pattern}
         placeholder={placeHolder}
         className="form-control"
         value={value}
-        onChange={(e) => {
-          setValue((prev) => ({
-            ...prev,
-            [typeValue]: e.target.value,
-          }));
-        }}
+        onChange={handleChange}
+        onKeyDown={handleKeyPress}
         onFocus={() => setInvalidFields([])}
-      ></input>
+        autoFocus={autoFocus}
+      />
       {invalidFields.length > 0 &&
         invalidFields.some((i) => i.name === typeValue) && (
           <small className="text-danger">
