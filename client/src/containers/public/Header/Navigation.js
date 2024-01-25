@@ -2,10 +2,10 @@ import React, { useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
-import { getCategories } from "../../../store/actions/category";
+import { getCategories } from "../../../store/actions/app";
 
 const Navigation = () => {
-  const { categories } = useSelector((state) => state.category);
+  const { categories } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
