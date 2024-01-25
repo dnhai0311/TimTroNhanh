@@ -15,7 +15,7 @@ export const getAllPostsService = () =>
           {
             model: db.ATTRIBUTE,
             as: "attribute",
-            attributes: ["price", "area", "location"],
+            attributes: ["price", "acreage", "address"],
           },
           {
             model: db.USER,
@@ -35,10 +35,11 @@ export const getAllPostsService = () =>
     }
   });
 
-export const getPostsService = (page) =>
+export const getPostsService = (page, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.POST.findAndCountAll({
+        where: query,
         raw: true,
         nest: true,
         offset: page * +process.env.PAGE_DISPLAYED || 0,

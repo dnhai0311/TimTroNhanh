@@ -2,7 +2,6 @@ import React, { memo, useState } from "react";
 import icons from "../ultils/icons";
 import "../App.scss";
 import { Link } from "react-router-dom";
-import { formatVietnameseToString } from "../ultils/commons/formatVietnameseToString";
 
 const { FaStar, FaRegUserCircle, FaHeart } = icons;
 
@@ -24,15 +23,14 @@ const Post = ({
   return (
     <div className="col-12 py-3 border-top border-bottom border-dark post">
       <div className="row gx-4">
-        <Link
-          to={`chi-tiet/${formatVietnameseToString(name)}/${id}`}
-          className="col-4 d-flex position-relative"
-        >
-          <img
-            src={imagePath}
-            alt="thumbnail"
-            className=" rounded post-thumb"
-          />
+        <div className="col-4 d-flex position-relative">
+          <Link className="w-100" to={`/post/${id}`}>
+            <img
+              src={imagePath}
+              alt="thumbnail"
+              className=" rounded post-thumb"
+            />
+          </Link>
           <div className={"position-absolute bottom-0 end-0 "}>
             <FaHeart
               className={`mx-4 my-2 icon-heart ${
@@ -44,10 +42,10 @@ const Post = ({
               }}
             />
           </div>
-        </Link>
+        </div>
         <div className="col-8 bg-light">
           <Link
-            to={`chi-tiet/${formatVietnameseToString(name)}/${id}`}
+            to={`/post/${id}`}
             className="px-2 fw-bold text-danger line-clamp-2 text-justify text-decoration-none text-uppercase"
           >
             {name}

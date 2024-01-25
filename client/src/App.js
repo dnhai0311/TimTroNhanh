@@ -22,10 +22,7 @@ function App() {
           <Route path={path.RENTAL_HOUSE} element={<RentalHouse />} />
           <Route path={path.RENTAL_APARTMENT} element={<RentalApartment />} />
           <Route path={path.RENTAL_SPACE} element={<RentalSpace />} />
-          <Route
-            path={path.DETAIL_POST__TITLE__POST_ID}
-            element={<DetailPost />}
-          />
+          <Route path={path.DETAIL_POST__POST_ID} element={<DetailPost />} />
         </Route>
       </Routes>
     </div>

@@ -12,29 +12,44 @@ const ListPost = () => {
   const location = useLocation();
   const titleListRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
-
   const { posts, total } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const pageParam = queryParams.get("page");
-    const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
-    dispatch(getPosts(selectedPage));
-    setCurrentPage(selectedPage);
-  }, [dispatch, location]);
-
-  const handlePageClick = (e) => {
-    const selectedPage = +e.selected;
-    setCurrentPage(selectedPage);
-    dispatch(getPosts(selectedPage));
-    const newSearchParams = createSearchParams({
-      page: selectedPage + 1,
-    }).toString();
-    window.history.pushState(null, "", `/?${newSearchParams}`);
+  const pageDisplayed = 3;
+  const totalPage =
+    total % pageDisplayed < 1
+      ? Math.floor(total / pageDisplayed)
+      : Math.floor(total / pageDisplayed) + 1;
+  const scrollToTitle = () => {
     titleListRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+  };
+  useEffect(() => {
+    // dispatch(getAllPosts());
+    const queryParams = new URLSearchParams(window.location.search);
+    const pageParam = queryParams.get("page");
+    const typeParam = queryParams.get("type");
+    const codeParam = queryParams.get("code");
+    const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
+    !typeParam || !codeParam
+      ? dispatch(getPosts(selectedPage))
+      : dispatch(getPosts(selectedPage, { [typeParam]: codeParam }));
+    setCurrentPage(selectedPage);
+  }, [dispatch, location, currentPage]);
+
+  const handlePageClick = (e) => {
+    const selectedPage = +e.selected;
+    setCurrentPage(selectedPage);
+    const queryParams = new URLSearchParams(window.location.search);
+    const typeParam = queryParams.get("type");
+    const codeParam = queryParams.get("code");
+    const newSearchParams = createSearchParams({
+      ...(typeParam ? { type: typeParam } : {}),
+      ...(codeParam ? { code: codeParam } : {}),
+      page: selectedPage + 1,
+    }).toString();
+    window.history.pushState(null, "", `/?${newSearchParams}`);
+    scrollToTitle();
   };
 
   return (
@@ -68,7 +83,7 @@ const ListPost = () => {
             </div>
           </div>
           <div className="d-none d-md-block col-md-4 ps-5">
-            <Sidebar />
+            <Sidebar scrollFunction={scrollToTitle} />
           </div>
         </div>
         <div className="col-8 pt-2">
@@ -76,8 +91,8 @@ const ListPost = () => {
             breakLabel="..."
             nextLabel=">"
             onPageChange={handlePageClick}
-            pageRangeDisplayed={3}
-            pageCount={Math.floor(total / 3 + 1)}
+            pageRangeDisplayed={pageDisplayed}
+            pageCount={totalPage}
             previousLabel="<"
             pageClassName="page-item"
             pageLinkClassName="page-link"

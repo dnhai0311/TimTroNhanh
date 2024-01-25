@@ -13,12 +13,13 @@ export const apiGetAllPosts = () =>
     }
   });
 
-export const apiGetPosts = (page) =>
+export const apiGetPosts = (page, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
-        url: `/api/v1/post/get?page=${page}`,
+        url: `/api/v1/post/get`,
+        params: { page, query },
       });
       resolve(response);
     } catch (error) {

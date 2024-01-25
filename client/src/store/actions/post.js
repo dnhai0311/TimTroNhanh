@@ -23,9 +23,9 @@ export const getAllPosts = () => async (dispatch) => {
   }
 };
 
-export const getPosts = (page) => async (dispatch) => {
+export const getPosts = (page, query) => async (dispatch) => {
   try {
-    const response = await apiGetPosts(page);
+    const response = await apiGetPosts(page, query);
     if (response?.data.err === 0) {
       dispatch({
         type: actionTypes.GET_POSTS,
