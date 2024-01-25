@@ -20,7 +20,7 @@ const Post = ({
   id,
 }) => {
   const [isRed, setIsRed] = useState(false);
-
+  const imagePath = require(`../assets${img}`);
   return (
     <div className="col-12 py-3 border-top border-bottom border-dark post">
       <div className="row gx-4">
@@ -29,7 +29,7 @@ const Post = ({
           className="col-4 d-flex position-relative"
         >
           <img
-            src={process.env.PUBLIC_URL + img}
+            src={imagePath}
             alt="thumbnail"
             className=" rounded post-thumb"
           />

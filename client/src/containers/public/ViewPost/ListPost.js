@@ -59,10 +59,7 @@ const ListPost = () => {
                       location={item?.attribute.address}
                       uploader={item?.user.name}
                       time={item?.updatedAt}
-                      img={
-                        process.env.PUBLIC_URL +
-                        JSON.parse(item?.images.path)[0]
-                      }
+                      img={JSON.parse(item?.images.path)[0]}
                       phone={item?.user.phone}
                       id={item?.id}
                     />
