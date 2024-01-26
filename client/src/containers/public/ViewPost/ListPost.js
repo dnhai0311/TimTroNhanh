@@ -68,13 +68,15 @@ const ListPost = ({ categoryCode }) => {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
-          <div className="col-12 col-md-8 border rounded bg-light ListPost">
-            <h5 ref={titleListRef} className="py-3 fw-bold">
-              Danh sách các bài đăng
-            </h5>
-            <div className="row">
+          <div className="col-12 col-md-8 bg-light ListPost">
+            <div className="row border rounded">
+              <h5 ref={titleListRef} className="py-3 fw-bold">
+                Danh sách các bài đăng
+              </h5>
+            </div>
+            <div className="row border rounded">
               {posts?.length > 0 &&
                 posts.map((item) => {
                   return (
@@ -95,32 +97,32 @@ const ListPost = ({ categoryCode }) => {
                   );
                 })}
             </div>
+            <div className="row pageTab pt-2">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={pageDisplayed}
+                pageCount={totalPage}
+                previousLabel="<"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination justify-content-center"
+                activeClassName="active"
+                forcePage={currentPage}
+                renderOnZeroPageCount={null}
+              />
+            </div>
           </div>
           <div className="d-none d-md-block col-md-4 ps-5">
             <Sidebar scrollFunction={scrollToTitle} />
           </div>
-        </div>
-        <div className="col-8 pt-2">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={pageDisplayed}
-            pageCount={totalPage}
-            previousLabel="<"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            containerClassName="pagination justify-content-center"
-            activeClassName="active"
-            forcePage={currentPage}
-            renderOnZeroPageCount={null}
-          />
         </div>
       </div>
     </>
