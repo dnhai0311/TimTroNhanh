@@ -28,13 +28,18 @@ const ListPost = ({ categoryCode }) => {
     // dispatch(getAllPosts());
     const queryParams = new URLSearchParams(window.location.search);
     const pageParam = queryParams.get("page");
-    const typeParam = queryParams.get("type");
-    const codeParam = queryParams.get("code");
+    const priceParam = queryParams.get("priceCode");
+    const acreageParam = queryParams.get("acreageCode");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
     // dispatch(getPosts(selectedPage, { categoryCode: categoryCode }));
-    !typeParam || !codeParam
+    !acreageParam && !priceParam
       ? dispatch(getPosts(selectedPage))
-      : dispatch(getPosts(selectedPage, { [typeParam]: codeParam }));
+      : dispatch(
+          getPosts(selectedPage, {
+            [priceParam ? "priceCode" : "acreageCode"]:
+              priceParam || acreageParam,
+          })
+        );
     setCurrentPage(selectedPage);
   }, [dispatch, location, currentPage]);
 
@@ -42,11 +47,15 @@ const ListPost = ({ categoryCode }) => {
     const selectedPage = +e.selected;
     setCurrentPage(selectedPage);
     const queryParams = new URLSearchParams(window.location.search);
-    const typeParam = queryParams.get("type");
-    const codeParam = queryParams.get("code");
+    const priceParam = queryParams.get("priceCode");
+    const acreageParam = queryParams.get("acreageCode");
     const newSearchParams = createSearchParams({
-      ...(typeParam ? { type: typeParam } : {}),
-      ...(codeParam ? { code: codeParam } : {}),
+      ...(priceParam || acreageParam
+        ? {
+            [priceParam ? "priceCode" : "acreageCode"]:
+              priceParam || acreageParam,
+          }
+        : {}),
       page: selectedPage + 1,
     }).toString();
     window.history.pushState(
@@ -61,7 +70,7 @@ const ListPost = ({ categoryCode }) => {
     <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-12 col-md-8 border rounded bg-light">
+          <div className="col-12 col-md-8 border rounded bg-light ListPost">
             <h5 ref={titleListRef} className="py-3 fw-bold">
               Danh sách các bài đăng
             </h5>

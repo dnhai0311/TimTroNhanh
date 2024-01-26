@@ -1,6 +1,10 @@
 $color-red: #DC3545;
 $background-color: #f2f2f2;
 
+.ListPost {
+    height: fit-content;
+}
+
 .post {
     height: 250px;
     .post-thumb {

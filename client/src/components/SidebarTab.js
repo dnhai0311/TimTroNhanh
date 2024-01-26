@@ -14,8 +14,7 @@ const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
 
   const handleClick = (code) => {
     const newSearchParams = createSearchParams({
-      type: [type],
-      code: code,
+      [type]: code,
       page: "1",
     }).toString();
     navigate(`${location.pathname}?${newSearchParams}`);
