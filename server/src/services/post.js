@@ -35,7 +35,16 @@ export const getAllPostsService = () =>
     }
   });
 
-export const getPostsService = (page, conditions, sortType, sortOrder) =>
+export const getPostsService = (
+  page,
+  conditions,
+  sortType,
+  sortOrder,
+  minPrice,
+  maxPrice,
+  minAcreage,
+  maxAcreage
+) =>
   new Promise(async (resolve, reject) => {
     try {
       const queryOptions = {
@@ -66,6 +75,25 @@ export const getPostsService = (page, conditions, sortType, sortOrder) =>
       if (conditions) {
         queryOptions.where = conditions;
       }
+
+      if (minPrice !== undefined && maxPrice !== undefined) {
+        queryOptions.where = {
+          ...queryOptions.where,
+          "$attribute.price$": {
+            [db.Sequelize.Op.between]: [minPrice, maxPrice],
+          },
+        };
+      }
+
+      if (minAcreage !== undefined && maxAcreage !== undefined) {
+        queryOptions.where = {
+          ...queryOptions.where,
+          "$attribute.acreage$": {
+            [db.Sequelize.Op.between]: [minAcreage, maxAcreage],
+          },
+        };
+      }
+
       if (sortType === "price") {
         queryOptions.order = [["attribute", "price", sortOrder]];
       } else if (sortType === "acreage") {

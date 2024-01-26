@@ -13,13 +13,26 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
-  const { page, conditions, sortType, sortOrder } = req.query;
+  const {
+    page,
+    conditions,
+    sortType,
+    sortOrder,
+    minPrice,
+    maxPrice,
+    minAcreage,
+    maxAcreage,
+  } = req.query;
   try {
     const response = await postService.getPostsService(
       page,
       conditions,
       sortType,
-      sortOrder
+      sortOrder,
+      minPrice,
+      maxPrice,
+      minAcreage,
+      maxAcreage
     );
     return res.status(200).json(response);
   } catch (error) {

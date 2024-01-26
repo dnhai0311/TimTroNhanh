@@ -41,7 +41,7 @@ const getNumberFromString = (string) => {
 export const insertService = async () => {
   try {
     for (const cate of dataBody) {
-      for (const item of ChoThueCanHo.body) {
+      for (const item of cate.body) {
         let desc = (item?.mainContent?.content || []).join("\n");
         let idPost = await db.POST.max("id");
         let idAttribute = await db.ATTRIBUTE.max("id");
@@ -49,9 +49,29 @@ export const insertService = async () => {
         let totalUser = await db.USER.count();
         let totalImg = await db.IMAGE.count();
         let currentPrice = +item?.header?.attributes?.price.split(" ")[0];
+        currentPrice = currentPrice > 600 ? currentPrice / 1000 : currentPrice;
+
+        const lastCommaIndex1 = item?.header?.address.lastIndexOf(",");
+        const lastCommaIndex2 = item?.header?.address.lastIndexOf(
+          ",",
+          lastCommaIndex1 - 1
+        );
+        const tenHuyen = item?.header?.address
+          .substring(lastCommaIndex2 + 2, lastCommaIndex1)
+          .trim();
+
         let currentAcreage = getNumberFromString(
           item?.header?.attributes?.acreage
         );
+        // console.log(tenHuyen);
+        const districtId = await db.DISTRICT.findOne({
+          where: {
+            name: tenHuyen,
+          },
+        });
+        // console.log(item?.header?.address);
+        // console.log(tenHuyen);
+        // console.log(districtId.id);
 
         await db.POST.create({
           id: +idPost + 1,
@@ -77,6 +97,7 @@ export const insertService = async () => {
           price: +currentPrice,
           acreage: +currentAcreage,
           address: item?.header?.address,
+          districtId: districtId.id,
         });
 
         // await db.IMAGE.create({

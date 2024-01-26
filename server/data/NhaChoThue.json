@@ -296,10 +296,10 @@
               "title": "Chính chủ cần bán hoặc cho thuê nhà tại Thuận An, Bình Dương",
               "star": "2",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Huyện Thuận An",
-                  "classType": "Cho thuê nhà Huyện Thuận An"
+                  "content": "Chuyên mục: Cho thuê nhà Thành phố Thuận An",
+                  "classType": "Cho thuê nhà Thành phố Thuận An"
               },
-              "address": "Địa chỉ: Phường An Phú, Huyện Thuận An, Bình Dương",
+              "address": "Địa chỉ: Phường An Phú, Thành phố Thuận An, Bình Dương",
               "attributes": {
                   "price": "20 triệu/tháng",
                   "acreage": "363m2",
@@ -726,12 +726,12 @@
               "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/08/09/01_1660064244.jpg"
           ],
           "header": {
-              "title": "Nhà cấp 4 nguyên căn, 47/7 đường Số 2, Quận 2 - Ngay cầu SG",
+              "title": "Nhà cấp 4 nguyên căn, 47/7 đường Số 2, Quận 1 - Ngay cầu SG",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 2",
-                  "classType": "Cho thuê nhà Quận 2"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: 2, Phường Bình An, Quận 2, Hồ Chí Minh",
+              "address": "Địa chỉ: 2, Phường Bình An, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "8 triệu/tháng",
                   "acreage": "80m2",
@@ -745,7 +745,7 @@
                   "- Nhà cấp 4 nguyên căn (80m2) + gác lửng (20m2).",
                   "- Đường container vào được cách nhà 10m, hẻm xe 6 chỗ vào được.",
                   "- Khu dân cư trí thức, rất ít nhà cho thuê.",
-                  "- Cả Quận 2 (Tp Thủ Đức) không tìm được căn nào tốt hơn, không tin cứ đến check.",
+                  "- Cả Quận 1 (Tp Thủ Đức) không tìm được căn nào tốt hơn, không tin cứ đến check.",
                   "- Ở là thích, phù hợp gia đình hoặc nhóm từ 4 - 6 người.",
                   "- Quyết định nhanh thì còn, chậm thì vào ô mất lượt.",
                   "- Có chỗ tập thể dục, trẻ con vui chơi siêu thích.",
@@ -909,12 +909,12 @@
               "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2022/08/09/screenshot-20220809-161840_1660038966.png"
           ],
           "header": {
-              "title": "Cần cho thuê nhà nguyên căn, mặt tiền đường Nguyễn Trãi, Hiệp Phú, Quận 9",
+              "title": "Cần cho thuê nhà nguyên căn, mặt tiền đường Nguyễn Trãi, Hiệp Phú, Quận 1",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 9",
-                  "classType": "Cho thuê nhà Quận 9"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: Phường Hiệp Phú, Quận 9, Hồ Chí Minh",
+              "address": "Địa chỉ: Phường Hiệp Phú, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "40 triệu/tháng",
                   "acreage": "450m2",
@@ -934,7 +934,7 @@
                   "+Tầng 2: 2 phòng ngủ và sân thượng",
                   "+4 toilet",
                   "Tiện ích:",
-                  "-Khu dân cư đông đúc, an ninh tốt, dân trí cao, gần trường tiểu học Đinh Tiên Hoàng, trường THCS Hoa Lư, ngay cạnh chợ Kiến Thiết, gần Coopmart Xa Lộ Hà Nội, Vincom Quận 9,… Giao thông thuận tiện",
+                  "-Khu dân cư đông đúc, an ninh tốt, dân trí cao, gần trường tiểu học Đinh Tiên Hoàng, trường THCS Hoa Lư, ngay cạnh chợ Kiến Thiết, gần Coopmart Xa Lộ Hà Nội, Vincom Quận 1,… Giao thông thuận tiện",
                   "-Thích hợp để làm văn phòng, trung tâm ngoại ngữ, ngân hàng,..",
                   "-Rất thích hợp cho người nước ngoài thuê",
                   "Giá cho thuê: 40 triệu/ tháng ( TL)",
@@ -1166,10 +1166,10 @@
           "header": {
               "title": "Cho thuê biệt thự rộng rãi thoáng mát",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 9",
-                  "classType": "Cho thuê nhà Quận 9"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: Võ Văn Hát, Phường Long Trường, Quận 9, Hồ Chí Minh",
+              "address": "Địa chỉ: Võ Văn Hát, Phường Long Trường, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "12 triệu/tháng",
                   "acreage": "200m2",
@@ -1341,7 +1341,7 @@
                   "content": "Chuyên mục: Cho thuê nhà Quận Thủ Đức",
                   "classType": "Cho thuê nhà Quận Thủ Đức"
               },
-              "address": "Địa chỉ: 1098/27A Đường Phạm Văn Đồng, Phường Linh Đông, Quận Thủ Đức, Hồ Chí Minh",
+              "address": "Địa chỉ: 1098/27A Đường Phạm Văn Đồng, Phường Linh Đông, Thành phố Thủ Đức, Hồ Chí Minh",
               "attributes": {
                   "price": "4.2 triệu/tháng",
                   "acreage": "55m2",
@@ -1540,10 +1540,10 @@
           "header": {
               "title": "NHÀ THẢO ĐIỀN CÓ SÂN, 3 LẦU - GIÁ CHỈ 20 TRIỆU",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 2",
-                  "classType": "Cho thuê nhà Quận 2"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: Đường số 2, Phường Thảo Điền, Quận 2, Hồ Chí Minh",
+              "address": "Địa chỉ: Đường số 2, Phường Thảo Điền, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "20 triệu/tháng",
                   "acreage": "150m2",
@@ -1633,10 +1633,10 @@
           "header": {
               "title": "Nhà 5x20 , 1 lâu , Mới xây - 2 phòng - 16 triệu",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 2",
-                  "classType": "Cho thuê nhà Quận 2"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: Đường số 25, Phường Bình An, Quận 2, Hồ Chí Minh",
+              "address": "Địa chỉ: Đường số 25, Phường Bình An, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "16 triệu/tháng",
                   "acreage": "100m2",
@@ -1719,10 +1719,10 @@
           "header": {
               "title": "Villa Phố Khu An Phú (7x20m)_5 Phòng Giá 28 Triệu",
               "class": {
-                  "content": "Chuyên mục: Cho thuê nhà Quận 2",
-                  "classType": "Cho thuê nhà Quận 2"
+                  "content": "Chuyên mục: Cho thuê nhà Quận 1",
+                  "classType": "Cho thuê nhà Quận 1"
               },
-              "address": "Địa chỉ: 18 1, Phường An Phú, Quận 2, Hồ Chí Minh",
+              "address": "Địa chỉ: 18 1, Phường An Phú, Quận 1, Hồ Chí Minh",
               "attributes": {
                   "price": "28 triệu/tháng",
                   "acreage": "300m2",

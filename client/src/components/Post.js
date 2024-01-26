@@ -73,7 +73,7 @@ const Post = ({
           </div>
           <div className="px-2 d-flex justify-content-between">
             <div className="fw-bold text-success text-truncate ">
-              {price} triệu/tháng
+              {price < 1 ? `${price * 1000}.000 đồng` : `${price}triệu`}/tháng
             </div>
             <div className="text-truncate ">{area}m²</div>
             <div className="text-truncate post-item">{address}</div>

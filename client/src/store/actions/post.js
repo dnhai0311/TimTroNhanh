@@ -24,9 +24,28 @@ export const getAllPosts = () => async (dispatch) => {
 };
 
 export const getPosts =
-  (page, conditions, sortType, sortOrder) => async (dispatch) => {
+  (
+    page,
+    conditions,
+    sortType,
+    sortOrder,
+    minPrice,
+    maxPrice,
+    minAcreage,
+    maxAcreage
+  ) =>
+  async (dispatch) => {
     try {
-      const response = await apiGetPosts(page, conditions, sortType, sortOrder);
+      const response = await apiGetPosts(
+        page,
+        conditions,
+        sortType,
+        sortOrder,
+        minPrice,
+        maxPrice,
+        minAcreage,
+        maxAcreage
+      );
       if (response?.data.err === 0) {
         dispatch({
           type: actionTypes.GET_POSTS,

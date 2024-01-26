@@ -13,13 +13,31 @@ export const apiGetAllPosts = () =>
     }
   });
 
-export const apiGetPosts = (page, conditions, sortType, sortOrder) =>
+export const apiGetPosts = (
+  page,
+  conditions,
+  sortType,
+  sortOrder,
+  minPrice,
+  maxPrice,
+  minAcreage,
+  maxAcreage
+) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
         url: `/api/v1/post/get`,
-        params: { page, conditions, sortType, sortOrder },
+        params: {
+          page,
+          conditions,
+          sortType,
+          sortOrder,
+          minPrice,
+          maxPrice,
+          minAcreage,
+          maxAcreage,
+        },
       });
       resolve(response);
     } catch (error) {
