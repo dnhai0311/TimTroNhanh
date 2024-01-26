@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id",
         as: "user",
       });
+      POST.belongsTo(models.CATEGORY, {
+        foreignKey: "categoryCode",
+        targetKey: "code",
+        as: "category",
+      });
     }
   }
   POST.init(
@@ -39,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       dayRented: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
       imgsId: DataTypes.STRING,
+      categoryCode: DataTypes.STRING,
       attributeId: DataTypes.STRING,
       typeId: DataTypes.STRING,
       userId: DataTypes.STRING,

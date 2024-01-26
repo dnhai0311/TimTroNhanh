@@ -7,7 +7,7 @@ import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "./ListPost.scss";
 
-const ListPost = () => {
+const ListPost = ({ categoryCode }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const titleListRef = useRef();
@@ -31,6 +31,7 @@ const ListPost = () => {
     const typeParam = queryParams.get("type");
     const codeParam = queryParams.get("code");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
+    // dispatch(getPosts(selectedPage, { categoryCode: categoryCode }));
     !typeParam || !codeParam
       ? dispatch(getPosts(selectedPage))
       : dispatch(getPosts(selectedPage, { [typeParam]: codeParam }));
@@ -48,7 +49,11 @@ const ListPost = () => {
       ...(codeParam ? { code: codeParam } : {}),
       page: selectedPage + 1,
     }).toString();
-    window.history.pushState(null, "", `/?${newSearchParams}`);
+    window.history.pushState(
+      null,
+      "",
+      `${location.pathname}?${newSearchParams}`
+    );
     scrollToTitle();
   };
 

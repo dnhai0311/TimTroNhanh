@@ -13,6 +13,8 @@ export const insertService = () =>
         let idAttribute = await db.ATTRIBUTE.max("id");
         let idImg = await db.IMAGE.max("id");
         let totalUser = await db.USER.count();
+        let currentPrice = +item?.header?.attributes?.price.split(" ")[0];
+        let currentAcreages = +item?.header?.attributes?.acreage.match(/\d+/g);
 
         await db.POST.create({
           id: +idPost + 1,

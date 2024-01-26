@@ -27,6 +27,9 @@ module.exports = {
       imgsId: {
         type: Sequelize.STRING,
       },
+      categoryCode: {
+        type: Sequelize.STRING,
+      },
       attributeId: {
         type: Sequelize.STRING,
       },

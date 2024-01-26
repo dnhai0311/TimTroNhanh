@@ -21,9 +21,6 @@ module.exports = {
       districtId: {
         type: Sequelize.STRING,
       },
-      categoryCode: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

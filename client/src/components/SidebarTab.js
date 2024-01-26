@@ -1,22 +1,24 @@
 import React, { memo, useRef } from "react";
 import icons from "../ultils/icons";
-import { Link, useNavigate, createSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getPosts } from "../store/actions/post";
+import {
+  Link,
+  useNavigate,
+  createSearchParams,
+  useLocation,
+} from "react-router-dom";
 
 const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
   const { BsChevronRight } = icons;
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = (code) => {
-    dispatch(getPosts(0, { [type]: code }));
     const newSearchParams = createSearchParams({
       type: [type],
       code: code,
       page: "1",
     }).toString();
-    navigate(`/?${newSearchParams}`);
+    navigate(`${location.pathname}?${newSearchParams}`);
     scrollFunction();
   };
   return (
@@ -34,7 +36,7 @@ const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
                   >
                     <BsChevronRight color="#C2C2C2" className="me-1" />
                     <Link
-                      to={item.name}
+                      to={`/${item.name}`}
                       className="text-decoration-none fw-light sidebarItem"
                     >
                       {item.value}

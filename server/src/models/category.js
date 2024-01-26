@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      CATEGORY.hasMany(models.ATTRIBUTE, {
+      CATEGORY.hasMany(models.POST, {
         foreignKey: "categoryCode",
         as: "category",
       });
