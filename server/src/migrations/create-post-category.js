@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("POSTs", {
+    await queryInterface.createTable("POST_CATEGORIESs", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -13,36 +13,15 @@ module.exports = {
         type: Sequelize.STRING,
       },
       info: {
-        type: Sequelize.TEXT("long"),
-      },
-      star: {
         type: Sequelize.STRING,
       },
-      dayRented: {
+      perDay: {
         type: Sequelize.STRING,
       },
-      status: {
+      perWeek: {
         type: Sequelize.STRING,
       },
-      imgsId: {
-        type: Sequelize.STRING,
-      },
-      categoryCode: {
-        type: Sequelize.STRING,
-      },
-      attributeId: {
-        type: Sequelize.STRING,
-      },
-      userId: {
-        type: Sequelize.STRING,
-      },
-      acreageCode: {
-        type: Sequelize.STRING,
-      },
-      priceCode: {
-        type: Sequelize.STRING,
-      },
-      typePostId: {
+      perMonth: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -56,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("POSTs");
+    await queryInterface.dropTable("POST_CATEGORIESs");
   },
 };

@@ -6,14 +6,19 @@ import ReactPaginate from "react-paginate";
 import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "./ListPost.scss";
+import icons from "../../../ultils/icons";
 
 const ListPost = ({ categoryCode }) => {
+  const { RiSortAsc, RiSortDesc } = icons;
+
   const dispatch = useDispatch();
   const location = useLocation();
   const titleListRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
+  const [sortedBy, setSortedBy] = useState("updatedAt");
+  const [orderBy, setOrderBy] = useState("asc");
   const { posts, total } = useSelector((state) => state.post);
-  const pageDisplayed = 3;
+  const pageDisplayed = 10;
   const totalPage =
     total % pageDisplayed < 1
       ? Math.floor(total / pageDisplayed)
@@ -31,17 +36,23 @@ const ListPost = ({ categoryCode }) => {
     const priceParam = queryParams.get("priceCode");
     const acreageParam = queryParams.get("acreageCode");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
-    // dispatch(getPosts(selectedPage, { categoryCode: categoryCode }));
-    !acreageParam && !priceParam
-      ? dispatch(getPosts(selectedPage))
-      : dispatch(
-          getPosts(selectedPage, {
-            [priceParam ? "priceCode" : "acreageCode"]:
-              priceParam || acreageParam,
-          })
-        );
+    const conditions = {};
+    if (categoryCode) {
+      conditions["categoryCode"] = categoryCode;
+    }
+    if (priceParam) {
+      conditions["priceCode"] = priceParam;
+    }
+    if (acreageParam) {
+      conditions["acreageCode"] = acreageParam;
+    }
+    if (Object.keys(conditions).length === 0) {
+      dispatch(getPosts(selectedPage, "", sortedBy, orderBy));
+    } else {
+      dispatch(getPosts(selectedPage, conditions, sortedBy, orderBy));
+    }
     setCurrentPage(selectedPage);
-  }, [dispatch, location, currentPage]);
+  }, [dispatch, location, currentPage, categoryCode, sortedBy, orderBy]);
 
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
@@ -72,9 +83,54 @@ const ListPost = ({ categoryCode }) => {
         <div className="row">
           <div className="col-12 col-md-8 bg-light ListPost">
             <div className="row border rounded">
-              <h5 ref={titleListRef} className="py-3 fw-bold">
+              <h5 ref={titleListRef} className="pt-3 fw-bold">
                 Danh sách các bài đăng
               </h5>
+              <div className="py-2 d-flex align-items-center">
+                <span className="pe-2">Sắp xếp theo: </span>
+                <div
+                  className={`sort-tab ${sortedBy === "price" ? "active" : ""}`}
+                  onClick={() => {
+                    setSortedBy("price");
+                  }}
+                >
+                  Giá
+                </div>
+                <div
+                  className={`sort-tab ${
+                    sortedBy === "acreage" ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setSortedBy("acreage");
+                  }}
+                >
+                  Diện tích
+                </div>
+                <div
+                  className={`sort-tab ${
+                    sortedBy === "updatedAt" ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setSortedBy("updatedAt");
+                  }}
+                >
+                  Thời gian
+                </div>
+                <div
+                  className="px-1 order-item"
+                  onClick={() => {
+                    setOrderBy((prevOrderBy) =>
+                      prevOrderBy === "asc" ? "desc" : "asc"
+                    );
+                  }}
+                >
+                  {orderBy === "asc" ? (
+                    <RiSortAsc fontSize={"25px"} />
+                  ) : (
+                    <RiSortDesc fontSize={"25px"} />
+                  )}
+                </div>
+              </div>
             </div>
             <div className="row border rounded">
               {posts?.length > 0 &&

@@ -9,7 +9,7 @@ const Sidebar = ({ scrollFunction }) => {
   useEffect(() => {
     dispatch(getAcreages());
     dispatch(getPrices());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

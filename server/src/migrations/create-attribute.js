@@ -10,10 +10,10 @@ module.exports = {
         autoIncrement: true,
       },
       price: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
       },
       acreage: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
       },
       address: {
         type: Sequelize.STRING,

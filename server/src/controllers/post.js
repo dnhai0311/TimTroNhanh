@@ -13,9 +13,14 @@ export const getAllPosts = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
-  const { page, query } = req.query;
+  const { page, conditions, sortType, sortOrder } = req.query;
   try {
-    const response = await postService.getPostsService(page, query);
+    const response = await postService.getPostsService(
+      page,
+      conditions,
+      sortType,
+      sortOrder
+    );
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({

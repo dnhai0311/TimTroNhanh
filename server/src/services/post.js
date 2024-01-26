@@ -35,11 +35,10 @@ export const getAllPostsService = () =>
     }
   });
 
-export const getPostsService = (page, query) =>
+export const getPostsService = (page, conditions, sortType, sortOrder) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.POST.findAndCountAll({
-        where: query,
+      const queryOptions = {
         raw: true,
         nest: true,
         offset: page * +process.env.PAGE_DISPLAYED || 0,
@@ -62,7 +61,20 @@ export const getPostsService = (page, query) =>
           },
         ],
         attributes: ["id", "name", "info", "updatedAt", "star"],
-      });
+      };
+
+      if (conditions) {
+        queryOptions.where = conditions;
+      }
+      if (sortType === "price") {
+        queryOptions.order = [["attribute", "price", sortOrder]];
+      } else if (sortType === "acreage") {
+        queryOptions.order = [["attribute", "acreage", sortOrder]];
+      } else {
+        queryOptions.order = [[sortType, sortOrder]];
+      }
+
+      const response = await db.POST.findAndCountAll(queryOptions);
       resolve({
         err: response ? 0 : 1,
         msg: response ? "OK" : "FAILED TO GET POST",

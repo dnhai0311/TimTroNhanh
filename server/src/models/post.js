@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "attribute",
       });
       POST.belongsTo(models.POST_CATEGORY, {
-        foreignKey: "typeId",
+        foreignKey: "typePostId",
         targetKey: "id",
         as: "postCategory",
       });
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       imgsId: DataTypes.STRING,
       categoryCode: DataTypes.STRING,
       attributeId: DataTypes.STRING,
-      typeId: DataTypes.STRING,
+      typePostId: DataTypes.STRING,
       userId: DataTypes.STRING,
       acreageCode: DataTypes.STRING,
       priceCode: DataTypes.STRING,

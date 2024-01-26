@@ -9,6 +9,8 @@ import { FaUserPlus } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { RiSortAsc } from "react-icons/ri";
+import { RiSortDesc } from "react-icons/ri";
 
 const icons = {
   BsChevronRight,
@@ -22,6 +24,8 @@ const icons = {
   FaStar,
   FaRegUserCircle,
   FaHeart,
+  RiSortAsc,
+  RiSortDesc,
 };
 
 export default icons;

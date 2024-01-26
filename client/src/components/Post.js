@@ -2,6 +2,8 @@ import React, { memo, useState } from "react";
 import icons from "../ultils/icons";
 import "../App.scss";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import "moment/locale/vi";
 
 const { FaStar, FaRegUserCircle, FaHeart } = icons;
 
@@ -20,6 +22,14 @@ const Post = ({
 }) => {
   const [isRed, setIsRed] = useState(false);
   const imagePath = require(`../assets${img}`);
+
+  const address = location
+    .split(",")
+    .map((phan) => phan.trim())
+    .slice(-2)
+    .join(", ");
+  moment.locale("vi");
+  const formattedTime = moment(time).fromNow();
   return (
     <div className="col-12 py-3 border-top border-bottom border-dark post">
       <div className="row gx-4">
@@ -62,10 +72,12 @@ const Post = ({
               )}
           </div>
           <div className="px-2 d-flex justify-content-between">
-            <div className="fw-bold text-success text-truncate">{price}</div>
-            <div className="text-truncate">{area}</div>
-            <div className="text-truncate">{location}</div>
-            <div className="text-truncate">Hôm nay</div>
+            <div className="fw-bold text-success text-truncate ">
+              {price} triệu/tháng
+            </div>
+            <div className="text-truncate ">{area}m²</div>
+            <div className="text-truncate post-item">{address}</div>
+            <div className="text-truncate ">{formattedTime}</div>
           </div>
           <div className="px-2 my-2 line-clamp-3 text-justify fw-light">
             {value}

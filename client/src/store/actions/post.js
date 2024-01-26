@@ -23,25 +23,26 @@ export const getAllPosts = () => async (dispatch) => {
   }
 };
 
-export const getPosts = (page, query) => async (dispatch) => {
-  try {
-    const response = await apiGetPosts(page, query);
-    if (response?.data.err === 0) {
+export const getPosts =
+  (page, conditions, sortType, sortOrder) => async (dispatch) => {
+    try {
+      const response = await apiGetPosts(page, conditions, sortType, sortOrder);
+      if (response?.data.err === 0) {
+        dispatch({
+          type: actionTypes.GET_POSTS,
+          posts: response.data.response?.rows,
+          total: response.data.response?.count,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.GET_POSTS,
+          msg: response.data.msg,
+        });
+      }
+    } catch (error) {
       dispatch({
         type: actionTypes.GET_POSTS,
-        posts: response.data.response?.rows,
-        total: response.data.response?.count,
-      });
-    } else {
-      dispatch({
-        type: actionTypes.GET_POSTS,
-        msg: response.data.msg,
+        posts: null,
       });
     }
-  } catch (error) {
-    dispatch({
-      type: actionTypes.GET_POSTS,
-      posts: null,
-    });
-  }
-};
+  };

@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   ATTRIBUTE.init(
     {
-      price: DataTypes.STRING,
-      acreage: DataTypes.STRING,
+      price: DataTypes.FLOAT,
+      acreage: DataTypes.FLOAT,
       address: DataTypes.STRING,
       districtId: DataTypes.STRING,
     },
