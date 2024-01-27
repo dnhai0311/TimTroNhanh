@@ -1,4 +1,48 @@
+$color-blue: #007AFF;
 .searchBar {
     font-size: 15px;
     padding: 10px 0px;
 }
+
+.my-modal {
+    max-width: 45vw;
+    .modal-body {
+        max-height: 400px;
+        overflow-y: auto;        
+    
+        .modal-item {
+            font-size: 18px;
+            border-bottom: dashed;
+            border-bottom-width: 1px;
+            padding: 5px 0px;
+            .modal-input {
+                padding: 5px;
+                width: 15px;
+                height: 15px;
+                & + label {
+                    color: black;
+                    &:hover {
+                        color: $color-blue;
+                        opacity: 0.7;
+                      }
+                  }
+              
+                  &:checked + label {
+                    color: $color-blue;
+                  }
+
+            }    
+            &:first-child{
+                padding-top: 0px;
+            }
+            &:last-child{
+                border-bottom: none;
+            }
+            
+        }
+        .rc-slider-handle {
+            scale: 1.5;
+        }
+    }
+}
+  

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   PROVINCE.init(
     {
-      name: DataTypes.STRING,
+      value: DataTypes.STRING,
     },
     {
       sequelize,

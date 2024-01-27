@@ -5,7 +5,7 @@ export const getProvincesService = () =>
     try {
       const response = await db.PROVINCE.findAll({
         raw: true,
-        attributes: ["id", "name"],
+        attributes: ["id", "value"],
       });
       resolve({
         err: response ? 0 : 1,

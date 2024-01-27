@@ -6,7 +6,7 @@ export const getDistrictsService = (provinceId) =>
       const response = await db.DISTRICT.findAll({
         where: { provinceId },
         raw: true,
-        attributes: ["id", "name"],
+        attributes: ["id", "value"],
       });
       resolve({
         err: response ? 0 : 1,

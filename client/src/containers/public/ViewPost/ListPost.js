@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Post from "../../../components/Post";
-import { getAllPosts, getPosts } from "../../../store/actions/post";
+import { getPosts } from "../../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { createSearchParams, useLocation } from "react-router-dom";
@@ -18,6 +18,7 @@ const ListPost = ({ categoryCode }) => {
   const [sortedBy, setSortedBy] = useState("updatedAt");
   const [orderBy, setOrderBy] = useState("asc");
 
+  const [category, setCategory] = useState({ categoryCode: "" });
   const [priceRange, setPriceRange] = useState({ min: "0", max: "9999" });
   const [acreageRange, setAcreageRange] = useState({ min: "0", max: "9999" });
   const [districtId, setDistrictId] = useState("");
@@ -39,12 +40,18 @@ const ListPost = ({ categoryCode }) => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const pageParam = queryParams.get("page");
+    const provinceParam = queryParams.get("provinceId");
     const minPriceParam = queryParams.get("minPrice");
     const maxPriceParam = queryParams.get("maxPrice");
     const minAcreageParam = queryParams.get("minAcreage");
     const maxAcreageParam = queryParams.get("maxAcreage");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
     setCurrentPage(selectedPage);
+    if (provinceParam) {
+      setProvinceId(provinceParam);
+    } else {
+      setProvinceId("");
+    }
     if (minPriceParam && maxPriceParam) {
       setPriceRange({ min: minPriceParam, max: maxPriceParam });
     } else {
@@ -56,44 +63,27 @@ const ListPost = ({ categoryCode }) => {
       setAcreageRange({ min: "0", max: "9999" });
     }
   }, [location]);
+
   useEffect(() => {
     // dispatch(getAllPosts());
-
     const conditions = {};
     if (categoryCode) {
       conditions["categoryCode"] = categoryCode;
     }
-    if (Object.keys(conditions).length === 0) {
-      dispatch(
-        getPosts(
-          currentPage,
-          "",
-          sortedBy,
-          orderBy,
-          districtId,
-          provinceId,
-          priceRange.min,
-          priceRange.max,
-          acreageRange.min,
-          acreageRange.max
-        )
-      );
-    } else {
-      dispatch(
-        getPosts(
-          currentPage,
-          conditions,
-          sortedBy,
-          orderBy,
-          districtId,
-          provinceId,
-          priceRange.min,
-          priceRange.max,
-          acreageRange.min,
-          acreageRange.max
-        )
-      );
-    }
+    dispatch(
+      getPosts(
+        currentPage,
+        conditions,
+        sortedBy,
+        orderBy,
+        districtId,
+        provinceId,
+        priceRange.min,
+        priceRange.max,
+        acreageRange.min,
+        acreageRange.max
+      )
+    );
   }, [
     dispatch,
     categoryCode,
@@ -125,10 +115,18 @@ const ListPost = ({ categoryCode }) => {
       ...((minPriceParam && maxPriceParam) ||
       (minAcreageParam && maxAcreageParam)
         ? {
-            [minPriceParam && maxPriceParam ? "minPrice" : "minAcreage"]:
-              minPriceParam || minAcreageParam,
-            [minPriceParam && maxPriceParam ? "maxPrice" : "maxPrice"]:
-              maxPriceParam || maxAcreageParam,
+            ...(minPriceParam && maxPriceParam
+              ? {
+                  minPrice: minPriceParam,
+                  maxPrice: maxPriceParam,
+                }
+              : {}),
+            ...(minAcreageParam && maxAcreageParam
+              ? {
+                  minAcreage: minAcreageParam,
+                  maxAcreage: maxAcreageParam,
+                }
+              : {}),
           }
         : {}),
       page: selectedPage + 1,
@@ -235,7 +233,7 @@ const ListPost = ({ categoryCode }) => {
                 breakLinkClassName="page-link"
                 containerClassName="pagination justify-content-center"
                 activeClassName="active"
-                forcePage={currentPage}
+                forcePage={currentPage || 0}
                 renderOnZeroPageCount={null}
               />
             </div>
