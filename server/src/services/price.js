@@ -6,7 +6,7 @@ export const getPricesService = () =>
       const response = await db.PRICE.findAll({
         raw: true,
         nest: true,
-        attributes: ["id", "value"],
+        attributes: ["id", "value", "min", "max"],
       });
       resolve({
         err: response ? 0 : 1,

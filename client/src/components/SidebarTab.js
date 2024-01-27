@@ -12,9 +12,10 @@ const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = (code) => {
+  const handleClick = (min, max) => {
     const newSearchParams = createSearchParams({
-      [type]: code,
+      [`min${type}`]: min,
+      [`max${type}`]: max,
       page: "1",
     }).toString();
     navigate(`${location.pathname}?${newSearchParams}`);
@@ -57,7 +58,7 @@ const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
                     <BsChevronRight color="#C2C2C2" className="me-1" />
                     <div
                       className="text-decoration-none fw-light sidebarItem"
-                      onClick={() => handleClick(item.id)}
+                      onClick={() => handleClick(item.min, item.max)}
                     >
                       {item.value}
                     </div>

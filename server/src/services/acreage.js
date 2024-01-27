@@ -6,7 +6,7 @@ export const getAcreagesService = () =>
       const response = await db.ACREAGE.findAll({
         raw: true,
         nest: true,
-        attributes: ["id", "value"],
+        attributes: ["id", "value", "min", "max"],
       });
       resolve({
         err: response ? 0 : 1,

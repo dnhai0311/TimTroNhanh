@@ -44,7 +44,7 @@ const prices = [
   {
     id: 8,
     min: 15,
-    max: 1000,
+    max: 9999,
     value: "Trên 15 triệu",
   },
 ];
@@ -83,7 +83,7 @@ const acreages = [
   {
     id: 6,
     min: 90,
-    max: 1000,
+    max: 9999,
     value: "Trên 90m",
   },
 ];

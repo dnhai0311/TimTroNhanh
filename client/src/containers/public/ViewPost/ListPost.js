@@ -17,6 +17,12 @@ const ListPost = ({ categoryCode }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sortedBy, setSortedBy] = useState("updatedAt");
   const [orderBy, setOrderBy] = useState("asc");
+
+  const [priceRange, setPriceRange] = useState({ min: "0", max: "9999" });
+  const [acreageRange, setAcreageRange] = useState({ min: "0", max: "9999" });
+  const [districtId, setDistrictId] = useState("");
+  const [provinceId, setProvinceId] = useState("");
+
   const { posts, total } = useSelector((state) => state.post);
   const pageDisplayed = 10;
   const totalPage =
@@ -29,44 +35,100 @@ const ListPost = ({ categoryCode }) => {
       block: "start",
     });
   };
+
   useEffect(() => {
-    // dispatch(getAllPosts());
     const queryParams = new URLSearchParams(window.location.search);
     const pageParam = queryParams.get("page");
-    const priceParam = queryParams.get("priceCode");
-    const acreageParam = queryParams.get("acreageCode");
+    const minPriceParam = queryParams.get("minPrice");
+    const maxPriceParam = queryParams.get("maxPrice");
+    const minAcreageParam = queryParams.get("minAcreage");
+    const maxAcreageParam = queryParams.get("maxAcreage");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
+    setCurrentPage(selectedPage);
+    if (minPriceParam && maxPriceParam) {
+      setPriceRange({ min: minPriceParam, max: maxPriceParam });
+    } else {
+      setPriceRange({ min: "0", max: "9999" });
+    }
+    if (minAcreageParam && maxAcreageParam) {
+      setAcreageRange({ min: minAcreageParam, max: maxAcreageParam });
+    } else {
+      setAcreageRange({ min: "0", max: "9999" });
+    }
+  }, [location]);
+  useEffect(() => {
+    // dispatch(getAllPosts());
+
     const conditions = {};
     if (categoryCode) {
       conditions["categoryCode"] = categoryCode;
     }
-    if (priceParam) {
-      conditions["priceCode"] = priceParam;
-    }
-    if (acreageParam) {
-      conditions["acreageCode"] = acreageParam;
-    }
     if (Object.keys(conditions).length === 0) {
       dispatch(
-        getPosts(selectedPage, "", sortedBy, orderBy, "", "", "", "", "", "")
+        getPosts(
+          currentPage,
+          "",
+          sortedBy,
+          orderBy,
+          districtId,
+          provinceId,
+          priceRange.min,
+          priceRange.max,
+          acreageRange.min,
+          acreageRange.max
+        )
       );
     } else {
-      dispatch(getPosts(selectedPage, conditions, sortedBy, orderBy));
+      dispatch(
+        getPosts(
+          currentPage,
+          conditions,
+          sortedBy,
+          orderBy,
+          districtId,
+          provinceId,
+          priceRange.min,
+          priceRange.max,
+          acreageRange.min,
+          acreageRange.max
+        )
+      );
     }
-    setCurrentPage(selectedPage);
-  }, [dispatch, location, currentPage, categoryCode, sortedBy, orderBy]);
-
+  }, [
+    dispatch,
+    categoryCode,
+    currentPage,
+    sortedBy,
+    orderBy,
+    districtId,
+    provinceId,
+    priceRange.min,
+    priceRange.max,
+    acreageRange.min,
+    acreageRange.max,
+  ]);
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
     setCurrentPage(selectedPage);
     const queryParams = new URLSearchParams(window.location.search);
-    const priceParam = queryParams.get("priceCode");
-    const acreageParam = queryParams.get("acreageCode");
+    const minPriceParam = queryParams.get("minPrice");
+    const maxPriceParam = queryParams.get("maxPrice");
+    const minAcreageParam = queryParams.get("minAcreage");
+    const maxAcreageParam = queryParams.get("maxAcreage");
     const newSearchParams = createSearchParams({
-      ...(priceParam || acreageParam
+      // ...(priceParam || acreageParam
+      //   ? {
+      //       [priceParam ? "priceCode" : "acreageCode"]:
+      //         priceParam || acreageParam,
+      //     }
+      //   : {}),
+      ...((minPriceParam && maxPriceParam) ||
+      (minAcreageParam && maxAcreageParam)
         ? {
-            [priceParam ? "priceCode" : "acreageCode"]:
-              priceParam || acreageParam,
+            [minPriceParam && maxPriceParam ? "minPrice" : "minAcreage"]:
+              minPriceParam || minAcreageParam,
+            [minPriceParam && maxPriceParam ? "maxPrice" : "maxPrice"]:
+              maxPriceParam || maxAcreageParam,
           }
         : {}),
       page: selectedPage + 1,

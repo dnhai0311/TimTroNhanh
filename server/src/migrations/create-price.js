@@ -12,6 +12,12 @@ module.exports = {
       value: {
         type: Sequelize.STRING,
       },
+      min: {
+        type: Sequelize.STRING,
+      },
+      max: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

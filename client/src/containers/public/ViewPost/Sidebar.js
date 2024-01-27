@@ -19,14 +19,14 @@ const Sidebar = ({ scrollFunction }) => {
           name={"Xem theo giá"}
           value={prices}
           isDouble={true}
-          type="priceCode"
+          type="Price"
           scrollFunction={scrollFunction}
         />
         <SidebarTab
           name={"Xem theo diện tích"}
           value={acreages}
           isDouble={true}
-          type="acreageCode"
+          type="Acreage"
           scrollFunction={scrollFunction}
         />
       </div>
