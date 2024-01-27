@@ -47,7 +47,9 @@ const ListPost = ({ categoryCode }) => {
       conditions["acreageCode"] = acreageParam;
     }
     if (Object.keys(conditions).length === 0) {
-      dispatch(getPosts(selectedPage, "", sortedBy, orderBy));
+      dispatch(
+        getPosts(selectedPage, "", sortedBy, orderBy, "", "", "", "", "", "")
+      );
     } else {
       dispatch(getPosts(selectedPage, conditions, sortedBy, orderBy));
     }

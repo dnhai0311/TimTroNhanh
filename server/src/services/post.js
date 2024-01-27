@@ -40,6 +40,8 @@ export const getPostsService = (
   conditions,
   sortType,
   sortOrder,
+  districtId,
+  provinceId,
   minPrice,
   maxPrice,
   minAcreage,
@@ -62,6 +64,13 @@ export const getPostsService = (
             model: db.ATTRIBUTE,
             as: "attribute",
             attributes: ["price", "acreage", "address"],
+            include: [
+              {
+                model: db.DISTRICT,
+                as: "district",
+                attributes: ["provinceId"],
+              },
+            ],
           },
           {
             model: db.USER,
@@ -76,7 +85,7 @@ export const getPostsService = (
         queryOptions.where = conditions;
       }
 
-      if (minPrice !== undefined && maxPrice !== undefined) {
+      if (minPrice !== "" && minPrice && maxPrice && maxPrice !== "") {
         queryOptions.where = {
           ...queryOptions.where,
           "$attribute.price$": {
@@ -85,7 +94,7 @@ export const getPostsService = (
         };
       }
 
-      if (minAcreage !== undefined && maxAcreage !== undefined) {
+      if (minAcreage !== "" && minAcreage && maxAcreage && maxAcreage !== "") {
         queryOptions.where = {
           ...queryOptions.where,
           "$attribute.acreage$": {
@@ -100,6 +109,19 @@ export const getPostsService = (
         queryOptions.order = [["attribute", "acreage", sortOrder]];
       } else {
         queryOptions.order = [[sortType, sortOrder]];
+      }
+
+      if (districtId && districtId !== "") {
+        queryOptions.where = {
+          ...queryOptions.where,
+          "$attribute.districtId$": districtId,
+        };
+      }
+      if (provinceId && provinceId !== "") {
+        queryOptions.where = {
+          ...queryOptions.where,
+          "$attribute.district.provinceId$": provinceId,
+        };
       }
 
       const response = await db.POST.findAndCountAll(queryOptions);
