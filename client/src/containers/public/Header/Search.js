@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import icons from "../../../ultils/icons";
 import "./Search.scss";
 import { getDistricts, getProvinces } from "../../../store/actions/app";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const Search = () => {
   const {
@@ -15,13 +15,15 @@ const Search = () => {
     IoPricetagsOutline,
     BiArea,
     FaSearch,
+    IoIosCloseCircle,
   } = icons;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isShowModal, setIsShowModal] = useState(false);
-  // const [isShowDistrict, setIsShowDistrict] = useState(false);
+  const [isChoosingProvince, setIsChoosingProvince] = useState(true);
   const [content, setContent] = useState("");
   const [data, setData] = useState([]);
 
@@ -42,8 +44,20 @@ const Search = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getDistricts(province.id));
-  }, [province.id]);
+    if (location.search === "") {
+      setCategory({});
+      setProvince({});
+      setDistrict({});
+      setPrice({});
+      setAcreage({});
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (province.id) {
+      dispatch(getDistricts(province?.id));
+    }
+  }, [province]);
 
   const handleShow = (content, data) => {
     setContent(content);
@@ -52,10 +66,28 @@ const Search = () => {
   };
 
   const handleSelect = (content, item) => {
-    if (content === "Loại trọ") setCategory(item);
-    if (content === "Vị trí") setProvince(item);
-    if (content === "Giá") setPrice(item);
-    if (content === "Diện tích") setAcreage(item);
+    if (content === "Loại trọ") {
+      setCategory(item);
+      return;
+    }
+    if (content === "Vị trí") {
+      if (item.id === 0) setIsChoosingProvince(true);
+      setProvince(item);
+      return;
+    }
+    if (content === "Giá") {
+      setPrice(item);
+      return;
+    }
+    if (content === "Diện tích") {
+      setAcreage(item);
+      return;
+    }
+    if (content === "Toàn bộ") {
+      setIsChoosingProvince(true);
+      return;
+    }
+    setDistrict(item);
   };
 
   const handleSubmit = () => {
@@ -66,6 +98,7 @@ const Search = () => {
 
   useEffect(() => {
     const params = createSearchParams({
+      districtId: district.id || "",
       provinceId: province.id || "",
       minPrice: price.min || "",
       maxPrice: price.max || "",
@@ -73,7 +106,7 @@ const Search = () => {
       maxAcreage: acreage.max || "",
     }).toString();
     setParam(params);
-  }, [isShowModal, param, province, price, acreage]);
+  }, [isShowModal, param, district, province, price, acreage]);
 
   return (
     <>
@@ -82,31 +115,85 @@ const Search = () => {
           <SearchItem
             text={category?.value || "Toàn bộ"}
             IconBefore={<BsHouseDoor className="mx-1" color="#C2C2C2" />}
-            IconAfter={<BsChevronRight color="#C2C2C2" />}
+            IconAfter={
+              category.value ? (
+                <IoIosCloseCircle
+                  fontSize={"20px"}
+                  onClick={() => {
+                    setCategory({});
+                  }}
+                />
+              ) : (
+                <BsChevronRight color="#C2C2C2" />
+              )
+            }
             // fontWeight={"fw-bold"}
             handleShow={() => handleShow("Loại trọ", categories)}
           />
           <SearchItem
-            text={province?.value || "Toàn bộ"}
+            text={
+              district.value
+                ? `${district.value}, ${province.value}`
+                : province.value || "Toàn bộ"
+            }
             IconBefore={<IoLocationOutline className="mx-1" color="#C2C2C2" />}
-            IconAfter={<BsChevronRight color="#C2C2C2" />}
-            // handleShow={
-            //   province.id
-            //     ? () => handleShow(province.value, districts)
-            //     : () => handleShow("Vị trí", provinces)
-            // }
-            handleShow={() => handleShow("Vị trí", provinces)}
+            IconAfter={
+              province.value ? (
+                <IoIosCloseCircle
+                  fontSize={"20px"}
+                  onClick={() => {
+                    setProvince({});
+                    setDistrict({});
+                    setIsChoosingProvince(true);
+                  }}
+                />
+              ) : (
+                <BsChevronRight color="#C2C2C2" />
+              )
+            }
+            // handleShow={() => handleShow("Vị trí", provinces)}
+            handleShow={() => {
+              if (isChoosingProvince) {
+                handleShow("Vị trí", provinces);
+                setIsChoosingProvince(false);
+              } else {
+                handleShow(province.value, districts);
+                // setIsChoosingProvince(true);
+              }
+            }}
           />
           <SearchItem
             text={price?.value || "Chọn giá"}
             IconBefore={<IoPricetagsOutline className="mx-1" color="#C2C2C2" />}
-            IconAfter={<BsChevronRight color="#C2C2C2" />}
+            IconAfter={
+              price.value ? (
+                <IoIosCloseCircle
+                  fontSize={"20px"}
+                  onClick={() => {
+                    setPrice({});
+                  }}
+                />
+              ) : (
+                <BsChevronRight color="#C2C2C2" />
+              )
+            }
             handleShow={() => handleShow("Giá", prices)}
           />
           <SearchItem
             text={acreage?.value || "Chọn diện tích"}
             IconBefore={<BiArea className="mx-1" color="#C2C2C2" />}
-            IconAfter={<BsChevronRight color="#C2C2C2" />}
+            IconAfter={
+              acreage.value ? (
+                <IoIosCloseCircle
+                  fontSize={"20px"}
+                  onClick={() => {
+                    setAcreage({});
+                  }}
+                />
+              ) : (
+                <BsChevronRight color="#C2C2C2" />
+              )
+            }
             handleShow={() => handleShow("Diện tích", acreages)}
           />
           <Button
@@ -124,6 +211,8 @@ const Search = () => {
           setIsShowModal={setIsShowModal}
           content={content}
           data={data}
+          setIsChoosingProvince={() => setIsChoosingProvince(true)}
+          setDistrict={setDistrict}
         />
       )}
     </>

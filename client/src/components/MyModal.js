@@ -3,8 +3,18 @@ import { Modal, Button } from "react-bootstrap";
 import "../containers/public/Header/Search.scss";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import icons from "../ultils/icons";
 
-const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
+const MyModal = ({
+  setIsShowModal,
+  content,
+  data,
+  handleSelect,
+  handleShow,
+  setIsChoosingProvince,
+  setDistrict,
+}) => {
+  const { FaArrowLeft } = icons;
   const maxValue = content === "Giá" ? "15" : "90";
   const unit = content === "Giá" ? "triệu/tháng" : "m²";
 
@@ -18,6 +28,7 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
 
   const handleClose = () => {
     setIsShowModal(false);
+    if (content === "Loại trọ" || content === "Vị tri") return;
     if (content === "Giá" || content === "Diện tích") {
       handleSelect(content, {
         min: sliderRange[0],
@@ -30,8 +41,12 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
     }
   };
 
-  const handleSelectProvince = () => {
+  const handleBack = () => {
     setIsShowModal(false);
+    if (content !== "Vị trí") {
+      setDistrict({});
+      setIsChoosingProvince();
+    }
   };
 
   useEffect(() => {
@@ -68,6 +83,11 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
         dialogClassName="my-modal"
       >
         <Modal.Header closeButton>
+          <FaArrowLeft
+            fontSize={"20px"}
+            cursor={"pointer"}
+            onClick={handleBack}
+          />
           <Modal.Title className="w-100 text-center">{content}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="modal-body">
@@ -82,6 +102,7 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
                   className="px-2 modal-input"
                   onClick={() => {
                     handleSelect(content, { id: 0, value: "Toàn bộ" });
+                    handleClose();
                   }}
                 />
                 <label htmlFor="0" className="px-2">
@@ -102,7 +123,7 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect }) => {
                       className="px-2 modal-input"
                       onClick={() => {
                         handleSelect(content, item);
-                        if (content === "Vị trí") handleSelectProvince();
+                        handleClose();
                       }}
                     />
                     <label htmlFor={item.id} className="px-2">

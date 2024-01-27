@@ -11,6 +11,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { RiSortAsc } from "react-icons/ri";
 import { RiSortDesc } from "react-icons/ri";
+import { FaArrowLeft } from "react-icons/fa";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const icons = {
   BsChevronRight,
@@ -26,6 +28,8 @@ const icons = {
   FaHeart,
   RiSortAsc,
   RiSortDesc,
+  FaArrowLeft,
+  IoIosCloseCircle,
 };
 
 export default icons;

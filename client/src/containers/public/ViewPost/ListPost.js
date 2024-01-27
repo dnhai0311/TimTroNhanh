@@ -40,6 +40,7 @@ const ListPost = ({ categoryCode }) => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const pageParam = queryParams.get("page");
+    const districtParam = queryParams.get("districtId");
     const provinceParam = queryParams.get("provinceId");
     const minPriceParam = queryParams.get("minPrice");
     const maxPriceParam = queryParams.get("maxPrice");
@@ -47,6 +48,11 @@ const ListPost = ({ categoryCode }) => {
     const maxAcreageParam = queryParams.get("maxAcreage");
     const selectedPage = +pageParam - 1 >= 0 ? +pageParam - 1 : 0;
     setCurrentPage(selectedPage);
+    if (districtParam) {
+      setDistrictId(districtParam);
+    } else {
+      setDistrictId("");
+    }
     if (provinceParam) {
       setProvinceId(provinceParam);
     } else {
