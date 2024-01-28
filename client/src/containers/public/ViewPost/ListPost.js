@@ -259,7 +259,7 @@ const ListPost = ({ categoryCode }) => {
                 breakLinkClassName="page-link"
                 containerClassName="pagination justify-content-center"
                 activeClassName="active"
-                forcePage={currentPage || 0}
+                forcePage={Math.min(currentPage, totalPage - 1)}
                 renderOnZeroPageCount={null}
               />
             </div>

@@ -40,10 +40,6 @@ const Search = () => {
   );
 
   useEffect(() => {
-    dispatch(getProvinces());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (location.search === "") {
       setCategory({});
       setProvince({});

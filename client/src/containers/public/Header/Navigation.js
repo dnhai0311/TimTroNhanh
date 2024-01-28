@@ -2,14 +2,9 @@ import React, { useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
-import { getCategories } from "../../../store/actions/app";
 
 const Navigation = ({ handleGotoTop }) => {
   const { categories } = useSelector((state) => state.app);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
   return (
     <>
       <div className="bg-primary sticky-top">
