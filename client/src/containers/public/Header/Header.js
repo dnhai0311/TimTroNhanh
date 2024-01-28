@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,11 +11,15 @@ import * as actions from "../../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import icons from "../../../ultils/icons";
+import Navigation from "./Navigation";
+import "./Header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { FaCircleUser, FaUserPlus } = icons;
+  const HeaderRef = useRef();
+  const { FaCircleUser, FaUserPlus, FaArrowUp } = icons;
+  const [showGoToTop, setShowGoToTop] = useState(false);
 
   const { isLoggedIn, msg } = useSelector((state) => state.auth);
 
@@ -26,13 +30,32 @@ const Header = () => {
     [navigate]
   );
 
+  const handleGotoTop = () => {
+    HeaderRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowGoToTop(window.scrollY >= 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   useEffect(() => {
     isLoggedIn && toast.success(msg);
   }, [isLoggedIn, msg]);
 
   return (
     <>
-      <Navbar className=" bg-light ">
+      <Navbar className="bg-light" ref={HeaderRef}>
         <div className="d-flex flex-column flex-sm-row w-75 m-auto  justify-content-between align-items-center">
           <Link to={"/"}>
             <Navbar.Brand style={{ margin: 0 }}>
@@ -79,6 +102,15 @@ const Header = () => {
         </div>
         <ToastContainer autoClose={1000} position="bottom-right" />
       </Navbar>
+      <Navigation handleGotoTop={handleGotoTop} />
+      {showGoToTop && (
+        <div
+          className="position-fixed end-0 bottom-0 mb-4 me-4 bg-primary p-3 border rounded-circle text-light btnOnTop"
+          onClick={handleGotoTop}
+        >
+          <FaArrowUp fontSize={"20px"} />
+        </div>
+      )}
     </>
   );
 };

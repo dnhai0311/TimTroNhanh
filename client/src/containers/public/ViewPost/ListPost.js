@@ -18,11 +18,11 @@ const ListPost = ({ categoryCode }) => {
   const [sortedBy, setSortedBy] = useState("updatedAt");
   const [orderBy, setOrderBy] = useState("asc");
 
-  const [category, setCategory] = useState({ categoryCode: "" });
   const [priceRange, setPriceRange] = useState({ min: "0", max: "9999" });
   const [acreageRange, setAcreageRange] = useState({ min: "0", max: "9999" });
   const [districtId, setDistrictId] = useState("");
   const [provinceId, setProvinceId] = useState("");
+  const [showPage, setShowPage] = useState("4");
 
   const { posts, total } = useSelector((state) => state.post);
   const pageDisplayed = 10;
@@ -30,12 +30,31 @@ const ListPost = ({ categoryCode }) => {
     total % pageDisplayed < 1
       ? Math.floor(total / pageDisplayed)
       : Math.floor(total / pageDisplayed) + 1;
+
   const scrollToTitle = () => {
     titleListRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 500) {
+        setShowPage("4");
+      } else {
+        setShowPage("2");
+      }
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleResize);
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("scroll", handleResize);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -226,7 +245,8 @@ const ListPost = ({ categoryCode }) => {
                 breakLabel="..."
                 nextLabel=">"
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={pageDisplayed}
+                pageRangeDisplayed={showPage}
+                marginPagesDisplayed={1}
                 pageCount={totalPage}
                 previousLabel="<"
                 pageClassName="page-item"

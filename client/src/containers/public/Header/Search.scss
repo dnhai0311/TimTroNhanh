@@ -1,11 +1,17 @@
+@import '../../../App';
+
 $color-blue: #007AFF;
+
 .searchBar {
     font-size: 15px;
     padding: 10px 0px;
 }
 
 .my-modal {
-    max-width: 45vw;
+    max-width: 95vw;
+      @include respond-to($breakpoint-medium) {
+        max-width: 55vw;
+      }
     .modal-body {
         max-height: 400px;
         overflow-y: auto;        
@@ -42,6 +48,12 @@ $color-blue: #007AFF;
         }
         .rc-slider-handle {
             scale: 1.5;
+        }
+        .btnFilter {
+            cursor: pointer;
+            &:hover{
+                opacity: 0.9;
+            }
         }
     }
 }

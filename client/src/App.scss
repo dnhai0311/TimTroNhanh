@@ -1,6 +1,17 @@
 $background-color: #f2f2f2;
 $color-red: #DC3545;
-$color-blue: #0D6EFD;
+// $color-blue: #0D6EFD;
+
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 1200px;
+
+
+@mixin respond-to($breakpoint) {
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
 
 .bg-gray {
     background-color: $background-color;

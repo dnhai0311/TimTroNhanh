@@ -153,7 +153,7 @@ const Search = () => {
             }
             // handleShow={() => handleShow("Vị trí", provinces)}
             handleShow={() => {
-              if (isChoosingProvince) {
+              if (!province.id || province.id === 0) {
                 handleShow("Vị trí", provinces);
                 setIsChoosingProvince(false);
               } else {
@@ -213,6 +213,8 @@ const Search = () => {
           data={data}
           setIsChoosingProvince={() => setIsChoosingProvince(true)}
           setDistrict={setDistrict}
+          setProvince={setProvince}
+          setCategory={setCategory}
         />
       )}
     </>

@@ -13,6 +13,8 @@ const MyModal = ({
   handleShow,
   setIsChoosingProvince,
   setDistrict,
+  setProvince,
+  setCategory,
 }) => {
   const { FaArrowLeft } = icons;
   const maxValue = content === "Giá" ? "15" : "90";
@@ -43,9 +45,14 @@ const MyModal = ({
 
   const handleBack = () => {
     setIsShowModal(false);
+    if (content === "Loại trọ") {
+      setCategory({});
+    }
     if (content !== "Vị trí") {
       setDistrict({});
+      setProvince({});
       setIsChoosingProvince();
+      return;
     }
   };
 
@@ -93,17 +100,19 @@ const MyModal = ({
         <Modal.Body className="modal-body">
           {content !== "Giá" && content !== "Diện tích" && (
             <div>
-              <div className="modal-item d-flex align-items-center">
+              <div
+                className="modal-item d-flex align-items-center w-100"
+                onClick={() => {
+                  handleSelect(content, { id: 0, value: "Toàn bộ" });
+                  handleClose();
+                }}
+              >
                 <input
                   type="radio"
                   name={content}
                   id="0"
                   value="Toàn bộ"
                   className="px-2 modal-input"
-                  onClick={() => {
-                    handleSelect(content, { id: 0, value: "Toàn bộ" });
-                    handleClose();
-                  }}
                 />
                 <label htmlFor="0" className="px-2">
                   Toàn bộ
@@ -112,8 +121,12 @@ const MyModal = ({
               {data?.map((item) => {
                 return (
                   <div
-                    className="modal-item d-flex align-items-center"
+                    className="modal-item d-flex align-items-center w-100"
                     key={item.id}
+                    onClick={() => {
+                      handleSelect(content, item);
+                      handleClose();
+                    }}
                   >
                     <input
                       type="radio"
@@ -121,10 +134,6 @@ const MyModal = ({
                       id={item.id}
                       value={item.id}
                       className="px-2 modal-input"
-                      onClick={() => {
-                        handleSelect(content, item);
-                        handleClose();
-                      }}
                     />
                     <label htmlFor={item.id} className="px-2">
                       {item.value}
@@ -152,7 +161,7 @@ const MyModal = ({
                   return (
                     <div key={item.id}>
                       <div
-                        className="px-3 py-1 bg-primary m-1 border rounded text-light"
+                        className="px-3 py-1 bg-primary m-1 border rounded text-light btnFilter"
                         onClick={() => {
                           setSliderRange([item.min, item.max]);
                         }}
@@ -168,7 +177,7 @@ const MyModal = ({
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => handleClose()} className="m-auto px-5">
-            Đóng
+            Xong
           </Button>
         </Modal.Footer>
       </Modal>

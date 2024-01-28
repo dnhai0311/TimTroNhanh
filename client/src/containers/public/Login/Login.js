@@ -122,14 +122,13 @@ const Login = () => {
 
   return (
     <>
-      <div className="p-5 m-3 bg-gray">
+      <div className="p-1 p-md-5 m-3 bg-gray">
         <div
           key={isRegister ? "Đăng ký" : "Đăng nhập"}
-          className="d-flex justify-content-center align-items-center h-75"
+          className="d-flex justify-content-center align-items-center"
         >
           <Form
-            className="p-5 rounded bg-white"
-            style={{ width: 25 + "em" }}
+            className="p-5 rounded bg-white login-form"
             noValidate
             validated={validated}
           >

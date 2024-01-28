@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
 import { getCategories } from "../../../store/actions/app";
 
-const Navigation = () => {
+const Navigation = ({ handleGotoTop }) => {
   const { categories } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,6 +20,7 @@ const Navigation = () => {
               className={
                 "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
               }
+              onClick={() => handleGotoTop()}
             >
               Trang chủ
             </NavLink>
@@ -33,6 +34,7 @@ const Navigation = () => {
                     className={
                       "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
                     }
+                    onClick={() => handleGotoTop()}
                   >
                     {item.value}
                   </NavLink>
