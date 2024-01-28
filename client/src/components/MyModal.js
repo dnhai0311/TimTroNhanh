@@ -10,8 +10,6 @@ const MyModal = ({
   content,
   data,
   handleSelect,
-  handleShow,
-  setIsChoosingProvince,
   setDistrict,
   setProvince,
   setCategory,
@@ -51,12 +49,12 @@ const MyModal = ({
     if (content !== "Vị trí") {
       setDistrict({});
       setProvince({});
-      setIsChoosingProvince();
       return;
     }
   };
 
   useEffect(() => {
+    console.log("render");
     if (sliderRange[1] === "9999") {
       setText(`Trên ${sliderRange[0]} ${unit}`);
       return;
@@ -72,14 +70,7 @@ const MyModal = ({
       return;
     }
     setText(`${sliderRange[0]} - ${sliderRange[1]} ${unit}`);
-    // setText(
-    //   sliderRange[0] < sliderRange[1]
-    //     ? sliderRange[1] === "9999"
-    //       ? `Trên ${sliderRange[0]} ${unit}`
-    //       : `${sliderRange[0]} - ${sliderRange[1]} ${unit}`
-    //     : `Trên ${sliderRange[1]} ${""} ${unit}`
-    // );
-  }, [sliderRange, unit]);
+  }, [sliderRange, unit, maxValue]);
 
   return (
     <>

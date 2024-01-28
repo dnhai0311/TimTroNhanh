@@ -1,5 +1,5 @@
-import React, { useEffect, memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
 

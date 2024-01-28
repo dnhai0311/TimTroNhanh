@@ -30,12 +30,14 @@ const appReducer = (state = initState, action) => {
         msg: action.msg || "",
       };
     case actionTypes.GET_DISTRICTS:
+    case actionTypes.GET_ALL_DISTRICTS:
       return {
         ...state,
         districts: action.districts || [],
         msg: action.msg || "",
       };
     case actionTypes.GET_PROVINCES:
+    case actionTypes.GET_ALL_PROVINCES:
       return {
         ...state,
         provinces: action.provinces || [],

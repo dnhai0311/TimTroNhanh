@@ -45,7 +45,7 @@ const Login = () => {
     msg && toast.error(msg);
     if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
       dispatch(actions.logout());
-  }, [msg, update, dispatch]);
+  }, [dispatch, msg, update]);
 
   const handleSubmit = async (event) => {
     let finalPayload = isRegister

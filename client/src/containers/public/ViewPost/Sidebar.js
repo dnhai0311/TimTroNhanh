@@ -1,9 +1,8 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import SidebarTab from "../../../components/SidebarTab";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./Sidebar.scss";
 const Sidebar = ({ scrollFunction }) => {
-  const dispatch = useDispatch();
   const { categories, prices, acreages } = useSelector((state) => state.app);
 
   return (

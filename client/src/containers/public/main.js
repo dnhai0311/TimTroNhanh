@@ -21,7 +21,7 @@ const Main = () => {
     dispatch(getAcreages());
     dispatch(getPrices());
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <div className="bg-gray">

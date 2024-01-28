@@ -4,7 +4,7 @@ import { SearchItem, MyModal } from "../../../components/";
 import { useDispatch, useSelector } from "react-redux";
 import icons from "../../../ultils/icons";
 import "./Search.scss";
-import { getDistricts, getProvinces } from "../../../store/actions/app";
+import { getDistricts } from "../../../store/actions/app";
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const Search = () => {
@@ -23,7 +23,6 @@ const Search = () => {
   const location = useLocation();
 
   const [isShowModal, setIsShowModal] = useState(false);
-  const [isChoosingProvince, setIsChoosingProvince] = useState(true);
   const [content, setContent] = useState("");
   const [data, setData] = useState([]);
 
@@ -53,7 +52,7 @@ const Search = () => {
     if (province.id) {
       dispatch(getDistricts(province?.id));
     }
-  }, [province]);
+  }, [dispatch, province]);
 
   const handleShow = (content, data) => {
     setContent(content);
@@ -67,7 +66,6 @@ const Search = () => {
       return;
     }
     if (content === "Vị trí") {
-      if (item.id === 0) setIsChoosingProvince(true);
       setProvince(item);
       return;
     }
@@ -79,17 +77,13 @@ const Search = () => {
       setAcreage(item);
       return;
     }
-    if (content === "Toàn bộ") {
-      setIsChoosingProvince(true);
-      return;
-    }
     setDistrict(item);
   };
 
   const handleSubmit = () => {
     category.code
       ? navigate(`/${category.name}/?${param}`)
-      : navigate(`?${param}`);
+      : navigate(`/?${param}`);
   };
 
   useEffect(() => {
@@ -140,21 +134,17 @@ const Search = () => {
                   onClick={() => {
                     setProvince({});
                     setDistrict({});
-                    setIsChoosingProvince(true);
                   }}
                 />
               ) : (
                 <BsChevronRight color="#C2C2C2" />
               )
             }
-            // handleShow={() => handleShow("Vị trí", provinces)}
             handleShow={() => {
               if (!province.id || province.id === 0) {
                 handleShow("Vị trí", provinces);
-                setIsChoosingProvince(false);
               } else {
                 handleShow(province.value, districts);
-                // setIsChoosingProvince(true);
               }
             }}
           />
@@ -207,7 +197,6 @@ const Search = () => {
           setIsShowModal={setIsShowModal}
           content={content}
           data={data}
-          setIsChoosingProvince={() => setIsChoosingProvince(true)}
           setDistrict={setDistrict}
           setProvince={setProvince}
           setCategory={setCategory}

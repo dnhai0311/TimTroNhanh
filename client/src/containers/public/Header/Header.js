@@ -41,9 +41,7 @@ const Header = () => {
     const handleScroll = () => {
       setShowGoToTop(window.scrollY >= 300);
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

@@ -3,6 +3,8 @@ import {
   apiGetPrices,
   apiGetAcreages,
   apiGetCategories,
+  apiAllGetProvinces,
+  apiGetAllDistricts,
   apiGetDistricts,
   apiGetProvinces,
 } from "../../services/app";
@@ -80,6 +82,31 @@ export const getAcreages = () => async (dispatch) => {
   }
 };
 
+export const getAllDistricts = (provinceId) => async (dispatch) => {
+  try {
+    const response = await apiGetAllDistricts(provinceId);
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_ALL_DISTRICTS,
+        districts: response.data.response,
+        msg: "",
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_ALL_DISTRICTS,
+        msg: response.data.msg,
+        districts: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ALL_DISTRICTS,
+      districts: null,
+      msg: error,
+    });
+  }
+};
+
 export const getDistricts = (provinceId) => async (dispatch) => {
   try {
     const response = await apiGetDistricts(provinceId);
@@ -100,6 +127,31 @@ export const getDistricts = (provinceId) => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_DISTRICTS,
       districts: null,
+      msg: error,
+    });
+  }
+};
+
+export const getAllProvinces = () => async (dispatch) => {
+  try {
+    const response = await apiAllGetProvinces();
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_ALL_PROVINCES,
+        provinces: response.data.response,
+        msg: "",
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_ALL_PROVINCES,
+        msg: response.data.msg,
+        provinces: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ALL_PROVINCES,
+      provinces: null,
       msg: error,
     });
   }

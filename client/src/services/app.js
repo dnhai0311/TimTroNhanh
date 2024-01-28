@@ -39,6 +39,22 @@ export const apiGetAcreages = () =>
     }
   });
 
+export const apiGetAllDistricts = (provinceId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "get",
+        url: "/api/v1/district/all",
+        params: {
+          provinceId,
+        },
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
 export const apiGetDistricts = (provinceId) =>
   new Promise(async (resolve, reject) => {
     try {
@@ -55,12 +71,25 @@ export const apiGetDistricts = (provinceId) =>
     }
   });
 
-export const apiGetProvinces = () =>
+export const apiAllGetProvinces = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
         url: "/api/v1/province/all",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+export const apiGetProvinces = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "get",
+        url: "/api/v1/province/get",
       });
       resolve(response);
     } catch (error) {

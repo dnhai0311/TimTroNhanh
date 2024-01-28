@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       ATTRIBUTE.hasOne(models.POST, {
         foreignKey: "attributeId",
-        as: "attribute",
+        as: "post",
       });
       ATTRIBUTE.belongsTo(models.DISTRICT, {
         foreignKey: "districtId",
