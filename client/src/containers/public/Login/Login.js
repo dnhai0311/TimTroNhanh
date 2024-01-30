@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import * as actions from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.scss";
@@ -128,7 +128,7 @@ const Login = () => {
           className="d-flex justify-content-center align-items-center"
         >
           <Form
-            className="p-5 rounded bg-white login-form"
+            className="px-5 pt-5 pb-4 rounded bg-white login-form"
             noValidate
             validated={validated}
           >

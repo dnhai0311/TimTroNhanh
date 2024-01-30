@@ -170,9 +170,10 @@ const ListPost = ({ categoryCode }) => {
         <div className="row">
           <div className="col-12 col-md-8 bg-light ListPost">
             <div className="row border rounded">
-              <h5 ref={titleListRef} className="pt-3 fw-bold">
+              <h5 ref={titleListRef} className="pt-3 pb-1 fw-bold">
                 Danh sách các bài đăng
               </h5>
+              <h6>Tổng: {total} bài đăng</h6>
               <div className="py-2 d-flex align-items-center">
                 <span className="pe-2">Sắp xếp theo: </span>
                 <div

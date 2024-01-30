@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import logo from "../../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../../ultils/constant";

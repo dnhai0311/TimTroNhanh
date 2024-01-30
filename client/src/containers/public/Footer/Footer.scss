@@ -1,0 +1,9 @@
+@import "../../../App";
+
+.contact {
+    border: 8px dashed red;
+    .contact-item {
+        border: 3px dashed blue;
+        border-radius: 5px;
+    }
+}

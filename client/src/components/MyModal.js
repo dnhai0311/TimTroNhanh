@@ -54,7 +54,6 @@ const MyModal = ({
   };
 
   useEffect(() => {
-    console.log("render");
     if (sliderRange[1] === "9999") {
       setText(`Trên ${sliderRange[0]} ${unit}`);
       return;

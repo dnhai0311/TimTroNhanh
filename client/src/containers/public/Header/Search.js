@@ -90,9 +90,9 @@ const Search = () => {
     const params = createSearchParams({
       districtId: district.id || "",
       provinceId: province.id || "",
-      minPrice: price.min || "",
+      minPrice: price.min || "0",
       maxPrice: price.max || "",
-      minAcreage: acreage.min || "",
+      minAcreage: acreage.min || "0",
       maxAcreage: acreage.max || "",
     }).toString();
     setParam(params);
