@@ -4,3 +4,4 @@ export { default as Post } from "./Post";
 export { default as MyModal } from "./MyModal";
 export { default as SidebarTab } from "./SidebarTab";
 export { default as ContactItem } from "./ContactItem";
+export { default as DropDownManage } from "./DropDownManage";

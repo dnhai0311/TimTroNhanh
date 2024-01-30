@@ -1,22 +1,22 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-
+import DropDownManage from "../../../components/DropDownManage";
 import logo from "../../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../../ultils/constant";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import * as actions from "../../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import icons from "../../../ultils/icons";
 import Navigation from "./Navigation";
 import "./Header.scss";
+import * as actions from "../../../store/actions/";
 
 const Header = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const HeaderRef = useRef();
   const { FaCircleUser, FaUserPlus, FaArrowUp } = icons;
   const [showGoToTop, setShowGoToTop] = useState(false);
@@ -35,6 +35,12 @@ const Header = () => {
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const handleSignOut = () => {
+    dispatch(actions.logout());
+    toast.success("Đăng xuất thành công");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -84,17 +90,23 @@ const Header = () => {
             </Navbar>
           ) : (
             <Navbar>
-              <Button className="bg-danger m-1">Tạo bài đăng mới</Button>
               <Button
-                className="bg-success m-1"
+                className="bg-success"
                 onClick={() => {
-                  dispatch(actions.logout());
-                  toast.success("Đăng xuất thành công");
-                  navigate("/");
+                  navigate("/tin-da-luu");
                 }}
               >
-                Đăng xuất
+                Tin đã lưu
               </Button>
+              <Button
+                className="bg-danger m-1"
+                onClick={() => {
+                  navigate("/quan-ly/dang-tin-moi");
+                }}
+              >
+                Tạo bài đăng mới
+              </Button>
+              <DropDownManage handleSignOut={handleSignOut} />
             </Navbar>
           )}
         </div>

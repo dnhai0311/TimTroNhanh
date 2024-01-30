@@ -14,3 +14,4 @@ export { default as Search } from "./Header/Search";
 export { default as DetailPost } from "./DetailPost/DetailPost";
 export { default as ListPost } from "./ViewPost/ListPost";
 export { default as Sidebar } from "./ViewPost/Sidebar";
+export { default as LikedPost } from "./LikedPost";

@@ -7,4 +7,13 @@ export const path = {
   RENTAL_APARTMENT: "cho-thue-can-ho",
   RENTAL_SPACE: "cho-thue-mat-bang",
   DETAIL_POST__POST_ID: `post/:postId`,
+  LIKED_POST: "tin-da-luu",
+
+  SYSTEM: "/quan-ly/*",
+  USER_MANAGEMENT: "thong-tin-tai-khoan",
+  TRANSACTION_MANAGEMENT: "lich-su-giao-dich",
+  RECHARGE: "nap-tien",
+  POST_MANAGEMENT: "tin-dang",
+  MESSENGER: "tin-nhan",
+  CREATE_NEW_POST: "dang-tin-moi",
 };

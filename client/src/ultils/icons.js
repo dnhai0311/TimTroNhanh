@@ -14,6 +14,12 @@ import { RiSortDesc } from "react-icons/ri";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaArrowUp } from "react-icons/fa";
+import { FaRegFileAlt } from "react-icons/fa";
+import { MdOutlineMessage } from "react-icons/md";
+import { MdPayment } from "react-icons/md";
+import { LiaHistorySolid } from "react-icons/lia";
+import { LuUserSquare } from "react-icons/lu";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const icons = {
   BsChevronRight,
@@ -32,6 +38,12 @@ const icons = {
   FaArrowLeft,
   IoIosCloseCircle,
   FaArrowUp,
+  FaRegFileAlt,
+  MdOutlineMessage,
+  MdPayment,
+  LiaHistorySolid,
+  LuUserSquare,
+  FaSignOutAlt,
 };
 
 export default icons;

@@ -8,12 +8,23 @@ import {
   RentalRoom,
   RentalSpace,
   DetailPost,
+  LikedPost,
 } from "./containers/public/index";
+import {
+  Messenger,
+  PostManagement,
+  Recharge,
+  System,
+  TransactionManagement,
+  UserManagement,
+  CreateNewPost,
+} from "./containers/system/User/index";
 import { path } from "./ultils/constant";
+import PrivateWrapper from "./route/PrivateWrapper";
 
 function App() {
   return (
-    <div className="">
+    <>
       <Routes>
         <Route path={path.MAIN} element={<Main />}>
           <Route path={"*"} element={<Home />} />
@@ -23,9 +34,23 @@ function App() {
           <Route path={path.RENTAL_APARTMENT} element={<RentalApartment />} />
           <Route path={path.RENTAL_SPACE} element={<RentalSpace />} />
           <Route path={path.DETAIL_POST__POST_ID} element={<DetailPost />} />
+          <Route path={path.LIKED_POST} element={<LikedPost />} />
+        </Route>
+        <Route element={<PrivateWrapper />}>
+          <Route path={path.SYSTEM} element={<System />}>
+            <Route path={path.USER_MANAGEMENT} element={<UserManagement />} />
+            <Route path={path.MESSENGER} element={<Messenger />} />
+            <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
+            <Route path={path.RECHARGE} element={<Recharge />} />
+            <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
+            <Route
+              path={path.TRANSACTION_MANAGEMENT}
+              element={<TransactionManagement />}
+            />
+          </Route>
         </Route>
       </Routes>
-    </div>
+    </>
   );
 }
 
