@@ -1,0 +1,25 @@
+@import "../../../App";
+
+.sidebar {
+    background-color: $background-color;
+    .sidebar-item {
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 3px;
+        &:hover {
+            background-color: gray;
+            opacity: 0.9;
+        }
+        .col {
+            display: flex;
+            align-items: center;
+            span {
+                padding-left: 7px;
+            }
+        }
+    }
+    .active {
+        background-color: gray;
+        font-weight: bold;
+    }
+}

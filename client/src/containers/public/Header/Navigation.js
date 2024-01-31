@@ -25,7 +25,7 @@ const Navigation = ({ handleGotoTop }) => {
               return (
                 <div key={item.id} className="">
                   <NavLink
-                    to={item.name}
+                    to={`/${item.name}`}
                     className={
                       "text-light fw-bold text-decoration-none navItem d-inline-block py-2 px-2 text-center"
                     }

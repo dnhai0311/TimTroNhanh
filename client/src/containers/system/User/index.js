@@ -1,4 +1,3 @@
-export { default as Header } from "./Header";
 export { default as System } from "./System";
 export { default as UserManagement } from "./UserManagement";
 export { default as Messenger } from "./Messenger";
