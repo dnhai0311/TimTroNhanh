@@ -66,7 +66,7 @@ const DropDownManage = ({ handleSignOut }) => {
           <span className="px-1">Thông tin tài khoản</span>
         </Dropdown.Item>
         <Dropdown.Item
-          className="d-flex align-items-center"
+          className="d-flex align-items-center border-top"
           onClick={handleSignOut}
         >
           <FaSignOutAlt />

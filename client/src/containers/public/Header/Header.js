@@ -22,6 +22,7 @@ const Header = () => {
   const [showGoToTop, setShowGoToTop] = useState(false);
 
   const { isLoggedIn, msg } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.user);
 
   const goLogin = useCallback(
     (flag) => {
@@ -54,8 +55,11 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    isLoggedIn && toast.success(msg);
-  }, [isLoggedIn, msg]);
+    if (msg !== "") {
+      isLoggedIn && toast.success(msg);
+      dispatch(actions.setMsg());
+    }
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -90,6 +94,9 @@ const Header = () => {
             </Navbar>
           ) : (
             <Navbar>
+              <div className="me-2">
+                <span>Xin chào, {userData?.name?.split(" ").pop()}!</span>
+              </div>
               <Button
                 className="bg-success"
                 onClick={() => {

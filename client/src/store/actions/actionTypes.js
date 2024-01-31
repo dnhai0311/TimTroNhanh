@@ -5,6 +5,7 @@ const actionTypes = {
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_FAIL: "REGISTER_FAIL",
   LOGOUT: "LOGOUT",
+  SET_MSG: "SET_MSG",
 
   // Posts
   GET_ALL_POSTS: "GET_ALL_POSTS",
@@ -20,6 +21,9 @@ const actionTypes = {
   GET_ALL_PROVINCES: "GET_ALL_PROVINCES",
   GET_DISTRICTS: "GET_DISTRICTS",
   GET_PROVINCES: "GET_PROVINCES",
+
+  // User
+  GET_CURRENT_USER: "GET_CURRENT_USER",
 };
 
 export default actionTypes;

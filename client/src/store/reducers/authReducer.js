@@ -39,6 +39,11 @@ const authReducer = (state = initState, action) => {
         token: null,
         msg: "",
       };
+    case actionTypes.SET_MSG:
+      return {
+        ...state,
+        msg: "",
+      };
 
     default:
       return state;

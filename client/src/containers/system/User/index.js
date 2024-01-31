@@ -6,3 +6,4 @@ export { default as Recharge } from "./Recharge";
 export { default as TransactionManagement } from "./TransactionManagement";
 export { default as Sidebar } from "./Sidebar";
 export { default as CreateNewPost } from "./CreateNewPost";
+export { default as ChangePassword } from "./ChangePassword";

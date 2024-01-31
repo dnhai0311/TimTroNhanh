@@ -8,10 +8,17 @@ import { getCategories } from "../../../store/actions/app";
 import "react-toastify/dist/ReactToastify.css";
 import * as actions from "../../../store/actions";
 import "./Sidebar.scss";
+import { getCurrentUser } from "../../../store/actions/user";
+
 const System = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
   const handleSignOut = () => {

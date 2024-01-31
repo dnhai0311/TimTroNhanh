@@ -16,4 +16,5 @@ export const path = {
   POST_MANAGEMENT: "tin-dang",
   MESSENGER: "tin-nhan",
   CREATE_NEW_POST: "dang-tin-moi",
+  CHANGE_PASSWORD: "doi-mat-khau",
 };

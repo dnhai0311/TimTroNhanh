@@ -18,6 +18,9 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
+      money: {
+        type: Sequelize.FLOAT,
+      },
       facebook: {
         type: Sequelize.STRING,
       },

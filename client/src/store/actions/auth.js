@@ -46,6 +46,11 @@ export const login = (payload) => async (dispatch) => {
     });
   }
 };
+
+export const setMsg = () => ({
+  type: actionTypes.SET_MSG,
+});
+
 export const logout = () => ({
   type: actionTypes.LOGOUT,
 });

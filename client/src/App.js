@@ -18,6 +18,7 @@ import {
   TransactionManagement,
   UserManagement,
   CreateNewPost,
+  ChangePassword,
 } from "./containers/system/User/index";
 import { path } from "./ultils/constant";
 import PrivateWrapper from "./route/PrivateWrapper";
@@ -38,11 +39,12 @@ function App() {
         </Route>
         <Route element={<PrivateWrapper />}>
           <Route path={path.SYSTEM} element={<System />}>
-            <Route path={path.USER_MANAGEMENT} element={<UserManagement />} />
+            <Route path={"*"} element={<UserManagement />} />
             <Route path={path.MESSENGER} element={<Messenger />} />
             <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
             <Route path={path.RECHARGE} element={<Recharge />} />
             <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
+            <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />
             <Route
               path={path.TRANSACTION_MANAGEMENT}
               element={<TransactionManagement />}

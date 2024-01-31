@@ -5,22 +5,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Outlet } from "react-router-dom";
 import "../../App.scss";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAcreages,
   getCategories,
   getPrices,
   getProvinces,
 } from "../../store/actions/app";
+import { getCurrentUser } from "../../store/actions/user";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getProvinces());
     dispatch(getAcreages());
     dispatch(getPrices());
     dispatch(getCategories());
   }, [dispatch]);
+  useEffect(() => {
+    setTimeout(() => {
+      isLoggedIn && dispatch(getCurrentUser());
+    }, 1000);
+  }, [isLoggedIn, dispatch]);
   return (
     <>
       <div className="bg-gray">

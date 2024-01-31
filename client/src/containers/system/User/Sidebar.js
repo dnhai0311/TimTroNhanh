@@ -5,11 +5,13 @@ import "./Sidebar.scss";
 import icons from "../../../ultils/icons";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ handleSignOut }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const category = location.pathname.split("/").pop();
+  const { userData } = useSelector((state) => state.user);
   const {
     FaCircleUser,
     FaRegFileAlt,
@@ -37,10 +39,16 @@ const Sidebar = ({ handleSignOut }) => {
             </Row>
           </Col>
           <Col sm={8}>
-            <Row className="fw-bold">Dương Ngọc Hải</Row>
-            <Row>Mã thành viên: 1</Row>
-            <Row>0868242343</Row>
-            <Row>Số tiền: 5389745893$</Row>
+            <Row className="fw-bold">{userData.name}</Row>
+            <Row>Mã thành viên: {userData.id}</Row>
+            <Row>{userData.phone}</Row>
+            <Row>
+              Số tiền:{" "}
+              {userData?.money?.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}{" "}
+            </Row>
           </Col>
         </Row>
         <Row className="mt-2 mb-2">
@@ -69,7 +77,7 @@ const Sidebar = ({ handleSignOut }) => {
           className={`sidebar-item ${activeRow === "nap-tien" ? "active" : ""}`}
         >
           <Col>
-            <MdOutlineMessage />
+            <MdPayment />
             <span>Nạp tiền</span>
           </Col>
         </Row>

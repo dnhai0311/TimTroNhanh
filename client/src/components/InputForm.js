@@ -14,6 +14,7 @@ const InputForm = ({
   pattern,
   onSubmit,
   autoFocus,
+  autoComplete,
 }) => {
   const handleChange = (e) => {
     setValue((prev) => ({
@@ -31,21 +32,26 @@ const InputForm = ({
 
   return (
     <div>
-      <label>{label}</label>
-      <input
-        required
-        maxLength={maxLength}
-        minLength={minLength}
-        type={type}
-        pattern={pattern}
-        placeholder={placeHolder}
-        className="form-control"
-        value={value}
-        onChange={handleChange}
-        onKeyDown={handleKeyPress}
-        onFocus={() => setInvalidFields([])}
-        autoFocus={autoFocus}
-      />
+      <label className="w-100">
+        {label}
+        <input
+          required
+          maxLength={maxLength}
+          minLength={minLength}
+          type={type}
+          pattern={pattern}
+          placeholder={placeHolder}
+          className="form-control"
+          value={value}
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
+          onFocus={() => setInvalidFields([])}
+          autoFocus={autoFocus}
+          autoComplete={autoComplete}
+          name={typeValue}
+        />
+      </label>
+
       {invalidFields.length > 0 &&
         invalidFields.some((i) => i.name === typeValue) && (
           <small className="text-danger">

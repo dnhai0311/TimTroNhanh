@@ -44,7 +44,7 @@ const Login = () => {
     if (msg === "Đăng nhập thành công" || msg === "Đăng ký thành công") return;
     msg && toast.error(msg);
     if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
-      dispatch(actions.logout());
+      dispatch(actions.setMsg());
   }, [dispatch, msg, update]);
 
   const handleSubmit = async (event) => {
@@ -142,7 +142,7 @@ const Login = () => {
                 <div className="mb-2">
                   <InputForm
                     label={"Tên người dùng"}
-                    type={"name"}
+                    type={"text"}
                     typeValue={"name"}
                     placeHolder={"Nhập tên người dùng"}
                     value={payload.name}
@@ -152,6 +152,7 @@ const Login = () => {
                     maxLength={25}
                     onSubmit={handleSubmit}
                     autoFocus={true}
+                    autoComplete={"username"}
                   ></InputForm>
                 </div>
               )}
@@ -160,7 +161,7 @@ const Login = () => {
               <div className="mb-2">
                 <InputForm
                   label={"Số điện thoại"}
-                  type={"phone"}
+                  type={"text"}
                   typeValue={"phone"}
                   placeHolder={"Nhập số điện thoại"}
                   value={payload.phone}
@@ -171,6 +172,7 @@ const Login = () => {
                   maxLength={11}
                   onSubmit={handleSubmit}
                   autoFocus={isRegister ? false : true}
+                  autoComplete={"phone"}
                 ></InputForm>
               </div>
             </Form.Group>
@@ -188,6 +190,7 @@ const Login = () => {
                   minlength={6}
                   maxLength={20}
                   onSubmit={handleSubmit}
+                  autoComplete={"new-password"}
                 ></InputForm>
               </div>
             </Form.Group>
