@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { apiUpdateUser, apiUploadAvatar } from "../../../services/user";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserManagement = () => {
   const { userData } = useSelector((state) => state.user);
@@ -65,6 +67,8 @@ const UserManagement = () => {
     }
     if (Object.keys(payload).length > 0) {
       apiUpdateUser(payload);
+      toast.success("Thành công");
+      window.location.reload();
     }
   };
 
@@ -142,6 +146,7 @@ const UserManagement = () => {
           Lưu và cập nhật
         </Button>
       </Form>
+      <ToastContainer autoClose={1000} position="bottom-right" />
     </>
   );
 };

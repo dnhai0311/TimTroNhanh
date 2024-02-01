@@ -163,7 +163,7 @@ const ListPost = ({ categoryCode }) => {
     );
     scrollToTitle();
   };
-  console.log(posts);
+
   return (
     <>
       <div className="container">
@@ -174,7 +174,7 @@ const ListPost = ({ categoryCode }) => {
                 Danh sách các bài đăng
               </h5>
               <h6>Tổng: {total} bài đăng</h6>
-              <div className="py-2 d-flex align-items-center">
+              <div className="py-2 d-flex align-items-center flex-wrap">
                 <span className="pe-2">Sắp xếp theo: </span>
                 <div
                   className={`sort-tab ${sortedBy === "price" ? "active" : ""}`}

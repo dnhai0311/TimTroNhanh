@@ -64,7 +64,7 @@ const Header = () => {
   return (
     <>
       <Navbar className="bg-light" ref={HeaderRef}>
-        <div className="d-flex flex-column flex-sm-row w-75 m-auto  justify-content-between align-items-center">
+        <div className="d-flex flex-column flex-md-row w-100 w-lg-75 m-auto  justify-content-between align-items-center">
           <Link to={"/"}>
             <Navbar.Brand style={{ margin: 0 }}>
               <img
@@ -93,26 +93,30 @@ const Header = () => {
               </Button>
             </Navbar>
           ) : (
-            <Navbar>
-              <div className="me-2">
-                <span>Xin chào, {userData?.name?.split(" ").pop()}!</span>
+            <Navbar className="d-flex flex-wrap justify-content-center">
+              <div className="d-flex align-items-center">
+                <div className="me-2">
+                  <span className="d-none d-sm-block">
+                    Xin chào, {userData?.name?.split(" ").pop()}!
+                  </span>
+                </div>
+                <Button
+                  className="bg-success"
+                  onClick={() => {
+                    navigate("/tin-da-luu");
+                  }}
+                >
+                  Tin đã lưu
+                </Button>
+                <Button
+                  className="bg-danger m-1"
+                  onClick={() => {
+                    navigate("/quan-ly/dang-tin-moi");
+                  }}
+                >
+                  Tạo bài đăng mới
+                </Button>
               </div>
-              <Button
-                className="bg-success"
-                onClick={() => {
-                  navigate("/tin-da-luu");
-                }}
-              >
-                Tin đã lưu
-              </Button>
-              <Button
-                className="bg-danger m-1"
-                onClick={() => {
-                  navigate("/quan-ly/dang-tin-moi");
-                }}
-              >
-                Tạo bài đăng mới
-              </Button>
               <DropDownManage handleSignOut={handleSignOut} />
             </Navbar>
           )}

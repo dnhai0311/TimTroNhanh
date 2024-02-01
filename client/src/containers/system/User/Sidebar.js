@@ -37,7 +37,8 @@ const Sidebar = ({ handleSignOut }) => {
               <img
                 src={userData.avatar}
                 alt="avatar"
-                className="border rounded-circle w-75 m-auto"
+                className=" rounded-circle m-auto"
+                style={{ width: 100 + "px", height: 75 + "px" }}
               />
             </Row>
           </Col>
