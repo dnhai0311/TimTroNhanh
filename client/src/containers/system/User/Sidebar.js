@@ -13,7 +13,6 @@ const Sidebar = ({ handleSignOut }) => {
   const category = location.pathname.split("/").pop();
   const { userData } = useSelector((state) => state.user);
   const {
-    FaCircleUser,
     FaRegFileAlt,
     MdOutlineMessage,
     MdPayment,
@@ -35,7 +34,11 @@ const Sidebar = ({ handleSignOut }) => {
         <Row className="d-flex justify-content-center align-items-center pt-1">
           <Col sm={4}>
             <Row>
-              <FaCircleUser fontSize={"40px"} />
+              <img
+                src={userData.avatar}
+                alt="avatar"
+                className="border rounded-circle w-75 m-auto"
+              />
             </Row>
           </Col>
           <Col sm={8}>

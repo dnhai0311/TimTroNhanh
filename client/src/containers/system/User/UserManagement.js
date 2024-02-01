@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { apiUpdateUser, apiUploadAvatar } from "../../../services/user";
 
 const UserManagement = () => {
   const { userData } = useSelector((state) => state.user);
 
-  const [name, setName] = useState(userData?.name || "");
-  const [facebook, setFacebook] = useState(userData?.facebook || "");
+  const [avatar, setAvatar] = useState();
+  const [name, setName] = useState();
+  const [facebook, setFacebook] = useState();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -18,10 +20,52 @@ const UserManagement = () => {
     setFacebook(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    return () => {
+      avatar && URL.revokeObjectURL(avatar?.preview);
+    };
+  }, [avatar]);
+
+  const handlePreviewAvatar = (e) => {
+    const avatar = e.target.files[0];
+    avatar.preview = URL.createObjectURL(avatar);
+    setAvatar(avatar);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Dispatch ${name}, ${facebook}`);
-    // dispatch(updateUserData({ name, facebook }));
+    let payload = {};
+    //upload avt len cloud
+    if (avatar) {
+      //xoa hinh cu tren cloud
+      if (userData.avatar) {
+        //do smt
+      }
+      //them hinh moi vao cloud
+      let formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
+      const response = await apiUploadAvatar(formData);
+      payload = {
+        ...payload,
+        avatar: response.data.secure_url,
+      };
+    }
+    if (name && name !== userData.name) {
+      payload = {
+        ...payload,
+        name,
+      };
+    }
+    if (facebook && facebook !== userData.facebook) {
+      payload = {
+        ...payload,
+        facebook,
+      };
+    }
+    if (Object.keys(payload).length > 0) {
+      apiUpdateUser(payload);
+    }
   };
 
   return (
@@ -64,16 +108,33 @@ const UserManagement = () => {
         <Form.Group className="mb-3 d-flex">
           <Form.Label className="pe-3">Ảnh đại diện</Form.Label>
           <div>
-            <div
-              style={{
-                width: 150 + "px",
-                height: 150 + "px",
-                backgroundColor: "red",
-              }}
-            >
-              Cái hình ở đây
-            </div>
-            <Form.Control type="file" className="mt-3" />
+            {avatar ? (
+              <img
+                style={{
+                  width: 150 + "px",
+                  height: 150 + "px",
+                }}
+                src={avatar?.preview}
+                alt="avatar"
+                className="border rounded-circle"
+              />
+            ) : (
+              <img
+                style={{
+                  width: 150 + "px",
+                  height: 150 + "px",
+                  // backgroundColor: "red",
+                }}
+                src={userData.avatar}
+                alt="avatar"
+                className="border rounded-circle"
+              />
+            )}
+            <Form.Control
+              type="file"
+              className="mt-3"
+              onChange={handlePreviewAvatar}
+            />
           </div>
         </Form.Group>
 

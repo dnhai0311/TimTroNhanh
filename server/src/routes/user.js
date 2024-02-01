@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.get("/current", userController.getCurrentUser);
+router.put("/update", userController.updateUser);
 
 export default router;

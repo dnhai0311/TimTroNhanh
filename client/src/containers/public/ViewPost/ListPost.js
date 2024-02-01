@@ -25,7 +25,7 @@ const ListPost = ({ categoryCode }) => {
   const [showPage, setShowPage] = useState("4");
 
   const { posts, total } = useSelector((state) => state.post);
-  const pageDisplayed = 10;
+  const pageDisplayed = process.env.REACT_APP_PAGE_DISPLAYED;
   const totalPage =
     total % pageDisplayed < 1
       ? Math.floor(total / pageDisplayed)
@@ -163,7 +163,7 @@ const ListPost = ({ categoryCode }) => {
     );
     scrollToTitle();
   };
-
+  console.log(posts);
   return (
     <>
       <div className="container">
@@ -237,6 +237,7 @@ const ListPost = ({ categoryCode }) => {
                       img={JSON.parse(item?.images.path)[0]}
                       phone={item?.user.phone}
                       id={item?.id}
+                      avatar={item?.user.avatar}
                     />
                   );
                 })}

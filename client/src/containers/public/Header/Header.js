@@ -59,7 +59,7 @@ const Header = () => {
       isLoggedIn && toast.success(msg);
       dispatch(actions.setMsg());
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, dispatch, msg]);
 
   return (
     <>

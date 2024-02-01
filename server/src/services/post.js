@@ -75,7 +75,7 @@ export const getPostsService = (
           {
             model: db.USER,
             as: "user",
-            attributes: ["name", "phone"],
+            attributes: ["name", "phone", "avatar"],
           },
         ],
         attributes: ["id", "name", "info", "updatedAt", "star"],

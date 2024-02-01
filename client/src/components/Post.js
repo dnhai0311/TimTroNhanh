@@ -19,6 +19,7 @@ const Post = ({
   img,
   phone,
   id,
+  avatar,
 }) => {
   const [isRed, setIsRed] = useState(false);
   const imagePath = require(`../assets${img}`);
@@ -85,7 +86,12 @@ const Post = ({
           <div className="px-2">
             <div className="row">
               <div className="col-6 d-flex align-items-center">
-                <FaRegUserCircle fontSize={"20px"} />
+                <img
+                  src={avatar}
+                  alt="avatar"
+                  className="border rounded-circle"
+                  style={{ width: 30 + "px" }}
+                />
                 <span className="px-2 text-truncate">{uploader}</span>
               </div>
               <div className="col-6 text-end text-truncate px-2 py-1 text-light">

@@ -20,15 +20,20 @@ module.exports = {
       },
       money: {
         type: Sequelize.FLOAT,
+        defaultValue: 0,
       },
       facebook: {
         type: Sequelize.STRING,
+        defaultValue: "",
       },
       avatar: {
         type: Sequelize.STRING,
+        defaultValue:
+          "https://res.cloudinary.com/dvyprevig/image/upload/v1706766558/we6knbr2twzmc9reocid.png",
       },
       type: {
         type: Sequelize.STRING,
+        defaultValue: 1,
       },
       createdAt: {
         allowNull: false,
