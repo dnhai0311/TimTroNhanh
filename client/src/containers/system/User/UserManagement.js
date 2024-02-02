@@ -66,7 +66,7 @@ const UserManagement = () => {
       };
     }
     if (Object.keys(payload).length > 0) {
-      apiUpdateUser(payload);
+      await apiUpdateUser(payload);
       toast.success("Thành công");
       window.location.reload();
     }
