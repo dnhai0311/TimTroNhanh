@@ -3,10 +3,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import addImg from "../../../../assets/addImg.png";
 import icons from "../../../../ultils/icons";
 
-const Picture = () => {
+const Picture = ({ imgFiles, setImgFiles }) => {
   const { FaRegTrashAlt } = icons;
 
   const [selectedImages, setSelectedImages] = useState([]);
+  // console.log(selectedImages);
 
   const fileInputRef = useRef(null);
   const handleAddPicture = () => {
@@ -22,6 +23,7 @@ const Picture = () => {
       return;
     }
 
+    setImgFiles([...selectedFiles]);
     const newImages = [...selectedImages];
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -34,9 +36,12 @@ const Picture = () => {
 
   const handleRemoveImage = (index) => {
     const newImages = [...selectedImages];
+    const newImgFlies = [...imgFiles];
     const removedImage = newImages.splice(index, 1)[0];
+    const removeFile = newImgFlies.splice(index, 1);
     URL.revokeObjectURL(removedImage);
     setSelectedImages(newImages);
+    setImgFiles(newImgFlies);
   };
 
   return (

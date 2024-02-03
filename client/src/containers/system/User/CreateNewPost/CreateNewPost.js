@@ -9,13 +9,18 @@ const CreateNewPost = () => {
     id: 0,
     value: "",
   });
-
   const [address, setAddress] = useState("");
 
   const [categorySelected, setCategorySelected] = useState({
     id: 0,
     value: "",
   });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [acreage, setAcreage] = useState("");
+
+  const [imgFiles, setImgFiles] = useState([]);
 
   const updateDistrictSelected = (selectedDistrict) => {
     setDistrictSelected(selectedDistrict);
@@ -25,7 +30,7 @@ const CreateNewPost = () => {
     setAddress(address);
   };
 
-  // console.log(districtSelected.id);
+  console.log(imgFiles);
 
   return (
     <>
@@ -37,8 +42,14 @@ const CreateNewPost = () => {
               onUpdateDistrictSelected={updateDistrictSelected}
               onUpdateAddress={updateAddress}
             />
-            <Overview />
-            <Picture />
+            <Overview
+              setCategorySelected={setCategorySelected}
+              setTitle={setTitle}
+              setDescription={setDescription}
+              setPrice={setPrice}
+              setAcreage={setAcreage}
+            />
+            <Picture imgFiles={imgFiles} setImgFiles={setImgFiles} />
             <Button className="w-100 p-2 mt-3 bg-success fw-bold">
               Đăng bài
             </Button>

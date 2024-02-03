@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import { AddressFormItem, InputPost } from "../../../../components/";
 import { useSelector } from "react-redux";
 
-const Overview = () => {
+const Overview = ({
+  setCategorySelected,
+  setTitle,
+  setDescription,
+  setPrice,
+  setAcreage,
+}) => {
   const { categories } = useSelector((state) => state.app);
   const { userData } = useSelector((state) => state.user);
-
-  const [categorySelected, setCategorySelected] = useState({
-    id: 0,
-    value: "",
-  });
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [acreage, setAcreage] = useState("");
 
   return (
     <>
