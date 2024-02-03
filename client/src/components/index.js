@@ -5,3 +5,5 @@ export { default as MyModal } from "./MyModal";
 export { default as SidebarTab } from "./SidebarTab";
 export { default as ContactItem } from "./ContactItem";
 export { default as DropDownManage } from "./DropDownManage";
+export { default as AddressFormItem } from "./AddressFormItem";
+export { default as InputPost } from "./InputPost";

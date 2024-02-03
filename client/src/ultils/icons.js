@@ -20,6 +20,7 @@ import { MdPayment } from "react-icons/md";
 import { LiaHistorySolid } from "react-icons/lia";
 import { LuUserSquare } from "react-icons/lu";
 import { FaSignOutAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 const icons = {
   BsChevronRight,
@@ -44,6 +45,7 @@ const icons = {
   LiaHistorySolid,
   LuUserSquare,
   FaSignOutAlt,
+  FaRegTrashAlt,
 };
 
 export default icons;
