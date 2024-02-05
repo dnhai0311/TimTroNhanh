@@ -1,6 +1,19 @@
 import db from "../models";
 import bcrypt from "bcryptjs";
 
+export const getAvatar = async (id) => {
+  try {
+    const response = await db.USER.findByPk(id);
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "FAILED TO GET IMAGE",
+      avatar: response.avatar,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getCurrentUserService = async (id) => {
   try {
     const response = await db.USER.findOne({

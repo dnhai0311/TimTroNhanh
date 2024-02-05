@@ -7,12 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { path } from "../../../ultils/constant";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import icons from "../../../ultils/icons";
 import Navigation from "./Navigation";
 import "./Header.scss";
 import * as actions from "../../../store/actions/";
+import { showToastSuccess } from "../../ToastUtil";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const Header = () => {
 
   const handleSignOut = () => {
     dispatch(actions.logout());
-    toast.success("Đăng xuất thành công");
+    showToastSuccess("Đăng xuất thành công");
     navigate("/");
   };
 
@@ -56,7 +55,7 @@ const Header = () => {
 
   useEffect(() => {
     if (msg !== "") {
-      isLoggedIn && toast.success(msg);
+      isLoggedIn && showToastSuccess(msg);
       dispatch(actions.setMsg());
     }
   }, [isLoggedIn, dispatch, msg]);
@@ -121,7 +120,6 @@ const Header = () => {
             </Navbar>
           )}
         </div>
-        <ToastContainer autoClose={1000} position="bottom-right" />
       </Navbar>
       <Navigation handleGotoTop={handleGotoTop} />
       {showGoToTop && (

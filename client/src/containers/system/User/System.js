@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import { Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../../store/actions/app";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import * as actions from "../../../store/actions";
 import "./Sidebar.scss";
 import { getCurrentUser } from "../../../store/actions/user";
@@ -38,6 +38,7 @@ const System = () => {
           </Col>
         </Row>
       </Container>
+      <ToastContainer autoClose={1000} position="bottom-right" />
     </>
   );
 };

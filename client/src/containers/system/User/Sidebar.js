@@ -3,7 +3,6 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.scss";
 import icons from "../../../ultils/icons";
-import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 

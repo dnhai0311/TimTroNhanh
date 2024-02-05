@@ -6,9 +6,8 @@ import * as actions from "../../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "./Login.scss";
+import { showToastError } from "../../ToastUtil";
 
 const Login = () => {
   const location = useLocation();
@@ -42,7 +41,7 @@ const Login = () => {
 
   useEffect(() => {
     if (msg === "Đăng nhập thành công" || msg === "Đăng ký thành công") return;
-    msg && toast.error(msg);
+    msg && showToastError(msg);
     if (msg !== "Đăng nhập thành công" && msg !== "Đăng ký thành công")
       dispatch(actions.setMsg());
   }, [dispatch, msg, update]);
@@ -66,7 +65,7 @@ const Login = () => {
         ? dispatch(actions.register(payload))
         : dispatch(actions.login(payload));
     else {
-      toast.error("Vui lòng nhập lại");
+      showToastError("Vui lòng nhập lại");
     }
   };
 
@@ -273,7 +272,6 @@ const Login = () => {
             </Form.Group>
           </Form>
         </div>
-        <ToastContainer autoClose={1000} position="bottom-right" />
       </div>
     </>
   );

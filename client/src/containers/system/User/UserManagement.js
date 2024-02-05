@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { apiUpdateUser } from "../../../services/user";
 import { apiUploadImage } from "../../../services/app";
-import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../Loading";
+import { showToastError, showToastSuccess } from "../../ToastUtil";
 
 const UserManagement = () => {
   const { userData } = useSelector((state) => state.user);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [avatar, setAvatar] = useState();
   const [name, setName] = useState();
@@ -37,14 +41,9 @@ const UserManagement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     let payload = {};
-    //upload avt len cloud
     if (avatar) {
-      //xoa hinh cu tren cloud
-      if (userData.avatar) {
-        //do smt
-      }
-      //them hinh moi vao cloud
       let formData = new FormData();
       formData.append("file", avatar);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
@@ -67,10 +66,15 @@ const UserManagement = () => {
       };
     }
     if (Object.keys(payload).length > 0) {
-      await apiUpdateUser(payload);
-      toast.success("Thành công");
-      window.location.reload();
+      const response = await apiUpdateUser(payload);
+      if (response.data.success) {
+        {
+          showToastSuccess(response.data.message);
+          window.location.reload();
+        }
+      } else showToastError(response.data.message);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -144,10 +148,9 @@ const UserManagement = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit" className="w-100 mb-3">
-          Lưu và cập nhật
+          {isLoading ? <Loading /> : <span>Lưu và cập nhật</span>}
         </Button>
       </Form>
-      <ToastContainer autoClose={1000} position="bottom-right" />
     </>
   );
 };

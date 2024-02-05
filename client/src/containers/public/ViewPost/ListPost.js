@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import Post from "../../../components/Post";
 import { getPosts } from "../../../store/actions/post";
-import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "./ListPost.scss";
 import icons from "../../../ultils/icons";
+import { apiGetPosts } from "../../../services/post";
 
 const ListPost = ({ categoryCode }) => {
   const { RiSortAsc, RiSortDesc } = icons;
 
-  const dispatch = useDispatch();
   const location = useLocation();
   const titleListRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
@@ -24,7 +23,9 @@ const ListPost = ({ categoryCode }) => {
   const [provinceId, setProvinceId] = useState("");
   const [showPage, setShowPage] = useState("4");
 
-  const { posts, total } = useSelector((state) => state.post);
+  const [posts, setPosts] = useState({});
+  const [total, setTotal] = useState(0);
+
   const pageDisplayed = process.env.REACT_APP_PAGE_DISPLAYED;
   const totalPage =
     total % pageDisplayed < 1
@@ -90,13 +91,8 @@ const ListPost = ({ categoryCode }) => {
   }, [location]);
 
   useEffect(() => {
-    // dispatch(getAllPosts());
-    const conditions = {};
-    if (categoryCode) {
-      conditions["categoryCode"] = categoryCode;
-    }
-    dispatch(
-      getPosts(
+    const fetchPosts = async () => {
+      const response = await apiGetPosts(
         currentPage,
         conditions,
         sortedBy,
@@ -107,10 +103,16 @@ const ListPost = ({ categoryCode }) => {
         priceRange.max,
         acreageRange.min,
         acreageRange.max
-      )
-    );
+      );
+      setPosts(response.data.response.rows);
+      setTotal(response.data.response.count);
+    };
+    const conditions = {};
+    if (categoryCode) {
+      conditions["categoryCode"] = categoryCode;
+    }
+    fetchPosts();
   }, [
-    dispatch,
     categoryCode,
     currentPage,
     sortedBy,

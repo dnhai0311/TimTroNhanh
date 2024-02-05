@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { SearchItem, MyModal } from "../../../components/";
 import { useDispatch, useSelector } from "react-redux";
+import { apiGetProvinces, apiGetDistricts } from "../../../services/app";
 import icons from "../../../ultils/icons";
 import "./Search.scss";
-import { getDistricts } from "../../../store/actions/app";
+
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
 
 const Search = () => {
@@ -34,9 +35,18 @@ const Search = () => {
 
   const [param, setParam] = useState("");
 
-  const { categories, prices, acreages, provinces, districts } = useSelector(
-    (state) => state.app
-  );
+  const { categories, prices, acreages } = useSelector((state) => state.app);
+
+  const [provinces, setProvinces] = useState({});
+  const [districts, setDistricts] = useState({});
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      const response = await apiGetProvinces();
+      setProvinces(response.data.response);
+    };
+    fetchProvinces();
+  }, []);
 
   useEffect(() => {
     if (location.search === "") {
@@ -49,8 +59,12 @@ const Search = () => {
   }, [location]);
 
   useEffect(() => {
+    const fetchDistricts = async (provinceId) => {
+      const response = await apiGetDistricts(provinceId);
+      setDistricts(response.data.response);
+    };
     if (province.id) {
-      dispatch(getDistricts(province?.id));
+      fetchDistricts(province.id);
     }
   }, [dispatch, province]);
 

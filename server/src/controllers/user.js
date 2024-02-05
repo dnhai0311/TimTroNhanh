@@ -1,5 +1,7 @@
 import * as userServices from "../services/user";
 import { HashPassword } from "../services/auth";
+import { deleteImage } from "../middlewares/cloudinary";
+import { getPublicId } from "../ultils/commons/getPublicId";
 
 export const getCurrentUser = async (req, res) => {
   const { id } = req.user;
@@ -20,7 +22,9 @@ export const updateUser = async (req, res) => {
 
   try {
     if (avatar) {
-      // Xóa avatar cũ
+      const response = await userServices.getAvatar(id);
+      const publicId = getPublicId(response.avatar);
+      deleteImage(publicId);
       await userServices.updateUserAvatar(id, avatar);
     }
 

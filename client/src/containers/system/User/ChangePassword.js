@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { apiUpdateUser } from "../../../services/user";
-import { ToastContainer, toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
+import { showToastError, showToastSuccess } from "../../ToastUtil";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -33,10 +34,10 @@ const ChangePassword = () => {
     if (newPassword === reNewPassword) {
       const response = await apiUpdateUser({ oldPassword, newPassword });
       if (!response.data.success) {
-        toast.error(response.data.message);
+        showToastError(response.data.message);
         return;
       }
-      toast.success(response.data.message);
+      showToastSuccess(response.data.message);
       navigate("/quan-ly/thong-tin-tai-khoan");
     }
   };
@@ -92,7 +93,6 @@ const ChangePassword = () => {
           Đổi mật khẩu
         </Button>
       </Form>
-      <ToastContainer autoClose={1000} position="bottom-right" />
     </>
   );
 };
