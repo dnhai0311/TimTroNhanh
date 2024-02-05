@@ -38,82 +38,82 @@ const getNumberFromString = (string) => {
   return number;
 };
 
-// export const insertService = async () => {
-//   try {
-//     for (const cate of dataBody) {
-//       for (const item of cate.body) {
-//         let desc = (item?.mainContent?.content || []).join("\n");
-//         let idPost = await db.POST.max("id");
-//         let idAttribute = await db.ATTRIBUTE.max("id");
-//         let idImg = await db.IMAGE.max("id");
-//         let totalUser = await db.USER.count();
-//         let totalImg = await db.IMAGE.count();
-//         let currentPrice = +item?.header?.attributes?.price.split(" ")[0];
-//         currentPrice = currentPrice > 600 ? currentPrice / 1000 : currentPrice;
+export const insertService = async () => {
+  try {
+    for (const cate of dataBody) {
+      for (const item of cate.body) {
+        let desc = (item?.mainContent?.content || []).join("\n");
+        let idPost = await db.POST.max("id");
+        let idAttribute = await db.ATTRIBUTE.max("id");
+        let idImg = await db.IMAGE.max("id");
+        let totalUser = await db.USER.count();
+        let totalImg = await db.IMAGE.count();
+        let currentPrice = +item?.header?.attributes?.price.split(" ")[0];
+        currentPrice = currentPrice > 600 ? currentPrice / 1000 : currentPrice;
 
-//         const lastCommaIndex1 = item?.header?.address.lastIndexOf(",");
-//         const lastCommaIndex2 = item?.header?.address.lastIndexOf(
-//           ",",
-//           lastCommaIndex1 - 1
-//         );
-//         const tenHuyen = item?.header?.address
-//           .substring(lastCommaIndex2 + 2, lastCommaIndex1)
-//           .trim();
+        const lastCommaIndex1 = item?.header?.address.lastIndexOf(",");
+        const lastCommaIndex2 = item?.header?.address.lastIndexOf(
+          ",",
+          lastCommaIndex1 - 1
+        );
+        const tenHuyen = item?.header?.address
+          .substring(lastCommaIndex2 + 2, lastCommaIndex1)
+          .trim();
 
-//         let currentAcreage = getNumberFromString(
-//           item?.header?.attributes?.acreage
-//         );
-//         // console.log(tenHuyen);
-//         const districtId = await db.DISTRICT.findOne({
-//           where: {
-//             name: tenHuyen,
-//           },
-//         });
-//         // console.log(item?.header?.address);
-//         // console.log(tenHuyen);
-//         // console.log(districtId.id);
+        let currentAcreage = getNumberFromString(
+          item?.header?.attributes?.acreage
+        );
+        // console.log(tenHuyen);
+        const districtId = await db.DISTRICT.findOne({
+          where: {
+            value: tenHuyen,
+          },
+        });
+        // console.log(item?.header?.address);
+        // console.log(tenHuyen);
+        // console.log(districtId.id);
 
-//         await db.POST.create({
-//           id: +idPost + 1,
-//           name: item?.header?.title,
-//           info: desc,
-//           star: item?.header?.star || 5,
-//           attributeId: +idAttribute + 1,
-//           categoryCode: cate.code,
-//           userId: Math.floor(Math.random() * totalUser) + 1,
-//           imgsId: Math.floor(Math.random() * totalImg) + 1,
-//           // imgsId: +idImg + 1,
-//           acreageCode: dataAcreages.find(
-//             (acreage) =>
-//               acreage.max > currentAcreage && acreage.min <= currentAcreage
-//           )?.id,
-//           priceCode: dataPrices.find(
-//             (price) => price.max > currentPrice && price.min <= currentPrice
-//           )?.id,
-//         });
+        await db.POST.create({
+          id: +idPost + 1,
+          title: item?.header?.title,
+          description: desc,
+          star: item?.header?.star || 5,
+          attributeId: +idAttribute + 1,
+          categoryCode: cate.code,
+          userId: Math.floor(Math.random() * totalUser) + 1,
+          // imgsId: Math.floor(Math.random() * totalImg) + 1,
+          imgsId: +idImg + 1,
+          acreageCode: dataAcreages.find(
+            (acreage) =>
+              acreage.max > currentAcreage && acreage.min <= currentAcreage
+          )?.id,
+          priceCode: dataPrices.find(
+            (price) => price.max > currentPrice && price.min <= currentPrice
+          )?.id,
+        });
 
-//         await db.ATTRIBUTE.create({
-//           id: +idAttribute + 1,
-//           price: +currentPrice,
-//           acreage: +currentAcreage,
-//           address: item?.header?.address,
-//           districtId: districtId.id,
-//         });
+        await db.ATTRIBUTE.create({
+          id: +idAttribute + 1,
+          price: +currentPrice,
+          acreage: +currentAcreage,
+          address: item?.header?.address,
+          districtId: districtId.id,
+        });
 
-//         // await db.IMAGE.create({
-//         //   id: +idImg + 1,
-//         //   path: JSON.stringify(item?.images),
-//         // });
-//       }
-//     }
+        await db.IMAGE.create({
+          id: +idImg + 1,
+          path: JSON.stringify(item?.images),
+        });
+      }
+    }
 
-//     return "Hoàn thành.";
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+    return "Hoàn thành.";
+  } catch (error) {
+    throw error;
+  }
+};
 
-export const insertService = () =>
+export const insertPriceAndAcreageService = () =>
   new Promise((resolve, reject) => {
     try {
       dataPrices.forEach(async (item) => {

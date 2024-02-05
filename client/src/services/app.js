@@ -1,4 +1,5 @@
 import axiosConfig from "../axiosConfig";
+import axios from "axios";
 
 export const apiGetCategories = async () => {
   try {
@@ -83,6 +84,19 @@ export const apiGetProvinces = async () => {
     const response = await axiosConfig({
       method: "get",
       url: "/api/v1/province/get",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiUploadImage = async (data) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+      data: data,
     });
     return response;
   } catch (error) {

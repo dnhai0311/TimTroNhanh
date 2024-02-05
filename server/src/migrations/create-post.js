@@ -9,10 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
       },
-      info: {
+      description: {
         type: Sequelize.TEXT("long"),
       },
       star: {
@@ -44,6 +44,10 @@ module.exports = {
       },
       typePostId: {
         type: Sequelize.STRING,
+      },
+      expiredAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,

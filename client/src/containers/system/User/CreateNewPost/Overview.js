@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { AddressFormItem, InputPost } from "../../../../components/";
 import { useSelector } from "react-redux";
 
@@ -43,7 +43,7 @@ const Overview = ({
           name={"Giá cho thuê"}
           setValue={setPrice}
           isAfter={true}
-          text={"đồng/tháng"}
+          text={"triệu đồng/tháng"}
           width="w-50"
         />
         <InputPost

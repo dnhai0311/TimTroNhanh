@@ -46,3 +46,16 @@ export const apiGetPosts = async (
     throw error;
   }
 };
+
+export const apiCreatePost = async (payload) => {
+  try {
+    const response = await axiosConfig({
+      method: "post",
+      url: "/api/v1/post/create-new",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -38,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   POST.init(
     {
-      name: DataTypes.STRING,
-      info: DataTypes.TEXT,
+      title: DataTypes.STRING,
+      description: DataTypes.TEXT,
       star: DataTypes.STRING,
       dayRented: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.STRING,
       acreageCode: DataTypes.STRING,
       priceCode: DataTypes.STRING,
+      expiredAt: DataTypes.DATE,
     },
     {
       sequelize,

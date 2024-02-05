@@ -22,7 +22,7 @@ export const getAllPostsService = async () => {
           attributes: ["name", "phone"],
         },
       ],
-      attributes: ["id", "name", "info", "updatedAt", "star"],
+      attributes: ["id", "title", "description", "updatedAt", "star"],
     });
 
     return {
@@ -77,7 +77,7 @@ export const getPostsService = async (
           attributes: ["name", "phone", "avatar"],
         },
       ],
-      attributes: ["id", "name", "info", "updatedAt", "star"],
+      attributes: ["id", "title", "description", "updatedAt", "star"],
     };
 
     if (conditions) {
@@ -102,14 +102,6 @@ export const getPostsService = async (
       };
     }
 
-    if (sortType === "price") {
-      queryOptions.order = [["attribute", "price", sortOrder]];
-    } else if (sortType === "acreage") {
-      queryOptions.order = [["attribute", "acreage", sortOrder]];
-    } else {
-      queryOptions.order = [[sortType, sortOrder]];
-    }
-
     if (districtId && districtId !== "") {
       queryOptions.where = {
         ...queryOptions.where,
@@ -124,10 +116,64 @@ export const getPostsService = async (
       };
     }
 
+    if (sortType === "price" || sortType === "acreage") {
+      queryOptions.order = [["attribute", sortType, sortOrder]];
+    } else {
+      queryOptions.order = [[sortType, sortOrder]];
+    }
+
+    // if (sortType === "price") {
+    //   queryOptions.order = [["attribute", "price", sortOrder]];
+    // } else if (sortType === "acreage") {
+    //   queryOptions.order = [["attribute", "acreage", sortOrder]];
+    // } else {
+    //   queryOptions.order = [[sortType, sortOrder]];
+    // }
+
     const response = await db.POST.findAndCountAll(queryOptions);
     return {
       err: response ? 0 : 1,
       msg: response ? "OK" : "FAILED TO GET POST",
+      response,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createPostService = async (id, body) => {
+  try {
+    let idPost = await db.POST.max("id");
+    let idAttribute = await db.ATTRIBUTE.max("id");
+    let idImg = await db.IMAGE.max("id");
+
+    const response = await db.POST.create({
+      id: +idPost + 1,
+      title: body.title,
+      description: body.description,
+      star: 0,
+      attributeId: +idAttribute + 1,
+      categoryCode: body.categoryCode,
+      userId: id,
+      imgsId: +idImg + 1,
+    });
+
+    await db.ATTRIBUTE.create({
+      id: +idAttribute + 1,
+      price: +body.price,
+      acreage: +body.acreage,
+      address: body.address,
+      districtId: body.districtId,
+    });
+
+    await db.IMAGE.create({
+      id: +idImg + 1,
+      path: JSON.stringify(body.ImgUrls),
+    });
+
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "FAILED TO CREATE POST",
       response,
     };
   } catch (error) {

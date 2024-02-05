@@ -38,7 +38,7 @@ const Picture = ({ imgFiles, setImgFiles }) => {
     const newImages = [...selectedImages];
     const newImgFlies = [...imgFiles];
     const removedImage = newImages.splice(index, 1)[0];
-    const removeFile = newImgFlies.splice(index, 1);
+    newImgFlies.splice(index, 1);
     URL.revokeObjectURL(removedImage);
     setSelectedImages(newImages);
     setImgFiles(newImgFlies);

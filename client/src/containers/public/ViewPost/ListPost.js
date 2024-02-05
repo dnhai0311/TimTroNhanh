@@ -226,8 +226,8 @@ const ListPost = ({ categoryCode }) => {
                   return (
                     <Post
                       key={item?.id}
-                      name={item?.name}
-                      value={item?.info}
+                      title={item?.title}
+                      description={item?.description}
                       star={+item?.star}
                       price={item?.attribute.price}
                       area={item?.attribute.acreage}

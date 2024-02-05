@@ -6,10 +6,11 @@ import {
   apiGetAllDistricts,
 } from "../../../../services/app";
 
-const AddressForm = ({ onUpdateDistrictSelected, onUpdateAddress }) => {
+const AddressForm = ({ onUpdateDistrictSelected, setExactlyAddress }) => {
   const [provinces, setProvinces] = useState({});
   const [districts, setDistricts] = useState({});
   const [address, setAddress] = useState("");
+  const [exAddress, setExAddress] = useState("");
 
   const [provinceSelected, setProvinceSelected] = useState({
     id: 0,
@@ -46,12 +47,25 @@ const AddressForm = ({ onUpdateDistrictSelected, onUpdateAddress }) => {
   }, [provinceSelected]);
 
   useEffect(() => {
-    onUpdateDistrictSelected(districtSelected);
-  }, [districtSelected, onUpdateDistrictSelected]);
+    setExAddress(
+      `${
+        districtSelected.value && provinceSelected.value
+          ? `${address}, ${districtSelected.value}, ${provinceSelected.value}`
+          : `${provinceSelected.value}`
+      }`
+    );
+    setExactlyAddress(exAddress);
+  }, [
+    provinceSelected,
+    districtSelected,
+    address,
+    setExactlyAddress,
+    exAddress,
+  ]);
 
   useEffect(() => {
-    onUpdateAddress(address);
-  }, [address, onUpdateAddress]);
+    onUpdateDistrictSelected(districtSelected);
+  }, [districtSelected, onUpdateDistrictSelected]);
 
   // console.log(
   //   "Tỉnh: " + provinceSelected.value + " " + "Quận : " + districtSelected.value
@@ -74,11 +88,7 @@ const AddressForm = ({ onUpdateDistrictSelected, onUpdateAddress }) => {
         <InputPost
           name={"Địa chỉ chính xác"}
           isDisable={true}
-          value={`${
-            districtSelected.value && provinceSelected.value
-              ? `${address} ${districtSelected.value}, ${provinceSelected.value}`
-              : `${provinceSelected.value}`
-          }`}
+          value={exAddress || ""}
         />
       </div>
     </>

@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { apiUpdateUser, apiUploadAvatar } from "../../../services/user";
+import { apiUpdateUser } from "../../../services/user";
+import { apiUploadImage } from "../../../services/app";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,7 +48,7 @@ const UserManagement = () => {
       let formData = new FormData();
       formData.append("file", avatar);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
-      const response = await apiUploadAvatar(formData);
+      const response = await apiUploadImage(formData);
       payload = {
         ...payload,
         avatar: response.data.secure_url,

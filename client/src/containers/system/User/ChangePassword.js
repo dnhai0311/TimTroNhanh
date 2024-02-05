@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { apiUpdateUser, apiUploadAvatar } from "../../../services/user";
+import { apiUpdateUser } from "../../../services/user";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 

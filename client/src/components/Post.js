@@ -8,13 +8,13 @@ import "moment/locale/vi";
 const { FaStar, FaHeart } = icons;
 
 const Post = ({
-  name,
+  title,
   price,
   area,
   location,
   star,
   time,
-  value,
+  description,
   uploader,
   img,
   phone,
@@ -22,7 +22,7 @@ const Post = ({
   avatar,
 }) => {
   const [isRed, setIsRed] = useState(false);
-  const imagePath = require(`../assets${img}`);
+  // const imagePath = require(`../assets${img}`);
 
   const address = location
     .split(",")
@@ -31,16 +31,13 @@ const Post = ({
     .join(", ");
   moment.locale("vi");
   const formattedTime = moment(time).fromNow();
+
   return (
     <div className="col-12 py-3 border-top border-bottom border-dark post">
       <div className="row gx-4">
         <div className="col-4 d-flex position-relative">
           <Link className="w-100" to={`/post/${id}`}>
-            <img
-              src={imagePath}
-              alt="thumbnail"
-              className=" rounded post-thumb"
-            />
+            <img src={img} alt="thumbnail" className=" rounded post-thumb" />
           </Link>
           <div className={"position-absolute bottom-0 end-0 "}>
             <FaHeart
@@ -59,7 +56,7 @@ const Post = ({
             to={`/post/${id}`}
             className="px-2 fw-bold text-danger line-clamp-2 text-justify text-decoration-none text-uppercase"
           >
-            {name}
+            {title}
           </Link>
           <div className="px-2 ">
             {Array(5)
@@ -81,7 +78,7 @@ const Post = ({
             <div className="text-truncate ">{formattedTime}</div>
           </div>
           <div className="px-2 my-2 line-clamp-3 text-justify fw-light">
-            {value}
+            {description}
           </div>
           <div className="px-2">
             <div className="row">
