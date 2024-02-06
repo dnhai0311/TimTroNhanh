@@ -41,8 +41,16 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       star: DataTypes.STRING,
-      dayRented: DataTypes.STRING,
-      status: DataTypes.BOOLEAN,
+      status: {
+        type: DataTypes.ENUM(
+          "payment",
+          "pending",
+          "approved",
+          "rejected",
+          "expired"
+        ),
+        defaultValue: "payment",
+      },
       imgsId: DataTypes.STRING,
       categoryCode: DataTypes.STRING,
       attributeId: DataTypes.STRING,
@@ -57,5 +65,13 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "POST",
     }
   );
+
+  // Phải thay đổi ngày hết hạn thì mới chạy, sau này cài node cron -> set định kỳ mỗi ngày set status lại
+  POST.addHook("beforeUpdate", (post, options) => {
+    if (post.changed("expiredAt") && post.expiredAt <= new Date()) {
+      post.status = "expired";
+    }
+  });
+
   return POST;
 };

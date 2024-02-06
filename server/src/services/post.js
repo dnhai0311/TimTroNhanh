@@ -49,6 +49,12 @@ export const getPostsService = async (
 ) => {
   try {
     const queryOptions = {
+      where: {
+        status: "approved",
+        expiredAt: {
+          [db.Sequelize.Op.gt]: db.Sequelize.literal("NOW()"),
+        },
+      },
       raw: true,
       nest: true,
       offset: page * +process.env.PAGE_DISPLAYED || 0,
@@ -63,13 +69,6 @@ export const getPostsService = async (
           model: db.ATTRIBUTE,
           as: "attribute",
           attributes: ["price", "acreage", "address"],
-          include: [
-            {
-              model: db.DISTRICT,
-              as: "district",
-              attributes: ["provinceId"],
-            },
-          ],
         },
         {
           model: db.USER,
@@ -81,7 +80,7 @@ export const getPostsService = async (
     };
 
     if (conditions) {
-      queryOptions.where = conditions;
+      queryOptions.where = { ...queryOptions.where, ...conditions };
     }
 
     if (minPrice && maxPrice) {

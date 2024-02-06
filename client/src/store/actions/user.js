@@ -14,11 +14,17 @@ export const getCurrentUser = () => async (dispatch) => {
         type: actionTypes.GET_CURRENT_USER,
         msg: response.data.msg,
       });
+      dispatch({
+        type: actionTypes.LOGOUT,
+      });
     }
   } catch (error) {
     dispatch({
       type: actionTypes.GET_CURRENT_USER,
       user: null,
+    });
+    dispatch({
+      type: actionTypes.LOGOUT,
     });
   }
 };

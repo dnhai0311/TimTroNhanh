@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.get("/current", userController.getCurrentUser);
+router.get("/posts", userController.getAllPosts);
 router.put("/update", userController.updateUser);
 
 export default router;

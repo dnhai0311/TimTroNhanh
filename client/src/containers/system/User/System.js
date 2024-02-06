@@ -29,7 +29,7 @@ const System = () => {
       <Navigation handleGotoTop={() => {}} />
       <Container className="m-0" fluid>
         <Row>
-          <Col sm={3} className="sidebar position-fixed h-100">
+          <Col sm={3} className="d-block sidebar position-fixed h-100">
             <Sidebar handleSignOut={handleSignOut} />
           </Col>
           <Col sm={3}></Col>

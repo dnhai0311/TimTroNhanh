@@ -42,12 +42,15 @@ export const insertService = async () => {
   try {
     for (const cate of dataBody) {
       for (const item of cate.body) {
+        const expirationDate = new Date();
+        expirationDate.setUTCDate(expirationDate.getUTCDate() + 10);
         let desc = (item?.mainContent?.content || []).join("\n");
         let idPost = await db.POST.max("id");
         let idAttribute = await db.ATTRIBUTE.max("id");
         let idImg = await db.IMAGE.max("id");
         let totalUser = await db.USER.count();
-        let totalImg = await db.IMAGE.count();
+        let totalPostCategory = await db.POST_CATEGORY.count();
+        // let totalImg = await db.IMAGE.count();
         let currentPrice = +item?.header?.attributes?.price.split(" ")[0];
         currentPrice = currentPrice > 600 ? currentPrice / 1000 : currentPrice;
 
@@ -78,6 +81,7 @@ export const insertService = async () => {
           title: item?.header?.title,
           description: desc,
           star: item?.header?.star || 5,
+          status: "approved",
           attributeId: +idAttribute + 1,
           categoryCode: cate.code,
           userId: Math.floor(Math.random() * totalUser) + 1,
@@ -90,6 +94,8 @@ export const insertService = async () => {
           priceCode: dataPrices.find(
             (price) => price.max > currentPrice && price.min <= currentPrice
           )?.id,
+          typePostId: Math.floor(Math.random() * totalPostCategory) + 1,
+          expiredAt: expirationDate,
         });
 
         await db.ATTRIBUTE.create({

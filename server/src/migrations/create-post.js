@@ -18,11 +18,16 @@ module.exports = {
       star: {
         type: Sequelize.STRING,
       },
-      dayRented: {
-        type: Sequelize.STRING,
-      },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM(
+          "payment",
+          "pending",
+          "approved",
+          "rejected",
+          "expired"
+        ),
+        defaultValue: "payment",
+        allowNull: false,
       },
       imgsId: {
         type: Sequelize.STRING,

@@ -68,10 +68,8 @@ const UserManagement = () => {
     if (Object.keys(payload).length > 0) {
       const response = await apiUpdateUser(payload);
       if (response.data.success) {
-        {
-          showToastSuccess(response.data.message);
-          window.location.reload();
-        }
+        showToastSuccess(response.data.message);
+        window.location.reload();
       } else showToastError(response.data.message);
     }
     setIsLoading(false);
@@ -79,7 +77,7 @@ const UserManagement = () => {
 
   return (
     <>
-      <h3 className="py-3 px-5 border-bottom">Cập nhật thông tin cá nhân</h3>
+      <h3 className="py-3 px-5 border-bottom">Thông tin cá nhân</h3>
       <Form className="w-50 m-auto" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Mã thành viên</Form.Label>

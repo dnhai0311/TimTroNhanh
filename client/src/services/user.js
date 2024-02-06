@@ -24,3 +24,15 @@ export const apiUpdateUser = async (payload) => {
     throw error;
   }
 };
+
+export const apiGetAllPosts = async () => {
+  try {
+    const response = await axiosConfig({
+      method: "get",
+      url: "/api/v1/user/posts",
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

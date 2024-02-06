@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Post from "../../../components/Post";
-import { getPosts } from "../../../store/actions/post";
+
 import ReactPaginate from "react-paginate";
 import { createSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";

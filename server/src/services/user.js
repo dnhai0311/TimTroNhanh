@@ -32,6 +32,49 @@ export const getCurrentUserService = async (id) => {
   }
 };
 
+export const getAllPostsService = async (id) => {
+  try {
+    const response = await db.POST.findAndCountAll({
+      raw: true,
+      attributes: [
+        ["id", "postId"],
+        [db.Sequelize.literal("images.path"), "postImg"],
+        "title",
+        [db.Sequelize.literal("attribute.price"), "price"],
+        "updatedAt",
+        "expiredAt",
+        "status",
+      ],
+      include: [
+        {
+          model: db.USER,
+          as: "user",
+          attributes: [],
+          where: { id },
+        },
+        {
+          model: db.IMAGE,
+          as: "images",
+          attributes: [],
+        },
+        {
+          model: db.ATTRIBUTE,
+          as: "attribute",
+          attributes: [],
+        },
+      ],
+    });
+
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "FAILED TO GET POST FORM USER",
+      response,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const updateUserAvatar = async (id, newAvatarUrl) => {
   try {
     await db.USER.update({ avatar: newAvatarUrl }, { where: { id } });

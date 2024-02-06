@@ -32,6 +32,7 @@ const InputPost = ({
               required
               as={isTextArea ? "textarea" : "input"}
               rows={8}
+              defaultValue={value}
             />
             {isAfter && (
               <InputGroup.Text id="basic-addon1">{text}</InputGroup.Text>
