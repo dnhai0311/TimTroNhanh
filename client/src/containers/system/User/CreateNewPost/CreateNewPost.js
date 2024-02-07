@@ -49,18 +49,54 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
     });
     dataPost?.images?.path && setImgFiles(JSON.parse(dataPost?.images?.path));
   }, [dataPost]);
+
+  const showToastErrorAndSetLoading = (message) => {
+    showToastError(message);
+    setIsLoading(false);
+  };
+
+  const uploadImages = async () => {
+    let formData = new FormData();
+    let ImgUrls = [];
+
+    for (const file of imgFiles) {
+      if (typeof file === "object") {
+        formData.append("file", file);
+        formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
+        const response = await apiUploadImage(formData);
+        if (response.status === 200)
+          ImgUrls = [...ImgUrls, response.data.secure_url];
+      } else {
+        ImgUrls = [...ImgUrls, file];
+      }
+    }
+
+    return ImgUrls;
+  };
+
+  const createPost = async (payload) => {
+    const response = await apiCreatePost(payload);
+    setIsLoading(false);
+
+    if (response.status === 200) {
+      showToastSuccess("Đăng bài thành công");
+      navigate("/quan-ly/tin-dang");
+    } else {
+      showToastError(response.data.response.msg);
+    }
+  };
+
   const handleSubmit = async () => {
     setIsLoading(true);
-
     if (+price > 0 && +acreage > 0);
     else {
-      showToastError("Giá hoặc diện tích không hợp lệ");
-      setIsLoading(false);
+      showToastErrorAndSetLoading("Giá hoặc diện tích không hợp lệ");
       return;
     }
     if (imgFiles.length === 0) {
-      showToastError("Vui lòng đăng ít nhất 1 ảnh về bài đăng của bạn");
-      setIsLoading(false);
+      showToastErrorAndSetLoading(
+        "Vui lòng đăng ít nhất 1 ảnh về bài đăng của bạn"
+      );
       return;
     }
     let payload = {
@@ -78,36 +114,12 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
       return;
     }
     showToastError("Vui lòng đợi");
+    const ImgUrls = await uploadImages();
+    payload = { ...payload, ImgUrls };
     if (!isUpdate) {
-      //upload anh len cloud
-      let formData = new FormData();
-      let ImgUrls = [];
-
-      for (const file of imgFiles) {
-        formData.append("file", file);
-        formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
-        const response = await apiUploadImage(formData);
-        if (response.status === 200)
-          ImgUrls = [...ImgUrls, response.data.secure_url];
-      }
-
-      //them vao payload
-      payload = { ...payload, ImgUrls };
-
-      //dispatch
-      const response = await apiCreatePost(payload);
-      setIsLoading(false);
-      // console.log(response.status);
-      if (response.status === 200) {
-        showToastSuccess("Đăng bài thành công");
-        navigate("/quan-ly/tin-dang");
-      } else showToastError(response.data.response.msg);
+      await createPost(payload);
     }
     console.log("update + payload");
-    payload = {
-      ...payload,
-      imgFiles,
-    };
     console.log(payload);
   };
 

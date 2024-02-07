@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Col } from "react-bootstrap";
 
 const ContactItem = ({ type, name, phone }) => {
@@ -13,4 +13,4 @@ const ContactItem = ({ type, name, phone }) => {
   );
 };
 
-export default ContactItem;
+export default memo(ContactItem);

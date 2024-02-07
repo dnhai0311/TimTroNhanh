@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import icons from "../ultils/icons";
@@ -77,4 +77,4 @@ const DropDownManage = ({ handleSignOut }) => {
   );
 };
 
-export default DropDownManage;
+export default memo(DropDownManage);

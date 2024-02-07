@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 const InputPost = ({
@@ -46,4 +46,4 @@ const InputPost = ({
   );
 };
 
-export default InputPost;
+export default memo(InputPost);

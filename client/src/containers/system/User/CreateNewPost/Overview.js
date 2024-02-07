@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { AddressFormItem, InputPost } from "../../../../components/";
 import { useSelector } from "react-redux";
 
@@ -71,4 +71,4 @@ const Overview = ({
   );
 };
 
-export default Overview;
+export default memo(Overview);

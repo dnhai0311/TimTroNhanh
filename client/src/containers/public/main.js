@@ -20,7 +20,7 @@ const Main = () => {
   useEffect(() => {
     setTimeout(() => {
       isLoggedIn && dispatch(getCurrentUser());
-    }, 1000);
+    }, 100);
   }, [isLoggedIn, dispatch]);
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { AddressFormItem, InputPost } from "../../../../components/";
 
 import {
@@ -75,6 +75,7 @@ const AddressForm = ({
   // console.log(
   //   "Tỉnh: " + provinceSelected.value + " " + "Quận : " + districtSelected.value
   // );
+
   return (
     <>
       <h4>Địa chỉ cho thuê</h4>
@@ -102,4 +103,4 @@ const AddressForm = ({
   );
 };
 
-export default AddressForm;
+export default memo(AddressForm);

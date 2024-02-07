@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 
 const AddressFormItem = ({ name, values, setValue, value }) => {
@@ -54,4 +54,4 @@ const AddressFormItem = ({ name, values, setValue, value }) => {
   );
 };
 
-export default AddressFormItem;
+export default memo(AddressFormItem);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import addImg from "../../../../assets/addImg.png";
 import icons from "../../../../ultils/icons";
@@ -7,12 +7,14 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
   const { FaRegTrashAlt } = icons;
 
   const [selectedImages, setSelectedImages] = useState([]);
+  const [hasEffectRun, setHasEffectRun] = useState(false);
 
   useEffect(() => {
-    if (isUpdate && imgFiles && imgFiles.length > 0) {
+    if (isUpdate && imgFiles && imgFiles.length > 0 && !hasEffectRun) {
       setSelectedImages(imgFiles);
+      setHasEffectRun(true);
     }
-  }, [isUpdate, imgFiles]);
+  }, [isUpdate, imgFiles, hasEffectRun]);
 
   const fileInputRef = useRef(null);
   const handleAddPicture = () => {
@@ -28,17 +30,17 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
       return;
     }
 
-    setImgFiles([...selectedFiles]);
-    const newImages = [...selectedImages];
+    console.log(imgFiles);
+    setImgFiles((prevImgFiles) => [...prevImgFiles, ...selectedFiles]);
 
+    const newImages = [...selectedImages];
     for (let i = 0; i < selectedFiles.length; i++) {
       const imageUrl = URL.createObjectURL(selectedFiles[i]);
       newImages.push(imageUrl);
     }
-
-    setSelectedImages(newImages);
+    setSelectedImages([...newImages]);
   };
-
+  console.log(imgFiles);
   const handleRemoveImage = (index) => {
     const newImages = [...selectedImages];
     const newImgFlies = [...imgFiles];
@@ -109,4 +111,4 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
   );
 };
 
-export default Picture;
+export default memo(Picture);
