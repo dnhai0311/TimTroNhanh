@@ -6,20 +6,18 @@ import {
   apiGetAllDistricts,
 } from "../../../../services/app";
 
-const AddressForm = ({ onUpdateDistrictSelected, setExactlyAddress }) => {
+const AddressForm = ({
+  provinceSelected,
+  setProvinceSelected,
+  districtSelected,
+  setDistrictSelected,
+  address,
+  setAddress,
+  exactlyAddress,
+  setExactlyAddress,
+}) => {
   const [provinces, setProvinces] = useState({});
   const [districts, setDistricts] = useState({});
-  const [address, setAddress] = useState("");
-  const [exAddress, setExAddress] = useState("");
-
-  const [provinceSelected, setProvinceSelected] = useState({
-    id: 0,
-    value: "",
-  });
-  const [districtSelected, setDistrictSelected] = useState({
-    id: 0,
-    value: "",
-  });
 
   useEffect(() => {
     const fetchAllProvinces = async () => {
@@ -38,34 +36,41 @@ const AddressForm = ({ onUpdateDistrictSelected, setExactlyAddress }) => {
       if (response?.data?.response) {
         setDistricts(response?.data?.response);
       }
+      const selectedDistrictInNewList = response?.data?.response.find(
+        (district) => district.id === districtSelected.id
+      );
+      setDistrictSelected(
+        selectedDistrictInNewList || {
+          id: 0,
+          value: "",
+        }
+      );
     };
-    setDistrictSelected({
-      id: 0,
-      value: "",
-    });
-    fetchAllDistrict(provinceSelected?.id);
-  }, [provinceSelected]);
+    if (provinceSelected?.id > 0) {
+      fetchAllDistrict(provinceSelected?.id);
+    }
+  }, [provinceSelected, districtSelected.id, setDistrictSelected]);
 
   useEffect(() => {
-    setExAddress(
+    setExactlyAddress(
       `${
-        districtSelected.value && provinceSelected.value
+        districtSelected &&
+        districtSelected.value &&
+        provinceSelected &&
+        provinceSelected.value
           ? `${address}, ${districtSelected.value}, ${provinceSelected.value}`
-          : `${provinceSelected.value}`
+          : provinceSelected && provinceSelected.value
+          ? `${provinceSelected.value}`
+          : ""
       }`
     );
-    setExactlyAddress(exAddress);
   }, [
     provinceSelected,
     districtSelected,
     address,
     setExactlyAddress,
-    exAddress,
+    exactlyAddress,
   ]);
-
-  useEffect(() => {
-    onUpdateDistrictSelected(districtSelected);
-  }, [districtSelected, onUpdateDistrictSelected]);
 
   // console.log(
   //   "Tỉnh: " + provinceSelected.value + " " + "Quận : " + districtSelected.value
@@ -77,18 +82,20 @@ const AddressForm = ({ onUpdateDistrictSelected, setExactlyAddress }) => {
         <AddressFormItem
           name={"Tỉnh/Thành phố"}
           values={Object.keys(provinces).length > 0 ? provinces : ""}
-          setId={setProvinceSelected}
+          setValue={setProvinceSelected}
+          value={provinceSelected}
         />
         <AddressFormItem
           name={"Quận/Huyện"}
           values={Object.keys(districts).length > 0 ? districts : ""}
-          setId={setDistrictSelected}
+          setValue={setDistrictSelected}
+          value={districtSelected}
         />
-        <InputPost name={"Địa chỉ nhà"} setValue={setAddress} />
+        <InputPost name={"Địa chỉ nhà"} setValue={setAddress} value={address} />
         <InputPost
           name={"Địa chỉ chính xác"}
           isDisable={true}
-          value={exAddress || ""}
+          value={exactlyAddress || ""}
         />
       </div>
     </>

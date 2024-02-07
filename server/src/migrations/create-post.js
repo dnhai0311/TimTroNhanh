@@ -41,12 +41,6 @@ module.exports = {
       userId: {
         type: Sequelize.STRING,
       },
-      acreageCode: {
-        type: Sequelize.STRING,
-      },
-      priceCode: {
-        type: Sequelize.STRING,
-      },
       typePostId: {
         type: Sequelize.STRING,
       },

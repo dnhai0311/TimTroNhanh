@@ -1,13 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import addImg from "../../../../assets/addImg.png";
 import icons from "../../../../ultils/icons";
 
-const Picture = ({ imgFiles, setImgFiles }) => {
+const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
   const { FaRegTrashAlt } = icons;
 
   const [selectedImages, setSelectedImages] = useState([]);
-  // console.log(selectedImages);
+
+  useEffect(() => {
+    if (isUpdate && imgFiles && imgFiles.length > 0) {
+      setSelectedImages(imgFiles);
+    }
+  }, [isUpdate, imgFiles]);
 
   const fileInputRef = useRef(null);
   const handleAddPicture = () => {

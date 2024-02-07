@@ -3,6 +3,11 @@ import { AddressFormItem, InputPost } from "../../../../components/";
 import { useSelector } from "react-redux";
 
 const Overview = ({
+  title,
+  description,
+  price,
+  acreage,
+  categorySelected,
   setCategorySelected,
   setTitle,
   setDescription,
@@ -19,13 +24,19 @@ const Overview = ({
         <AddressFormItem
           name={"Loại chuyên mục"}
           values={categories}
-          setId={setCategorySelected}
+          setValue={setCategorySelected}
+          // value={{
+          //   id: 1,
+          //   value: "Cho thuê phòng trọ",
+          // }}
+          value={categorySelected}
         />
-        <InputPost name={"Tiêu đề"} setValue={setTitle} />
+        <InputPost name={"Tiêu đề"} setValue={setTitle} value={title} />
         <InputPost
           name={"Nội dung mô tả"}
           setValue={setDescription}
           isTextArea={true}
+          value={description}
         />
         <InputPost
           name={"Thông tin liên hệ"}
@@ -45,6 +56,7 @@ const Overview = ({
           isAfter={true}
           text={"triệu đồng/tháng"}
           width="w-50"
+          value={price}
         />
         <InputPost
           name={"Diện tích"}
@@ -52,6 +64,7 @@ const Overview = ({
           isAfter={true}
           text={"m²"}
           width="w-50"
+          value={acreage}
         />
       </div>
     </>

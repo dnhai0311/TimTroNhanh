@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import AddressForm from "./AddressForm";
 import Overview from "./Overview";
@@ -9,19 +9,22 @@ import Loading from "../../../Loading";
 import { useNavigate } from "react-router-dom";
 import { showToastSuccess, showToastError } from "../../../ToastUtil";
 
-const CreateNewPost = () => {
+const CreateNewPost = ({ isUpdate, dataPost }) => {
   const navigate = useNavigate();
+
+  const [provinceSelected, setProvinceSelected] = useState({
+    id: 0,
+    value: "",
+  });
 
   const [districtSelected, setDistrictSelected] = useState({
     id: 0,
     value: "",
   });
-  const [exactlyAddress, setExactlyAddress] = useState("");
 
-  const [categorySelected, setCategorySelected] = useState({
-    code: "",
-    value: "",
-  });
+  const [exactlyAddress, setExactlyAddress] = useState("");
+  const [address, setAddress] = useState("");
+  const [categorySelected, setCategorySelected] = useState({});
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -31,10 +34,21 @@ const CreateNewPost = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const updateDistrictSelected = (selectedDistrict) => {
-    setDistrictSelected(selectedDistrict);
-  };
-
+  useEffect(() => {
+    if (!dataPost) return;
+    setTitle(dataPost?.title);
+    setDescription(dataPost?.description);
+    setPrice(dataPost?.attribute?.price);
+    setAcreage(dataPost?.attribute?.acreage);
+    setAddress(dataPost?.attribute?.address.split(", ").slice(0, 2).join(", "));
+    setCategorySelected(dataPost.category);
+    setProvinceSelected(dataPost?.attribute?.district?.province);
+    setDistrictSelected({
+      id: dataPost?.attribute?.district.id,
+      value: dataPost?.attribute?.district?.value,
+    });
+    dataPost?.images?.path && setImgFiles(JSON.parse(dataPost?.images?.path));
+  }, [dataPost]);
   const handleSubmit = async () => {
     setIsLoading(true);
 
@@ -49,7 +63,6 @@ const CreateNewPost = () => {
       setIsLoading(false);
       return;
     }
-
     let payload = {
       title,
       description,
@@ -65,29 +78,37 @@ const CreateNewPost = () => {
       return;
     }
     showToastError("Vui lòng đợi");
-    //upload anh len cloud
-    let formData = new FormData();
-    let ImgUrls = [];
+    if (!isUpdate) {
+      //upload anh len cloud
+      let formData = new FormData();
+      let ImgUrls = [];
 
-    for (const file of imgFiles) {
-      formData.append("file", file);
-      formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
-      const response = await apiUploadImage(formData);
-      if (response.status === 200)
-        ImgUrls = [...ImgUrls, response.data.secure_url];
+      for (const file of imgFiles) {
+        formData.append("file", file);
+        formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
+        const response = await apiUploadImage(formData);
+        if (response.status === 200)
+          ImgUrls = [...ImgUrls, response.data.secure_url];
+      }
+
+      //them vao payload
+      payload = { ...payload, ImgUrls };
+
+      //dispatch
+      const response = await apiCreatePost(payload);
+      setIsLoading(false);
+      // console.log(response.status);
+      if (response.status === 200) {
+        showToastSuccess("Đăng bài thành công");
+        navigate("/quan-ly/tin-dang");
+      } else showToastError(response.data.response.msg);
     }
-
-    //them vao payload
-    payload = { ...payload, ImgUrls };
-
-    //dispatch
-    const response = await apiCreatePost(payload);
-    setIsLoading(false);
-    // console.log(response.status);
-    if (response.status === 200) {
-      showToastSuccess("Đăng bài thành công");
-      navigate("/quan-ly/tin-dang");
-    } else showToastError(response.data.response.msg);
+    console.log("update + payload");
+    payload = {
+      ...payload,
+      imgFiles,
+    };
+    console.log(payload);
   };
 
   return (
@@ -97,17 +118,32 @@ const CreateNewPost = () => {
         <Row className="py-3">
           <Col md={8}>
             <AddressForm
-              onUpdateDistrictSelected={updateDistrictSelected}
+              provinceSelected={provinceSelected}
+              setProvinceSelected={setProvinceSelected}
+              districtSelected={districtSelected}
+              setDistrictSelected={setDistrictSelected}
+              address={address}
+              setAddress={setAddress}
+              exactlyAddress={exactlyAddress}
               setExactlyAddress={setExactlyAddress}
             />
             <Overview
+              title={title}
+              description={description}
+              acreage={acreage}
+              price={price}
+              categorySelected={categorySelected}
               setCategorySelected={setCategorySelected}
               setTitle={setTitle}
               setDescription={setDescription}
               setPrice={setPrice}
               setAcreage={setAcreage}
             />
-            <Picture imgFiles={imgFiles} setImgFiles={setImgFiles} />
+            <Picture
+              imgFiles={imgFiles}
+              setImgFiles={setImgFiles}
+              isUpdate={isUpdate}
+            />
             <Button
               className="w-100 p-2 mt-3 bg-success fw-bold"
               onClick={handleSubmit}

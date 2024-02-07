@@ -47,6 +47,21 @@ export const apiGetPosts = async (
   }
 };
 
+export const apiGetOnePost = async (id) => {
+  try {
+    const response = await axiosConfig({
+      method: "get",
+      url: "/api/v1/post/get-one",
+      params: {
+        id,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const apiCreatePost = async (payload) => {
   try {
     const response = await axiosConfig({

@@ -3,10 +3,13 @@ import PostTable from "./PostTable";
 import { Container, Row, Button } from "react-bootstrap";
 import { apiGetAllPosts } from "../../../../services/user";
 import moment from "moment";
+import UpdatePost from "./UpdatePost";
 
 const PostManagement = () => {
   const [posts, setPosts] = useState({});
   const [total, setTotal] = useState(0);
+  const [isShowPostUpdate, setIsShowPostUpdate] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(0);
 
   const columns = [
     {
@@ -74,7 +77,8 @@ const PostManagement = () => {
               <Button
                 className="w-100 my-1 bg-success"
                 onClick={() => {
-                  console.log(props.row.original.postId);
+                  setIsShowPostUpdate(true);
+                  setSelectedPost(props.row.original.postId);
                 }}
               >
                 Sửa
@@ -82,7 +86,7 @@ const PostManagement = () => {
               <Button
                 className="w-100 my-1 bg-danger"
                 onClick={() => {
-                  console.log(props.row.original.postId);
+                  setSelectedPost(props.row.original.postId);
                 }}
               >
                 Xoá
@@ -111,6 +115,13 @@ const PostManagement = () => {
           <PostTable columns={columns} data={posts} total={total} />
         </Row>
       </Container>
+      {isShowPostUpdate && (
+        <UpdatePost
+          isShow={isShowPostUpdate}
+          setIsShow={setIsShowPostUpdate}
+          selectedPostId={selectedPost}
+        />
+      )}
     </>
   );
 };

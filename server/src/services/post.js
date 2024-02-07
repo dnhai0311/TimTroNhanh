@@ -140,6 +140,56 @@ export const getPostsService = async (
   }
 };
 
+export const getOnePost = async (id) => {
+  try {
+    const response = await db.POST.findOne({
+      raw: true,
+      nest: true,
+      where: { id },
+      include: [
+        {
+          model: db.IMAGE,
+          as: "images",
+          attributes: ["path"],
+        },
+        {
+          model: db.ATTRIBUTE,
+          as: "attribute",
+          attributes: ["price", "acreage", "address"],
+          include: [
+            {
+              model: db.DISTRICT,
+              as: "district",
+              attributes: ["value"],
+              include: [
+                {
+                  model: db.PROVINCE,
+                  as: "province",
+                  attributes: ["value"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: db.CATEGORY,
+          as: "category",
+          attributes: ["id", "code", "value"],
+        },
+      ],
+      attributes: ["title", "description"],
+    });
+
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "FAILED TO GET POST",
+      response,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createPostService = async (id, body) => {
   try {
     let idPost = await db.POST.max("id");

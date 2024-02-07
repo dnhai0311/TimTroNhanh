@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 
-const AddressFormItem = ({ name, values, setId }) => {
+const AddressFormItem = ({ name, values, setValue, value }) => {
+  const [selectedOption, setSelectedOption] = useState(
+    value ? JSON.stringify(value) : ""
+  );
+  const [isSettingValue, setIsSettingValue] = useState(false);
+
   const handleSelectChange = (event) => {
-    const selectedOption = event.target.value;
-    setId(JSON.parse(selectedOption));
-    // console.log(name + ": " + selectedOption);
+    setSelectedOption(event.target.value);
   };
+
+  useEffect(() => {
+    if (!isSettingValue && selectedOption) {
+      setValue(JSON.parse(selectedOption));
+    }
+  }, [selectedOption, setValue, isSettingValue]);
+
+  useEffect(() => {
+    setSelectedOption(value ? JSON.stringify(value) : "");
+    setIsSettingValue(false);
+  }, [value]);
 
   return (
     <>
@@ -16,13 +30,21 @@ const AddressFormItem = ({ name, values, setId }) => {
           as="select"
           className="rounded-0 shadow"
           onChange={handleSelectChange}
+          value={selectedOption}
         >
           <option className="d-none" value="" key="0">
             Chọn {name}
           </option>
           {values &&
             values.map((item) => (
-              <option key={item?.id} value={JSON.stringify(item)}>
+              <option
+                key={item?.id}
+                value={JSON.stringify({
+                  id: item.id,
+                  code: item.code,
+                  value: item.value,
+                })}
+              >
                 {item.value}
               </option>
             ))}
