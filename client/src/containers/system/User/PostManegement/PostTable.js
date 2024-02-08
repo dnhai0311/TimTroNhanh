@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Form, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
@@ -15,11 +15,8 @@ export default function PostTable({ data, columns, total }) {
   const [filtering, setFiltering] = useState("");
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPage =
-    total % pageSize < 1
-      ? Math.floor(total / pageSize)
-      : Math.floor(total / pageSize) + 1;
-
+  const [totalPost, setTotalPost] = useState(total);
+  const [totalPage, setTotalPage] = useState(0);
   const table = useReactTable({
     data,
     columns,
@@ -38,12 +35,28 @@ export default function PostTable({ data, columns, total }) {
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering,
   });
-
+  useEffect(() => {
+    setTotalPost(total);
+  }, [total]);
+  useEffect(() => {
+    setTotalPage(
+      totalPost % pageSize < 1
+        ? Math.floor(totalPost / pageSize)
+        : Math.floor(totalPost / pageSize) + 1
+    );
+  }, [totalPost, pageSize]);
+  useEffect(() => {
+    setTotalPost(table.getFilteredRowModel().rows.length);
+  }, [filtering, table]);
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
     setCurrentPage(selectedPage);
     table.setPageIndex(currentPage);
   };
+
+  useEffect(() => {
+    if (+totalPage < +currentPage) setCurrentPage(0);
+  }, [totalPage, currentPage]);
 
   return (
     <Container>
@@ -141,6 +154,7 @@ export default function PostTable({ data, columns, total }) {
           breakLinkClassName="page-link"
           containerClassName="pagination justify-content-center"
           activeClassName="active"
+          forcePage={Math.min(currentPage, totalPage - 1)}
           renderOnZeroPageCount={null}
         />
       </div>

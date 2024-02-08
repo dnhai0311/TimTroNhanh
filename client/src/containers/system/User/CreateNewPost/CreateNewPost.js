@@ -4,12 +4,17 @@ import AddressForm from "./AddressForm";
 import Overview from "./Overview";
 import Picture from "./Picture";
 import { apiUploadImage } from "../../../../services/app";
-import { apiCreatePost } from "../../../../services/post";
+import { apiCreatePost, apiUpdatePost } from "../../../../services/post";
 import Loading from "../../../Loading";
 import { useNavigate } from "react-router-dom";
 import { showToastSuccess, showToastError } from "../../../ToastUtil";
 
-const CreateNewPost = ({ isUpdate, dataPost }) => {
+const CreateNewPost = ({
+  isUpdate,
+  dataPost,
+  isSomePostUpdate,
+  setIsSomePostUpdate,
+}) => {
   const navigate = useNavigate();
 
   const [provinceSelected, setProvinceSelected] = useState({
@@ -53,6 +58,13 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
   const showToastErrorAndSetLoading = (message) => {
     showToastError(message);
     setIsLoading(false);
+    document.getElementById("submitButton").disabled = false;
+  };
+
+  const showToastSuccessAndSetLoading = (message) => {
+    showToastSuccess(message);
+    setIsLoading(false);
+    document.getElementById("submitButton").disabled = false;
   };
 
   const uploadImages = async () => {
@@ -76,18 +88,34 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
 
   const createPost = async (payload) => {
     const response = await apiCreatePost(payload);
-    setIsLoading(false);
 
     if (response.status === 200) {
-      showToastSuccess("Đăng bài thành công");
+      showToastSuccessAndSetLoading("Đăng bài thành công");
       navigate("/quan-ly/tin-dang");
     } else {
-      showToastError(response.data.response.msg);
+      showToastErrorAndSetLoading(response.data.response.msg);
+    }
+  };
+
+  const UpdatePost = async (payload) => {
+    payload = {
+      ...payload,
+      idPost: dataPost.id,
+      userId: dataPost.userId,
+    };
+    const response = await apiUpdatePost(payload);
+
+    if (response.status === 200) {
+      showToastSuccessAndSetLoading("Cập nhật bài thành công");
+      setIsSomePostUpdate(!isSomePostUpdate);
+    } else {
+      showToastErrorAndSetLoading(response.data.response.msg);
     }
   };
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    document.getElementById("submitButton").disabled = true;
     if (+price > 0 && +acreage > 0);
     else {
       showToastErrorAndSetLoading("Giá hoặc diện tích không hợp lệ");
@@ -109,8 +137,7 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
       districtId: districtSelected.id,
     };
     if (Object.values(payload).includes("")) {
-      setIsLoading(false);
-      showToastError("Bạn chưa nhập đầy đủ");
+      showToastErrorAndSetLoading("Bạn chưa nhập đầy đủ");
       return;
     }
     showToastError("Vui lòng đợi");
@@ -118,14 +145,16 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
     payload = { ...payload, ImgUrls };
     if (!isUpdate) {
       await createPost(payload);
+      return;
     }
-    console.log("update + payload");
-    console.log(payload);
+    await UpdatePost(payload);
   };
 
   return (
     <>
-      <h3 className="border-bottom py-3 px-5">Đăng tin mới</h3>
+      <h3 className="border-bottom py-3 px-5">
+        {isUpdate ? "Cập nhật bài đăng" : "Đăng tin mới"}
+      </h3>
       <Container className="px-5">
         <Row className="py-3">
           <Col md={8}>
@@ -158,9 +187,14 @@ const CreateNewPost = ({ isUpdate, dataPost }) => {
             />
             <Button
               className="w-100 p-2 mt-3 bg-success fw-bold"
+              id="submitButton"
               onClick={handleSubmit}
             >
-              {isLoading ? <Loading /> : <span>Đăng bài</span>}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <span>{isUpdate ? "Cập nhật" : "Đăng bài"}</span>
+              )}
             </Button>
           </Col>
           <Col md={4}>map</Col>

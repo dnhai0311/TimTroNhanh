@@ -140,7 +140,7 @@ export const getPostsService = async (
   }
 };
 
-export const getOnePost = async (id) => {
+export const getOnePostService = async (id) => {
   try {
     const response = await db.POST.findOne({
       raw: true,
@@ -177,7 +177,7 @@ export const getOnePost = async (id) => {
           attributes: ["id", "code", "value"],
         },
       ],
-      attributes: ["title", "description"],
+      attributes: ["id", "title", "description", "userId"],
     });
 
     return {
@@ -223,6 +223,44 @@ export const createPostService = async (id, body) => {
     return {
       err: response ? 0 : 1,
       msg: response ? "OK" : "FAILED TO CREATE POST",
+      response,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePostService = async (body) => {
+  try {
+    const response = await db.POST.update(
+      {
+        title: body.title,
+        description: body.description,
+        categoryCode: body.categoryCode,
+      },
+      { where: { id: body.idPost } }
+    );
+
+    await db.ATTRIBUTE.update(
+      {
+        price: +body.price,
+        acreage: +body.acreage,
+        address: body.address,
+        districtId: body.districtId,
+      },
+      { where: { id: body.idPost } }
+    );
+
+    await db.IMAGE.update(
+      {
+        path: JSON.stringify(body.ImgUrls),
+      },
+      { where: { id: body.idPost } }
+    );
+
+    return {
+      err: response ? 0 : 1,
+      msg: response ? "OK" : "FAILED TO UPDATE POST",
       response,
     };
   } catch (error) {

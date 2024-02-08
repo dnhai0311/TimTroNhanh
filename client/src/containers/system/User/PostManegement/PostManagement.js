@@ -9,6 +9,7 @@ const PostManagement = () => {
   const [posts, setPosts] = useState({});
   const [total, setTotal] = useState(0);
   const [isShowPostUpdate, setIsShowPostUpdate] = useState(false);
+  const [isSomePostUpdate, setIsSomePostUpdate] = useState(false);
   const [selectedPost, setSelectedPost] = useState(0);
 
   const columns = [
@@ -105,7 +106,7 @@ const PostManagement = () => {
       setTotal(response.data.response.count);
     };
     fetchAllPosts();
-  }, []);
+  }, [isSomePostUpdate]);
 
   return (
     <>
@@ -120,6 +121,8 @@ const PostManagement = () => {
           isShow={isShowPostUpdate}
           setIsShow={setIsShowPostUpdate}
           selectedPostId={selectedPost}
+          isSomePostUpdate={isSomePostUpdate}
+          setIsSomePostUpdate={setIsSomePostUpdate}
         />
       )}
     </>

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { apiUpdateUser } from "../../../services/user";
 import { apiUploadImage } from "../../../services/app";
-
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../Loading";
 import { showToastError, showToastSuccess } from "../../ToastUtil";
+import { getCurrentUser } from "../../../store/actions/user";
 
 const UserManagement = () => {
+  const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.user);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +44,7 @@ const UserManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    document.getElementById("submitButton").disabled = true;
     let payload = {};
     if (avatar) {
       let formData = new FormData();
@@ -69,10 +72,11 @@ const UserManagement = () => {
       const response = await apiUpdateUser(payload);
       if (response.data.success) {
         showToastSuccess(response.data.message);
-        window.location.reload();
+        dispatch(getCurrentUser());
       } else showToastError(response.data.message);
     }
     setIsLoading(false);
+    document.getElementById("submitButton").disabled = false;
   };
 
   return (
@@ -145,7 +149,12 @@ const UserManagement = () => {
           </div>
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="w-100 mb-3">
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-100 mb-3"
+          id="submitButton"
+        >
           {isLoading ? <Loading /> : <span>Lưu và cập nhật</span>}
         </Button>
       </Form>

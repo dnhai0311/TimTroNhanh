@@ -10,5 +10,6 @@ router.get("/get-one", postController.getOnePost);
 
 router.use(verifyToken);
 router.post("/create-new", postController.createPost);
+router.put("/update", postController.updatePost);
 
 export default router;

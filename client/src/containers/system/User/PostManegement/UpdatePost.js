@@ -4,7 +4,13 @@ import CreateNewPost from "../CreateNewPost/CreateNewPost";
 import "./PostManagement.scss";
 import { apiGetOnePost } from "../../../../services/post";
 
-const UpdatePost = ({ isShow, setIsShow, selectedPostId }) => {
+const UpdatePost = ({
+  isShow,
+  setIsShow,
+  selectedPostId,
+  isSomePostUpdate,
+  setIsSomePostUpdate,
+}) => {
   const [selectedPost, setSelectedPost] = useState({});
   const handleClose = () => {
     setIsShow(false);
@@ -22,7 +28,12 @@ const UpdatePost = ({ isShow, setIsShow, selectedPostId }) => {
     <Modal show={isShow} dialogClassName="update-modal" onHide={handleClose}>
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <CreateNewPost isUpdate={true} dataPost={selectedPost} />
+        <CreateNewPost
+          isUpdate={true}
+          dataPost={selectedPost}
+          isSomePostUpdate={isSomePostUpdate}
+          setIsSomePostUpdate={setIsSomePostUpdate}
+        />
       </Modal.Body>
     </Modal>
   );

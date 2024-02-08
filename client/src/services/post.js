@@ -74,3 +74,16 @@ export const apiCreatePost = async (payload) => {
     throw error;
   }
 };
+
+export const apiUpdatePost = async (payload) => {
+  try {
+    const response = await axiosConfig({
+      method: "put",
+      url: "/api/v1/post/update",
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

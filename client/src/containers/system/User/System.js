@@ -15,9 +15,6 @@ const System = () => {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getCurrentUser());
   }, [dispatch]);
 

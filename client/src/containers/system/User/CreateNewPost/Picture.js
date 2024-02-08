@@ -29,8 +29,6 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
       alert(`Chỉ được tải lên tối đa ${maxImages} ảnh.`);
       return;
     }
-
-    console.log(imgFiles);
     setImgFiles((prevImgFiles) => [...prevImgFiles, ...selectedFiles]);
 
     const newImages = [...selectedImages];
@@ -40,7 +38,6 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
     }
     setSelectedImages([...newImages]);
   };
-  console.log(imgFiles);
   const handleRemoveImage = (index) => {
     const newImages = [...selectedImages];
     const newImgFlies = [...imgFiles];
