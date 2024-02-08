@@ -4,6 +4,7 @@ import { Container, Row, Button } from "react-bootstrap";
 import { apiGetAllPosts } from "../../../../services/user";
 import moment from "moment";
 import UpdatePost from "./UpdatePost";
+import { apiDeletePost } from "../../../../services/post";
 
 const PostManagement = () => {
   const [posts, setPosts] = useState({});
@@ -11,6 +12,12 @@ const PostManagement = () => {
   const [isShowPostUpdate, setIsShowPostUpdate] = useState(false);
   const [isSomePostUpdate, setIsSomePostUpdate] = useState(false);
   const [selectedPost, setSelectedPost] = useState(0);
+
+  const handleDelete = async (id) => {
+    const response = await apiDeletePost(id);
+    setIsSomePostUpdate(!isSomePostUpdate);
+    console.log(response);
+  };
 
   const columns = [
     {
@@ -87,7 +94,7 @@ const PostManagement = () => {
               <Button
                 className="w-100 my-1 bg-danger"
                 onClick={() => {
-                  setSelectedPost(props.row.original.postId);
+                  handleDelete(props.row.original.postId);
                 }}
               >
                 Xoá

@@ -267,3 +267,24 @@ export const updatePostService = async (body) => {
     throw error;
   }
 };
+
+export const deletePostService = async (id) => {
+  try {
+    const response = await db.POST.destroy({
+      where: { id },
+    });
+    await db.ATTRIBUTE.destroy({
+      where: { id },
+    });
+    await db.IMAGE.destroy({
+      where: { id },
+    });
+    return {
+      err: response > 0 ? 0 : 1,
+      msg: response > 0 ? "DELETED" : "FAILED TO DELETE POST",
+      response,
+    };
+  } catch (error) {
+    throw error;
+  }
+};

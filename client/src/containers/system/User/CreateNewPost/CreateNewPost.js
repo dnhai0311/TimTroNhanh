@@ -8,7 +8,7 @@ import { apiCreatePost, apiUpdatePost } from "../../../../services/post";
 import Loading from "../../../Loading";
 import { useNavigate } from "react-router-dom";
 import { showToastSuccess, showToastError } from "../../../ToastUtil";
-
+import { toast } from "react-toastify";
 const CreateNewPost = ({
   isUpdate,
   dataPost,
@@ -75,7 +75,10 @@ const CreateNewPost = ({
       if (typeof file === "object") {
         formData.append("file", file);
         formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
-        const response = await apiUploadImage(formData);
+        const response = await toast.promise(apiUploadImage(formData), {
+          pending: "Đang cập nhật ảnh",
+          error: "Cập nhật ảnh thất bại",
+        });
         if (response.status === 200)
           ImgUrls = [...ImgUrls, response.data.secure_url];
       } else {
@@ -140,7 +143,7 @@ const CreateNewPost = ({
       showToastErrorAndSetLoading("Bạn chưa nhập đầy đủ");
       return;
     }
-    showToastError("Vui lòng đợi");
+    // showToastError("Vui lòng đợi");
     const ImgUrls = await uploadImages();
     payload = { ...payload, ImgUrls };
     if (!isUpdate) {

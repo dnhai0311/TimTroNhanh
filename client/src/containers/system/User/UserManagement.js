@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loading from "../../Loading";
 import { showToastError, showToastSuccess } from "../../ToastUtil";
 import { getCurrentUser } from "../../../store/actions/user";
+import { toast } from "react-toastify";
 
 const UserManagement = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,10 @@ const UserManagement = () => {
       let formData = new FormData();
       formData.append("file", avatar);
       formData.append("upload_preset", process.env.REACT_APP_UPLOAD_NAME);
-      const response = await apiUploadImage(formData);
+      const response = await toast.promise(apiUploadImage(formData), {
+        pending: "Đang cập nhật avatar",
+        error: "Tải avatar thất bại",
+      });
       payload = {
         ...payload,
         avatar: response.data.secure_url,

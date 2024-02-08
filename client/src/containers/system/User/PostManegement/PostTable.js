@@ -45,19 +45,28 @@ export default function PostTable({ data, columns, total }) {
         : Math.floor(totalPost / pageSize) + 1
     );
   }, [totalPost, pageSize]);
+
   useEffect(() => {
     setTotalPost(table.getFilteredRowModel().rows.length);
-  }, [filtering, table]);
-  const handlePageClick = (e) => {
-    const selectedPage = +e.selected;
-    setCurrentPage(selectedPage);
-    table.setPageIndex(currentPage);
-  };
+  }, [total, filtering, table]);
 
   useEffect(() => {
     if (+totalPage < +currentPage) setCurrentPage(0);
   }, [totalPage, currentPage]);
 
+  // useEffect(() => {
+  //   if (total > 0) {
+  //     if (table.getFilteredRowModel().rows.length === 0) {
+  //       setCurrentPage(currentPage - 1);
+  //     }
+  //   }
+  // }, [total, pageSize]);
+
+  const handlePageClick = (e) => {
+    const selectedPage = +e.selected;
+    setCurrentPage(selectedPage);
+    table.setPageIndex(currentPage);
+  };
   return (
     <Container>
       <div className="d-flex justify-content-end">

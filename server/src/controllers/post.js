@@ -144,14 +144,34 @@ export const updatePost = async (req, res) => {
       });
     }
     const paths = await getImgsPath(idPost);
-    const deletedPosts = filter(paths.path, ImgUrls);
-    if (deletedPosts.length > 0) {
-      for (const publicId of deletedPosts) {
+    const deletedImages = filter(paths.path, ImgUrls);
+    if (deletedImages.length > 0) {
+      for (const publicId of deletedImages) {
         deleteImage(publicId);
       }
     }
 
     const response = await postService.updatePostService(req.body);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: -1,
+      msg: "Failed at controller " + error,
+    });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const paths = await getImgsPath(id);
+    const deletedImages = filter(paths.path, []);
+    if (deletedImages.length > 0) {
+      for (const publicId of deletedImages) {
+        deleteImage(publicId);
+      }
+    }
+    const response = await postService.deletePostService(id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
