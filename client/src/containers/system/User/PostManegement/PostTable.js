@@ -88,7 +88,10 @@ const PostTable = ({ data, columns, total }) => {
           <Form.Control
             as="select"
             value={filtering}
-            onChange={(e) => setFiltering(e.target.value)}
+            onChange={(e) => {
+              setFiltering(e.target.value);
+              setCurrentPage(0);
+            }}
           >
             <option value={""}>Tất cả</option>
             <option>payment</option>

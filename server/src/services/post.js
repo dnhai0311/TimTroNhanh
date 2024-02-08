@@ -69,6 +69,13 @@ export const getPostsService = async (
           model: db.ATTRIBUTE,
           as: "attribute",
           attributes: ["price", "acreage", "address"],
+          include: [
+            {
+              model: db.DISTRICT,
+              as: "district",
+              attributes: [],
+            },
+          ],
         },
         {
           model: db.USER,

@@ -133,28 +133,11 @@ const ListPost = ({ categoryCode }) => {
     const minAcreageParam = queryParams.get("minAcreage");
     const maxAcreageParam = queryParams.get("maxAcreage");
     const newSearchParams = createSearchParams({
-      // ...(priceParam || acreageParam
-      //   ? {
-      //       [priceParam ? "priceCode" : "acreageCode"]:
-      //         priceParam || acreageParam,
-      //     }
-      //   : {}),
-      ...((minPriceParam && maxPriceParam) ||
-      (minAcreageParam && maxAcreageParam)
-        ? {
-            ...(minPriceParam && maxPriceParam
-              ? {
-                  minPrice: minPriceParam,
-                  maxPrice: maxPriceParam,
-                }
-              : {}),
-            ...(minAcreageParam && maxAcreageParam
-              ? {
-                  minAcreage: minAcreageParam,
-                  maxAcreage: maxAcreageParam,
-                }
-              : {}),
-          }
+      ...(minPriceParam && maxPriceParam
+        ? { minPrice: minPriceParam, maxPrice: maxPriceParam }
+        : {}),
+      ...(minAcreageParam && maxAcreageParam
+        ? { minAcreage: minAcreageParam, maxAcreage: maxAcreageParam }
         : {}),
       page: selectedPage + 1,
     }).toString();
