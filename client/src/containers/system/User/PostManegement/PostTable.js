@@ -10,12 +10,12 @@ import { useState, useEffect } from "react";
 import { Container, Form, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
-export default function PostTable({ data, columns, total }) {
+const PostTable = ({ data, columns, total }) => {
   const [sorting, setSorting] = useState([]);
   const [filtering, setFiltering] = useState("");
   const [pageSize, setPageSize] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPost, setTotalPost] = useState(total);
+  const [totalPost, setTotalPost] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const table = useReactTable({
     data,
@@ -28,6 +28,7 @@ export default function PostTable({ data, columns, total }) {
       sorting: sorting,
       globalFilter: filtering,
       pagination: {
+        pageCount: totalPage,
         pageIndex: currentPage,
         pageSize: pageSize,
       },
@@ -35,9 +36,7 @@ export default function PostTable({ data, columns, total }) {
     onSortingChange: setSorting,
     onGlobalFilterChange: setFiltering,
   });
-  useEffect(() => {
-    setTotalPost(total);
-  }, [total]);
+
   useEffect(() => {
     setTotalPage(
       totalPost % pageSize < 1
@@ -47,25 +46,18 @@ export default function PostTable({ data, columns, total }) {
   }, [totalPost, pageSize]);
 
   useEffect(() => {
-    setTotalPost(table.getFilteredRowModel().rows.length);
-  }, [total, filtering, table]);
+    total && setTotalPost(table.getFilteredRowModel().rows.length);
+  }, [total, filtering, table, currentPage]);
 
   useEffect(() => {
-    if (+totalPage < +currentPage) setCurrentPage(0);
-  }, [totalPage, currentPage]);
-
-  // useEffect(() => {
-  //   if (total > 0) {
-  //     if (table.getFilteredRowModel().rows.length === 0) {
-  //       setCurrentPage(currentPage - 1);
-  //     }
-  //   }
-  // }, [total, pageSize]);
+    if (total && table.getRowModel().rows.length === 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [total, table, currentPage]);
 
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
     setCurrentPage(selectedPage);
-    table.setPageIndex(currentPage);
   };
   return (
     <Container>
@@ -77,7 +69,10 @@ export default function PostTable({ data, columns, total }) {
           <Form.Control
             as="select"
             value={pageSize}
-            onChange={(e) => setPageSize(e.target.value)}
+            onChange={(e) => {
+              setPageSize(+e.target.value);
+              setCurrentPage(0);
+            }}
             className="w-50"
           >
             <option>5</option>
@@ -169,4 +164,6 @@ export default function PostTable({ data, columns, total }) {
       </div>
     </Container>
   );
-}
+};
+
+export default PostTable;
