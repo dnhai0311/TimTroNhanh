@@ -61,5 +61,3 @@ export const LoginService = async ({ phone, password }) => {
     throw error;
   }
 };
-
-export const CheckPasswordService = () => {};

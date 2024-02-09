@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { Container, Form, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 
@@ -38,27 +38,26 @@ const PostTable = ({ data, columns, total }) => {
   });
 
   useEffect(() => {
-    setTotalPage(
-      totalPost % pageSize < 1
-        ? Math.floor(totalPost / pageSize)
-        : Math.floor(totalPost / pageSize) + 1
-    );
-  }, [totalPost, pageSize]);
+    total &&
+      setTotalPage(
+        totalPost % pageSize < 1
+          ? Math.floor(totalPost / pageSize)
+          : Math.floor(totalPost / pageSize) + 1
+      );
+  }, [total, totalPost, pageSize]);
 
   useEffect(() => {
     total && setTotalPost(table.getFilteredRowModel().rows.length);
-  }, [total, filtering, table, currentPage]);
-
-  useEffect(() => {
     if (total && table.getRowModel().rows.length === 0) {
       setCurrentPage(currentPage - 1);
     }
-  }, [total, table, currentPage]);
+  }, [total, filtering, table, currentPage]);
 
   const handlePageClick = (e) => {
     const selectedPage = +e.selected;
     setCurrentPage(selectedPage);
   };
+
   return (
     <Container>
       <div className="d-flex justify-content-end">
@@ -169,4 +168,4 @@ const PostTable = ({ data, columns, total }) => {
   );
 };
 
-export default PostTable;
+export default memo(PostTable);
