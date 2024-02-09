@@ -183,6 +183,11 @@ export const getOnePostService = async (id) => {
           as: "category",
           attributes: ["id", "code", "value"],
         },
+        {
+          model: db.USER,
+          as: "user",
+          attributes: ["name", "phone", "avatar"],
+        },
       ],
       attributes: ["id", "title", "description", "userId"],
     });

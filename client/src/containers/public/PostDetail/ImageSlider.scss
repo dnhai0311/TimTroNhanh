@@ -1,0 +1,23 @@
+.slider-container {
+    .slider{
+        .image-slider {
+            height: 400px;
+        }
+    }
+    .slick-slide div {
+        width: auto;
+        margin:0 35px;
+      }
+    .slick-prev,
+    .slick-next {
+    z-index: 999 !important;
+    }
+    .slick-prev {
+    left: 10px !important;
+    }
+    .slick-next {
+    right: 10px !important;
+    }
+
+}
+

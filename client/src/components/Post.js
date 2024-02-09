@@ -87,7 +87,7 @@ const Post = ({
                   src={avatar}
                   alt="avatar"
                   className="border rounded-circle"
-                  style={{ width: 30 + "px" }}
+                  style={{ width: "30px", height: "30px" }}
                 />
                 <span className="px-2 text-truncate">{uploader}</span>
               </div>
