@@ -4,6 +4,7 @@ import "../containers/public/Header/Search.scss";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import icons from "../ultils/icons";
+import MyTable from "./MyTable";
 
 const MyModal = ({
   setIsShowModal,
@@ -21,6 +22,35 @@ const MyModal = ({
   const [text, setText] = useState("");
 
   const [sliderRange, setSliderRange] = useState([0, maxValue]);
+
+  const columns = [
+    {
+      accessorKey: "value",
+      Header: "value",
+      cell: ({ row }) => {
+        return (
+          <div
+            className="modal-item d-flex align-items-center w-100"
+            onClick={() => {
+              handleSelect(content, row.original);
+              handleClose();
+            }}
+          >
+            <input
+              type="radio"
+              name={content}
+              id={row.original.id}
+              value={row.original.id}
+              className="px-2 modal-input"
+            />
+            <label htmlFor={row.original.id} className="px-2">
+              {row.original.value}
+            </label>
+          </div>
+        );
+      },
+    },
+  ];
 
   const handleSliderChange = (range) => {
     setSliderRange(range);
@@ -89,49 +119,50 @@ const MyModal = ({
         </Modal.Header>
         <Modal.Body className="modal-body">
           {content !== "Giá" && content !== "Diện tích" && (
-            <div>
-              <div
-                className="modal-item d-flex align-items-center w-100"
-                onClick={() => {
-                  handleSelect(content, { id: 0, value: "Toàn bộ" });
-                  handleClose();
-                }}
-              >
-                <input
-                  type="radio"
-                  name={content}
-                  id="0"
-                  value="Toàn bộ"
-                  className="px-2 modal-input"
-                />
-                <label htmlFor="0" className="px-2">
-                  Toàn bộ
-                </label>
-              </div>
-              {data?.map((item) => {
-                return (
-                  <div
-                    className="modal-item d-flex align-items-center w-100"
-                    key={item.id}
-                    onClick={() => {
-                      handleSelect(content, item);
-                      handleClose();
-                    }}
-                  >
-                    <input
-                      type="radio"
-                      name={content}
-                      id={item.id}
-                      value={item.id}
-                      className="px-2 modal-input"
-                    />
-                    <label htmlFor={item.id} className="px-2">
-                      {item.value}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
+            // <div>
+            //   <div
+            //     className="modal-item d-flex align-items-center w-100"
+            //     onClick={() => {
+            //       handleSelect(content, { id: 0, value: "Toàn bộ" });
+            //       handleClose();
+            //     }}
+            //   >
+            //     <input
+            //       type="radio"
+            //       name={content}
+            //       id="0"
+            //       value="Toàn bộ"
+            //       className="px-2 modal-input"
+            //     />
+            //     <label htmlFor="0" className="px-2">
+            //       Toàn bộ
+            //     </label>
+            //   </div>
+            //   {data?.map((item) => {
+            //     return (
+            //       <div
+            //         className="modal-item d-flex align-items-center w-100"
+            //         key={item.id}
+            //         onClick={() => {
+            //           handleSelect(content, item);
+            //           handleClose();
+            //         }}
+            //       >
+            //         <input
+            //           type="radio"
+            //           name={content}
+            //           id={item.id}
+            //           value={item.id}
+            //           className="px-2 modal-input"
+            //         />
+            //         <label htmlFor={item.id} className="px-2">
+            //           {item.value}
+            //         </label>
+            //       </div>
+            //     );
+            //   })}
+            // </div>
+            <MyTable data={data} columns={columns} />
           )}
           {(content === "Giá" || content === "Diện tích") && (
             <>

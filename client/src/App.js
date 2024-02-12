@@ -22,10 +22,12 @@ import {
 } from "./containers/system/User/index";
 import { path } from "./ultils/constant";
 import PrivateWrapper from "./route/PrivateWrapper";
+import ScrollToTop from "./ultils/commons/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path={path.MAIN} element={<Main />}>
           <Route path={"*"} element={<Home />} />

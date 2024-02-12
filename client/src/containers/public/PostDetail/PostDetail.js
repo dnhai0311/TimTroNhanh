@@ -15,6 +15,7 @@ const DetailPost = () => {
     };
     postId && fetchDetailPost(postId);
   }, [postId]);
+
   return (
     <>
       <Container className="my-3">
