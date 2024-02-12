@@ -24,6 +24,7 @@ export const getProvincesService = async () => {
         {
           model: db.DISTRICT,
           as: "districts",
+          required: true,
           attributes: [],
           include: [
             {
@@ -31,6 +32,18 @@ export const getProvincesService = async () => {
               as: "attributes",
               required: true,
               attributes: [],
+              include: [
+                {
+                  model: db.POST,
+                  as: "post",
+                  attributes: [],
+                  where: {
+                    "$districts.attributes.post.status$": {
+                      [db.Sequelize.Op.eq]: "approved",
+                    },
+                  },
+                },
+              ],
             },
           ],
         },
@@ -42,6 +55,7 @@ export const getProvincesService = async () => {
       },
     });
 
+    // const uniqueMap = Object.groupBy(response, (response) => response.id);
     const uniqueMap = response.reduce((map, item) => {
       const key = `${item.id}-${item.value}`;
       map[key] = item;
