@@ -9,8 +9,9 @@ import {
 import { useState, useEffect, memo } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
-
+import { useSelector } from 'react-redux';
 const PostTable = ({ data, columns, total }) => {
+    const { isDarkMode } = useSelector((state) => state.theme);
     const [sorting, setSorting] = useState([]);
     const [filtering, setFiltering] = useState('');
     const [pageSize, setPageSize] = useState(5);
@@ -132,15 +133,15 @@ const PostTable = ({ data, columns, total }) => {
                     marginPagesDisplayed={1}
                     pageCount={totalPage}
                     previousLabel="<"
-                    pageClassName="page-item bg-white"
+                    pageClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
                     pageLinkClassName="page-link"
-                    previousClassName="page-item bg-white"
+                    previousClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
                     previousLinkClassName="page-link"
-                    nextClassName="page-item bg-white"
+                    nextClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
                     nextLinkClassName="page-link"
-                    breakClassName="page-item bg-white"
+                    breakClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
                     breakLinkClassName="page-link"
-                    containerClassName="pagination justify-content-center"
+                    containerClassName={`pagination justify-content-center ${isDarkMode ? 'light-theme' : ''}`}
                     activeClassName="active"
                     forcePage={Math.min(currentPage, totalPage - 1)}
                     renderOnZeroPageCount={null}

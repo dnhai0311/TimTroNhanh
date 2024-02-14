@@ -35,7 +35,7 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
                         />
                     </div>
                 </div>
-                <div className="col-8 bg-light">
+                <div className="col-8">
                     <Link
                         to={`/post/${id}`}
                         className="px-2 fw-bold text-danger line-clamp-2 text-justify text-decoration-none text-uppercase"

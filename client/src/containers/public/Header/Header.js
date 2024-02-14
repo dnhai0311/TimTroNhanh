@@ -12,6 +12,7 @@ import Navigation from './Navigation';
 import './Header.scss';
 import * as actions from '../../../store/actions/';
 import { showToastSuccess } from '../../ToastUtil';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="bg-light" ref={HeaderRef}>
+            <Navbar className="" ref={HeaderRef}>
                 <div className="d-flex flex-column flex-md-row w-100 w-lg-75 m-auto  justify-content-between align-items-center">
                     <Link to={'/'}>
                         <Navbar.Brand style={{ margin: 0 }}>
@@ -74,45 +75,54 @@ const Header = () => {
                             />
                         </Navbar.Brand>
                     </Link>
-                    {!isLoggedIn ? (
-                        <Navbar>
-                            <Button className="bg-primary m-1 d-flex align-items-center" onClick={() => goLogin(false)}>
-                                <FaCircleUser className="mx-1" />
-                                <span>Đăng nhập</span>
-                            </Button>
-                            <Button className="bg-primary m-1 d-flex align-items-center" onClick={() => goLogin(true)}>
-                                <FaUserPlus className="mx-1" />
-                                <span>Đăng ký</span>
-                            </Button>
-                        </Navbar>
-                    ) : (
-                        <Navbar className="d-flex flex-wrap justify-content-center">
-                            <div className="d-flex align-items-center">
-                                <div className="me-2">
-                                    <span className="d-none d-sm-block">
-                                        Xin chào, {userData?.name?.split(' ').pop()}!
-                                    </span>
+                    <Navbar className="d-flex flex-wrap justify-content-center">
+                        {!isLoggedIn ? (
+                            <>
+                                <Button
+                                    className="bg-primary m-1 d-flex align-items-center"
+                                    onClick={() => goLogin(false)}
+                                >
+                                    <FaCircleUser className="mx-1" />
+                                    <span>Đăng nhập</span>
+                                </Button>
+                                <Button
+                                    className="bg-primary m-1 d-flex align-items-center"
+                                    onClick={() => goLogin(true)}
+                                >
+                                    <FaUserPlus className="mx-1" />
+                                    <span>Đăng ký</span>
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <div className="d-flex align-items-center">
+                                    <div className="me-2">
+                                        <span className="d-none d-sm-block">
+                                            Xin chào, {userData?.name?.split(' ').pop()}!
+                                        </span>
+                                    </div>
+                                    <Button
+                                        className="bg-success"
+                                        onClick={() => {
+                                            navigate('/tin-da-luu');
+                                        }}
+                                    >
+                                        Tin đã lưu
+                                    </Button>
+                                    <Button
+                                        className="bg-danger m-1"
+                                        onClick={() => {
+                                            navigate('/quan-ly/dang-tin-moi');
+                                        }}
+                                    >
+                                        Tạo bài đăng mới
+                                    </Button>
                                 </div>
-                                <Button
-                                    className="bg-success"
-                                    onClick={() => {
-                                        navigate('/tin-da-luu');
-                                    }}
-                                >
-                                    Tin đã lưu
-                                </Button>
-                                <Button
-                                    className="bg-danger m-1"
-                                    onClick={() => {
-                                        navigate('/quan-ly/dang-tin-moi');
-                                    }}
-                                >
-                                    Tạo bài đăng mới
-                                </Button>
-                            </div>
-                            <DropDownManage handleSignOut={handleSignOut} />
-                        </Navbar>
-                    )}
+                                <DropDownManage handleSignOut={handleSignOut} />
+                            </>
+                        )}
+                        <ThemeToggle className={'ms-2'} />
+                    </Navbar>
                 </div>
             </Navbar>
             <Navigation handleGotoTop={handleGotoTop} />

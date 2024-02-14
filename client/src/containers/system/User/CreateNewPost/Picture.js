@@ -83,7 +83,7 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
                                             className="p-0 m-0"
                                         />
                                         <div
-                                            className="position-absolute bottom-0 bg-light w-100 d-flex align-items-center justify-content-center"
+                                            className="position-absolute bottom-0  w-100 d-flex align-items-center justify-content-center"
                                             onClick={() => handleRemoveImage(index)}
                                             style={{ cursor: 'pointer' }}
                                         >

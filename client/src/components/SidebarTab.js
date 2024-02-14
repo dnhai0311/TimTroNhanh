@@ -18,7 +18,7 @@ const SidebarTab = ({ name, value, isDouble, type, scrollFunction }) => {
     };
     return (
         <>
-            <div className="col-12  border rounded bg-light">
+            <div className="col-12  border rounded ">
                 <h6 className="py-3 fw-bold">{name}</h6>
                 {!isDouble && (
                     <div className="row">

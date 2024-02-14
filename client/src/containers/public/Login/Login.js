@@ -15,6 +15,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
+    const { isDarkMode } = useSelector((state) => state.theme);
 
     const [isRegister, setIsRegister] = useState(location.state?.flag);
     const [validated, setValidated] = useState(false);
@@ -122,9 +123,15 @@ const Login = () => {
                     key={isRegister ? 'Đăng ký' : 'Đăng nhập'}
                     className="d-flex justify-content-center align-items-center"
                 >
-                    <Form className="px-5 pt-5 pb-4 rounded bg-white login-form" noValidate validated={validated}>
+                    <Form
+                        className={`px-5 pt-5 pb-4 rounded login-form text-dark ${
+                            isDarkMode ? 'light-theme' : 'bg-light'
+                        }`}
+                        noValidate
+                        validated={validated}
+                    >
                         <Form.Group>
-                            <h3 className="text-center">{isRegister ? 'Đăng ký' : 'Đăng nhập'}</h3>
+                            <h3 className="text-center ">{isRegister ? 'Đăng ký' : 'Đăng nhập'}</h3>
                         </Form.Group>
                         <Form.Group>
                             {isRegister && (

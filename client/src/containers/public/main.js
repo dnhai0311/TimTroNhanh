@@ -12,6 +12,7 @@ import { getCurrentUser } from '../../store/actions/user';
 const Main = () => {
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isDarkMode } = useSelector((state) => state.theme);
     useEffect(() => {
         dispatch(getAcreages());
         dispatch(getPrices());
@@ -24,7 +25,7 @@ const Main = () => {
     }, [isLoggedIn, dispatch]);
     return (
         <>
-            <div className="bg-gray">
+            <div className={`${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
                 <Header />
                 <div className="w-100 w-sm-75 m-auto d-block">
                     <Outlet />

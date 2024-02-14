@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Post from '../../../components/Post';
-
+import { useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { createSearchParams, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -9,6 +9,7 @@ import icons from '../../../utils/icons';
 import { apiGetPosts } from '../../../services/post';
 
 const ListPost = ({ categoryCode }) => {
+    const { isDarkMode } = useSelector((state) => state.theme);
     const { RiSortAsc, RiSortDesc } = icons;
 
     const location = useLocation();
@@ -143,7 +144,7 @@ const ListPost = ({ categoryCode }) => {
         <>
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-8 bg-light ListPost">
+                    <div className="col-12 col-md-8 ListPost">
                         <div className="row border rounded">
                             <h5 ref={titleListRef} className="pt-3 pb-1 fw-bold">
                                 Danh sách các bài đăng
@@ -220,13 +221,13 @@ const ListPost = ({ categoryCode }) => {
                                 marginPagesDisplayed={1}
                                 pageCount={totalPage}
                                 previousLabel="<"
-                                pageClassName="page-item"
+                                pageClassName={`page-item ${isDarkMode ? 'dark-theme' : 'light-theme'}`}
                                 pageLinkClassName="page-link"
-                                previousClassName="page-item"
+                                previousClassName={`page-item ${isDarkMode ? 'dark-theme' : 'light-theme'}`}
                                 previousLinkClassName="page-link"
-                                nextClassName="page-item"
+                                nextClassName={`page-item ${isDarkMode ? 'dark-theme' : 'light-theme'}`}
                                 nextLinkClassName="page-link"
-                                breakClassName="page-item"
+                                breakClassName={`page-item ${isDarkMode ? 'dark-theme' : 'light-theme'}`}
                                 breakLinkClassName="page-link"
                                 containerClassName="pagination justify-content-center"
                                 activeClassName="active"

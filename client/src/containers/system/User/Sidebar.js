@@ -5,6 +5,7 @@ import './Sidebar.scss';
 import icons from '../../../utils/icons';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ThemeToggle from '../../public/Header/ThemeToggle';
 
 const Sidebar = ({ handleSignOut }) => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Sidebar = ({ handleSignOut }) => {
                     </Col>
                 </Row>
                 <Row className="mt-2 mb-2">
-                    <Col className="p-0">
+                    <Col className="p-0 d-flex align-items-center justify-content-between">
                         <Button
                             onClick={() => {
                                 navigate('dang-tin-moi');
@@ -58,6 +59,7 @@ const Sidebar = ({ handleSignOut }) => {
                         >
                             Đăng tin mới
                         </Button>
+                        <ThemeToggle className={'me-2'} />
                     </Col>
                 </Row>
                 <Row

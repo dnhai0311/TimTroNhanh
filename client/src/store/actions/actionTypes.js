@@ -16,6 +16,9 @@ const actionTypes = {
 
     // User
     GET_CURRENT_USER: 'GET_CURRENT_USER',
+
+    //Theme
+    TOGGLE_THEME: 'TOGGLE_THEME',
 };
 
 export default actionTypes;

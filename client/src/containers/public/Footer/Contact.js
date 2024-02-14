@@ -6,7 +6,7 @@ import './Footer.scss';
 const Contact = () => {
     return (
         <>
-            <Container className="w-100 bg-light text-center rounded contact mb-2">
+            <Container className="w-100  text-center rounded contact">
                 <Row>
                     <h4 className="pt-4 pb-1 text-primary">Liên hệ với chúng tôi nếu bạn cần hỗ trợ</h4>
                 </Row>
