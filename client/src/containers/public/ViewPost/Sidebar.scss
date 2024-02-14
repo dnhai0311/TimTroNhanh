@@ -1,6 +1,6 @@
-.sidebarTab{
+.sidebarTab {
     color: gray;
-    &:not(:last-child){
+    &:not(:last-child) {
         border-bottom: dashed;
         border-bottom-width: 1px;
     }
@@ -9,12 +9,13 @@
         font-weight: lighter;
         font-size: 15px;
         &:hover {
-            color:red;
+            color: red;
             cursor: pointer;
         }
     }
     &.isDouble {
-        &:nth-last-child(1), &:nth-last-child(2){
+        &:nth-last-child(1),
+        &:nth-last-child(2) {
             border: none;
         }
     }

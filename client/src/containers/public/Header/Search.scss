@@ -1,6 +1,5 @@
-@import '../../../App';
-
-$color-blue: #007AFF;
+@import '../../../components/GlobalStyles/GlobalStyles.scss';
+$color-blue: #007aff;
 
 .searchBar {
     font-size: 15px;
@@ -9,13 +8,13 @@ $color-blue: #007AFF;
 
 .my-modal {
     max-width: 95vw;
-      @include respond-to($breakpoint-medium) {
+    @include respond-to($breakpoint-medium) {
         max-width: 55vw;
-      }
+    }
     .modal-body {
         max-height: 400px;
-        overflow-y: auto;        
-    
+        overflow-y: auto;
+
         .modal-item {
             font-size: 18px;
             border-bottom: dashed;
@@ -30,31 +29,28 @@ $color-blue: #007AFF;
                     &:hover {
                         color: $color-blue;
                         opacity: 0.7;
-                      }
-                  }
-              
-                  &:checked + label {
-                    color: $color-blue;
-                  }
+                    }
+                }
 
-            }    
-            &:first-child{
+                &:checked + label {
+                    color: $color-blue;
+                }
+            }
+            &:first-child {
                 padding-top: 0px;
             }
-            &:last-child{
+            &:last-child {
                 border-bottom: none;
             }
-            
         }
         .rc-slider-handle {
             scale: 1.5;
         }
         .btnFilter {
             cursor: pointer;
-            &:hover{
+            &:hover {
                 opacity: 0.9;
             }
         }
     }
 }
-  

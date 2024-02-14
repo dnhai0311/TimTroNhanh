@@ -1,11 +1,11 @@
-@import "../../../App";
+@import '../../../components/GlobalStyles/GlobalStyles.scss';
 
 .sidebar {
     background-color: $background-color;
     position: static;
     @include respond-to($breakpoint-small) {
         position: fixed;
-      }
+    }
     .sidebar-item {
         cursor: pointer;
         border-radius: 5px;

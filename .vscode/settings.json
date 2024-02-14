@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["kiếm", "nobg"]
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

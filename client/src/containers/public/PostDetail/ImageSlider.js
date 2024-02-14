@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./ImageSlider.scss";
+import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './ImageSlider.scss';
 
 const ImageSlider = ({ images }) => {
-  const settings = {
-    centerMode: true,
-    centerPadding: "5px",
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-  const [paths, setPaths] = useState([]);
-  useEffect(() => {
-    images && setPaths(Object.values(JSON.parse(images)));
-  }, [images]);
+    const settings = {
+        centerMode: true,
+        centerPadding: '5px',
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+    };
+    const [paths, setPaths] = useState([]);
+    useEffect(() => {
+        images && setPaths(Object.values(JSON.parse(images)));
+    }, [images]);
 
-  return (
-    <div className="slider-container p-0">
-      <div className="slider">
-        <Slider {...settings} className="text-center bg-dark">
-          {paths.length > 0 &&
-            paths.map((path) => {
-              return (
-                <img
-                  src={path}
-                  alt="thumbnail"
-                  key={path}
-                  className="image-slider"
-                />
-              );
-            })}
-        </Slider>
-      </div>
-    </div>
-  );
+    return (
+        <div className="slider-container p-0">
+            <div className="slider">
+                <Slider {...settings} className="text-center bg-dark">
+                    {paths.length > 0 &&
+                        paths.map((path) => {
+                            return <img src={path} alt="thumbnail" key={path} className="image-slider" />;
+                        })}
+                </Slider>
+            </div>
+        </div>
+    );
 };
 
 export default ImageSlider;

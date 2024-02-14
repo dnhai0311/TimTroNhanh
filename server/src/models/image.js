@@ -1,27 +1,27 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class IMAGE extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      IMAGE.hasOne(models.POST, {
-        foreignKey: "imgsId",
-        as: "posts",
-      });
+    class IMAGE extends Model {
+        /**
+         * Helper method for defining associations.
+         * This method is not a part of Sequelize lifecycle.
+         * The `models/index` file will call this method automatically.
+         */
+        static associate(models) {
+            IMAGE.hasOne(models.POST, {
+                foreignKey: 'imgsId',
+                as: 'posts',
+            });
+        }
     }
-  }
-  IMAGE.init(
-    {
-      path: DataTypes.TEXT,
-    },
-    {
-      sequelize,
-      modelName: "IMAGE",
-    }
-  );
-  return IMAGE;
+    IMAGE.init(
+        {
+            path: DataTypes.TEXT,
+        },
+        {
+            sequelize,
+            modelName: 'IMAGE',
+        },
+    );
+    return IMAGE;
 };

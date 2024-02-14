@@ -1,75 +1,75 @@
-import db from "../models";
+import db from '../models';
 
 export const getAllProvincesService = async () => {
-  try {
-    const response = await db.PROVINCE.findAll({
-      raw: true,
-      attributes: ["id", "value"],
-    });
+    try {
+        const response = await db.PROVINCE.findAll({
+            raw: true,
+            attributes: ['id', 'value'],
+        });
 
-    return {
-      err: response.length > 0 ? 0 : 1,
-      msg: response.length > 0 ? "OK" : "Failed to get provinces.",
-      response,
-    };
-  } catch (error) {
-    throw error;
-  }
+        return {
+            err: response.length > 0 ? 0 : 1,
+            msg: response.length > 0 ? 'OK' : 'Failed to get provinces.',
+            response,
+        };
+    } catch (error) {
+        throw error;
+    }
 };
 
 export const getProvincesService = async () => {
-  try {
-    const response = await db.PROVINCE.findAll({
-      include: [
-        {
-          model: db.DISTRICT,
-          as: "districts",
-          required: true,
-          attributes: [],
-          include: [
-            {
-              model: db.ATTRIBUTE,
-              as: "attributes",
-              required: true,
-              attributes: [],
-              include: [
+    try {
+        const response = await db.PROVINCE.findAll({
+            include: [
                 {
-                  model: db.POST,
-                  as: "post",
-                  attributes: [],
-                  where: {
-                    "$districts.attributes.post.status$": {
-                      [db.Sequelize.Op.eq]: "approved",
-                    },
-                  },
+                    model: db.DISTRICT,
+                    as: 'districts',
+                    required: true,
+                    attributes: [],
+                    include: [
+                        {
+                            model: db.ATTRIBUTE,
+                            as: 'attributes',
+                            required: true,
+                            attributes: [],
+                            include: [
+                                {
+                                    model: db.POST,
+                                    as: 'post',
+                                    attributes: [],
+                                    where: {
+                                        '$districts.attributes.post.status$': {
+                                            [db.Sequelize.Op.eq]: 'approved',
+                                        },
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 },
-              ],
+            ],
+            attributes: ['id', 'value'],
+            raw: true,
+            where: {
+                '$districts.attributes.id$': { [db.Sequelize.Op.ne]: null },
             },
-          ],
-        },
-      ],
-      attributes: ["id", "value"],
-      raw: true,
-      where: {
-        "$districts.attributes.id$": { [db.Sequelize.Op.ne]: null },
-      },
-    });
+        });
 
-    // const uniqueMap = Object.groupBy(response, (response) => response.id);
-    const uniqueMap = response.reduce((map, item) => {
-      const key = `${item.id}-${item.value}`;
-      map[key] = item;
-      return map;
-    }, {});
+        // const uniqueMap = Object.groupBy(response, (response) => response.id);
+        const uniqueMap = response.reduce((map, item) => {
+            const key = `${item.id}-${item.value}`;
+            map[key] = item;
+            return map;
+        }, {});
 
-    const uniqueResponse = Object.values(uniqueMap);
+        const uniqueResponse = Object.values(uniqueMap);
 
-    return {
-      err: uniqueResponse.length > 0 ? 0 : 1,
-      msg: uniqueResponse.length > 0 ? "OK" : "Failed to get provinces.",
-      response: uniqueResponse,
-    };
-  } catch (error) {
-    throw error;
-  }
+        return {
+            err: uniqueResponse.length > 0 ? 0 : 1,
+            msg: uniqueResponse.length > 0 ? 'OK' : 'Failed to get provinces.',
+            response: uniqueResponse,
+        };
+    } catch (error) {
+        throw error;
+    }
 };
