@@ -7,7 +7,8 @@ import connectDB from "./src/config/connectDB";
 const app = express();
 app.use(
   cors({
-    origin: [process.env.CLIENT_URL, process.env.OTHER_URL],
+    // origin: [process.env.CLIENT_URL, process.env.OTHER_URL],
+    origin: "*",
     method: ["POST", "GET", "PUT", "DELETE"],
   })
 );
