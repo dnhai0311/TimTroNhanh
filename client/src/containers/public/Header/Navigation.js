@@ -8,7 +8,7 @@ const Navigation = ({ handleGotoTop }) => {
     return (
         <>
             <div className="bg-primary sticky-top">
-                <div className="w-100 w-sm-75 m-auto d-flex justify-content-start flex-wrap flex-md-nowrap text-nowrap">
+                <div className="w-100 w-sm-75 m-auto d-flex justify-content-start flex-wrap text-nowrap">
                     <div key={0} className="">
                         <NavLink
                             to="/"

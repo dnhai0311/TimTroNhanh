@@ -15,7 +15,6 @@ const InputPost = ({ isDisable, isTextArea, name, value, setValue, isAfter, text
                             onChange={(e) => {
                                 if (name === 'Địa chỉ chính xác') setValue(e.target.value + ',');
                                 else setValue(e.target.value);
-                                // console.log(e.target.value);
                             }}
                             required
                             as={isTextArea ? 'textarea' : 'input'}

@@ -50,10 +50,10 @@ export const getPostsService = async (
     try {
         const queryOptions = {
             where: {
-                status: 'approved',
-                expiredAt: {
-                    [db.Sequelize.Op.gt]: db.Sequelize.literal('NOW()'),
-                },
+                // status: 'approved',
+                // expiredAt: {
+                //     [db.Sequelize.Op.gt]: db.Sequelize.literal('NOW()'),
+                // },
             },
             raw: true,
             nest: true,
@@ -186,10 +186,15 @@ export const getOnePostService = async (id) => {
                 {
                     model: db.USER,
                     as: 'user',
-                    attributes: ['name', 'phone', 'avatar'],
+                    attributes: ['name', 'phone', 'avatar', 'facebook'],
+                },
+                {
+                    model: db.POST_CATEGORY,
+                    as: 'postCategory',
+                    attributes: ['name'],
                 },
             ],
-            attributes: ['id', 'title', 'description', 'userId'],
+            attributes: ['id', 'title', 'description', 'userId', 'updatedAt', 'expiredAt'],
         });
 
         return {
@@ -297,6 +302,33 @@ export const deletePostService = async (id) => {
             response,
         };
     } catch (error) {
+        throw error;
+    }
+};
+
+export const updatePostStatus = async () => {
+    try {
+        const expiredPosts = await db.POST.findAll({
+            where: {
+                expiredAt: {
+                    [db.Sequelize.Op.lt]: new Date(),
+                },
+                status: 'approved',
+            },
+        });
+        await Promise.all(
+            expiredPosts.map(async (post) => {
+                await post.update({ status: 'expired' });
+            }),
+        );
+
+        console.log('Cập nhật trạng thái thành công.');
+        return {
+            err: 0,
+            msg: 'Cập nhật ngày hết hạn thành công',
+        };
+    } catch (error) {
+        console.error('Lỗi khi cập nhật trạng thái:', error);
         throw error;
     }
 };

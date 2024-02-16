@@ -9,10 +9,22 @@ const ImageSlider = ({ images }) => {
         centerMode: true,
         centerPadding: '5px',
         dots: true,
+        customPaging: function (i) {
+            return <img width="20px" height="20px" src={paths[i]} alt="thumbnail" />;
+        },
+
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 576,
+                settings: {
+                    dots: false,
+                },
+            },
+        ],
     };
     const [paths, setPaths] = useState([]);
     useEffect(() => {

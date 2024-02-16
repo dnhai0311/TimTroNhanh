@@ -96,7 +96,7 @@ const PostTable = ({ data, columns, total }) => {
                     </Form.Control>
                 </div>
             </div>
-            <Table striped bordered hover responsive>
+            <Table striped bordered hover responsive variant={isDarkMode ? 'dark' : ''}>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
@@ -124,7 +124,7 @@ const PostTable = ({ data, columns, total }) => {
                     ))}
                 </tbody>
             </Table>
-            <div className="bg-white">
+            <div>
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel=">"
@@ -133,15 +133,15 @@ const PostTable = ({ data, columns, total }) => {
                     marginPagesDisplayed={1}
                     pageCount={totalPage}
                     previousLabel="<"
-                    pageClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
+                    pageClassName={`page-item ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
                     pageLinkClassName="page-link"
-                    previousClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
+                    previousClassName={`page-item ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
                     previousLinkClassName="page-link"
-                    nextClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
+                    nextClassName={`page-item ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
                     nextLinkClassName="page-link"
-                    breakClassName={`page-item ${isDarkMode ? 'light-theme' : 'bg-light'}`}
+                    breakClassName={`page-item ${isDarkMode ? 'bg-dark' : 'bg-light'}`}
                     breakLinkClassName="page-link"
-                    containerClassName={`pagination justify-content-center ${isDarkMode ? 'light-theme' : ''}`}
+                    containerClassName={`pagination justify-content-center ${isDarkMode ? 'bg-dark' : ''}`}
                     activeClassName="active"
                     forcePage={Math.min(currentPage, totalPage - 1)}
                     renderOnZeroPageCount={null}

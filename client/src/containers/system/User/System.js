@@ -24,7 +24,7 @@ const System = () => {
     return (
         <>
             <Navigation handleGotoTop={() => {}} />
-            <Container className={`${isDarkMode ? 'light-theme' : ''}`} fluid>
+            <Container className={`${isDarkMode ? 'bg-dark' : ''}`} fluid>
                 <Row>
                     <Col sm={3} className={`d-block sidebar h-100 ${isDarkMode ? 'dark-theme' : 'light-theme'} `}>
                         <Sidebar handleSignOut={handleSignOut} />

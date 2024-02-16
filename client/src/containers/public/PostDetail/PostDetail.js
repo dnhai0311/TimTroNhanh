@@ -8,6 +8,7 @@ import PostInfo from './PostInfo';
 const DetailPost = () => {
     const { postId } = useParams();
     const [detailPost, setDetailPost] = useState({});
+
     useEffect(() => {
         const fetchDetailPost = async (postId) => {
             const response = await apiGetOnePost(postId);
@@ -18,12 +19,12 @@ const DetailPost = () => {
 
     return (
         <>
-            <Container className="my-3">
+            <Container className="my-3" fluid>
                 <Row>
-                    <Col sm={8}>
+                    <Col lg={8}>
                         <PostInfo detailPost={detailPost} />
                     </Col>
-                    <Col sm={4}>
+                    <Col lg={4}>
                         <Container className="bg-success d-flex flex-column justify-content-center align-items-center border rounded">
                             <ShowUser detailPost={detailPost} />
                         </Container>

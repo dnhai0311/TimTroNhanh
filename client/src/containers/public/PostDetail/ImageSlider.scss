@@ -18,4 +18,9 @@
     .slick-next {
         right: 10px !important;
     }
+    .slick-dots {
+        .slick-active img {
+            border: 3px solid red;
+        }
+    }
 }

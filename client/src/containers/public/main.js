@@ -27,7 +27,7 @@ const Main = () => {
         <>
             <div className={`${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
                 <Header />
-                <div className="w-100 w-sm-75 m-auto d-block">
+                <div className="w-100 w-md-75 m-auto d-block">
                     <Outlet />
                 </div>
                 <Footer />
