@@ -61,7 +61,9 @@ const PostTable = ({ data, columns, total }) => {
         <Container>
             <div className="d-flex justify-content-end">
                 <div className="d-flex justify-content-center align-items-center">
-                    <Form.Text className="m-0 me-1 text-center">Số trang hiển thị</Form.Text>
+                    <Form.Text className={`m-0 me-1 text-center ${isDarkMode ? 'text-light' : ''}`}>
+                        Số trang hiển thị
+                    </Form.Text>
                     <Form.Control
                         as="select"
                         value={pageSize}
@@ -78,7 +80,9 @@ const PostTable = ({ data, columns, total }) => {
                     </Form.Control>
                 </div>
                 <div className="d-flex justify-content-center align-items-center ms-2">
-                    <Form.Text className="text-center">Lọc bài đăng theo trạng thái</Form.Text>
+                    <Form.Text className={`text-center ${isDarkMode ? 'text-light' : ''}`}>
+                        Lọc bài đăng theo trạng thái
+                    </Form.Text>
                     <Form.Control
                         as="select"
                         value={filtering}

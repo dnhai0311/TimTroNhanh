@@ -25,10 +25,6 @@ const Overview = ({
                     name={'Loại chuyên mục'}
                     values={categories}
                     setValue={setCategorySelected}
-                    // value={{
-                    //   id: 1,
-                    //   value: "Cho thuê phòng trọ",
-                    // }}
                     value={categorySelected}
                 />
                 <InputPost name={'Tiêu đề'} setValue={setTitle} value={title} />

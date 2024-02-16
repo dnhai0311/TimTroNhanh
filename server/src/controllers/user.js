@@ -41,7 +41,6 @@ export const updateUser = async (req, res) => {
             await userServices.updateUserAvatar(id, avatar);
         }
 
-        // Kiểm tra mật khẩu đã đúng hay chưa, nếu chưa đúng thì không được đổi
         if (oldPassword && newPassword) {
             const isPasswordCorrect = await userServices.checkPassword(id, oldPassword);
             if (!isPasswordCorrect) {

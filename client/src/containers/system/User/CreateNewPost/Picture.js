@@ -2,9 +2,11 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import addImg from '../../../../assets/addImg.png';
 import icons from '../../../../utils/icons';
+import { useSelector } from 'react-redux';
 
 const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
     const { FaRegTrashAlt } = icons;
+    const { isDarkMode } = useSelector((state) => state.theme);
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [hasEffectRun, setHasEffectRun] = useState(false);
@@ -83,7 +85,9 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
                                             className="p-0 m-0"
                                         />
                                         <div
-                                            className="position-absolute bottom-0  w-100 d-flex align-items-center justify-content-center"
+                                            className={`position-absolute bottom-0  w-100 d-flex align-items-center justify-content-center ${
+                                                isDarkMode ? 'bg-dark' : 'bg-light'
+                                            }`}
                                             onClick={() => handleRemoveImage(index)}
                                             style={{ cursor: 'pointer' }}
                                         >

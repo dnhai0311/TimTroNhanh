@@ -59,15 +59,12 @@ export const insertService = async () => {
                 const tenHuyen = item?.header?.address.substring(lastCommaIndex2 + 2, lastCommaIndex1).trim();
 
                 let currentAcreage = getNumberFromString(item?.header?.attributes?.acreage);
-                // console.log(tenHuyen);
+
                 const districtId = await db.DISTRICT.findOne({
                     where: {
                         value: tenHuyen,
                     },
                 });
-                // console.log(item?.header?.address);
-                // console.log(tenHuyen);
-                // console.log(districtId.id);
 
                 await db.POST.create({
                     id: +idPost + 1,

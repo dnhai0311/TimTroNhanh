@@ -8,7 +8,6 @@ const { FaStar, FaHeart } = icons;
 
 const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar }) => {
     const [isRed, setIsRed] = useState(false);
-    // const imagePath = require(`../assets${img}`);
 
     const address = location
         .split(',')

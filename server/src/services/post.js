@@ -128,14 +128,6 @@ export const getPostsService = async (
             queryOptions.order = [[sortType, sortOrder]];
         }
 
-        // if (sortType === "price") {
-        //   queryOptions.order = [["attribute", "price", sortOrder]];
-        // } else if (sortType === "acreage") {
-        //   queryOptions.order = [["attribute", "acreage", sortOrder]];
-        // } else {
-        //   queryOptions.order = [[sortType, sortOrder]];
-        // }
-
         const response = await db.POST.findAndCountAll(queryOptions);
         return {
             err: response ? 0 : 1,

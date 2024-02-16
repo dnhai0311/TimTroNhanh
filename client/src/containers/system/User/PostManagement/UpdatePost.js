@@ -3,8 +3,11 @@ import { Modal } from 'react-bootstrap';
 import CreateNewPost from '../CreateNewPost/CreateNewPost';
 import './PostManagement.scss';
 import { apiGetOnePost } from '../../../../services/post';
+import { useSelector } from 'react-redux';
 
 const UpdatePost = ({ isShow, setIsShow, selectedPostId, isSomePostUpdate, setIsSomePostUpdate }) => {
+    const { isDarkMode } = useSelector((state) => state.theme);
+
     const [selectedPost, setSelectedPost] = useState({});
     const handleClose = () => {
         setIsShow(false);
@@ -19,7 +22,12 @@ const UpdatePost = ({ isShow, setIsShow, selectedPostId, isSomePostUpdate, setIs
     }, [selectedPostId]);
 
     return (
-        <Modal show={isShow} dialogClassName="update-modal" onHide={handleClose}>
+        <Modal
+            show={isShow}
+            dialogClassName="update-modal"
+            contentClassName={isDarkMode ? 'dark-theme' : ''}
+            onHide={handleClose}
+        >
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
                 <CreateNewPost

@@ -60,10 +60,6 @@ const AddressForm = ({
         );
     }, [provinceSelected, districtSelected, address, setExactlyAddress, exactlyAddress]);
 
-    // console.log(
-    //   "Tỉnh: " + provinceSelected.value + " " + "Quận : " + districtSelected.value
-    // );
-
     return (
         <>
             <h4>Địa chỉ cho thuê</h4>

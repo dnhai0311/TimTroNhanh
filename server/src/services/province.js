@@ -38,9 +38,9 @@ export const getProvincesService = async () => {
                                     as: 'post',
                                     attributes: [],
                                     where: {
-                                        '$districts.attributes.post.status$': {
-                                            [db.Sequelize.Op.eq]: 'approved',
-                                        },
+                                        // '$districts.attributes.post.status$': {
+                                        //     [db.Sequelize.Op.eq]: 'approved',
+                                        // },
                                     },
                                 },
                             ],

@@ -122,7 +122,6 @@ const Search = () => {
                                 <BsChevronRight color="#C2C2C2" />
                             )
                         }
-                        // fontWeight={"fw-bold"}
                         handleShow={() => handleShow('Loại trọ', categories)}
                     />
                     <SearchItem
