@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 
 import './Login.scss';
-import { showToastError } from '../../ToastUtil';
+import { showToastError } from '../../../utils/commons/ToastUtil';
 
 const Login = () => {
     const location = useLocation();

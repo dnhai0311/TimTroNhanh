@@ -1,0 +1,29 @@
+.messenger-sidebar {
+    overflow-x: hidden;
+    height: 80vh;
+}
+
+.user-box {
+    cursor: pointer;
+    &:hover {
+        background-color: gray;
+        opacity: 0.9;
+    }
+}
+
+.avatar-user-box {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 15%;
+        right: 10%;
+        width: 12px;
+        height: 12px;
+        background: green;
+        border-radius: 50%;
+        border: 1px solid #0f1c3f;
+        transform: rotate(45deg);
+    }
+}

@@ -21,6 +21,7 @@ import { LiaHistorySolid } from 'react-icons/lia';
 import { LuUserSquare } from 'react-icons/lu';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { IoSend } from 'react-icons/io5';
 
 const icons = {
     BsChevronRight,
@@ -46,6 +47,7 @@ const icons = {
     LuUserSquare,
     FaSignOutAlt,
     FaRegTrashAlt,
+    IoSend,
 };
 
 export default icons;

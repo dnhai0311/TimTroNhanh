@@ -11,7 +11,7 @@ import icons from '../../../utils/icons';
 import Navigation from './Navigation';
 import './Header.scss';
 import * as actions from '../../../store/actions/';
-import { showToastSuccess } from '../../ToastUtil';
+import { showToastSuccess } from '../../../utils/commons/ToastUtil';
 import ThemeToggle from './ThemeToggle';
 
 const Header = () => {

@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import { apiUpdateUser } from '../../../services/user';
 import { apiUploadImage } from '../../../services/app';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from '../../Loading';
-import { showToastError, showToastSuccess } from '../../ToastUtil';
+import { Loading } from '../../../components/';
+import { showToastError, showToastSuccess } from '../../../utils/commons/ToastUtil';
 import { getCurrentUser } from '../../../store/actions/user';
 import { toast } from 'react-toastify';
 

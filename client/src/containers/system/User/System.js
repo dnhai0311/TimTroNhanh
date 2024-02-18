@@ -22,9 +22,9 @@ const System = () => {
         dispatch(actions.logout());
     };
     return (
-        <>
+        <div className={`${isDarkMode ? 'bg-dark text-light' : 'text-dark'}`} style={{ minHeight: '100vh' }}>
             <Navigation handleGotoTop={() => {}} />
-            <Container className={`${isDarkMode ? 'bg-dark text-light' : 'text-dark'}`} fluid>
+            <Container fluid>
                 <Row>
                     <Col sm={3} className={`d-block sidebar h-100 ${isDarkMode ? 'dark-theme' : 'light-theme'} `}>
                         <Sidebar handleSignOut={handleSignOut} />
@@ -36,7 +36,7 @@ const System = () => {
                 </Row>
             </Container>
             <ToastContainer autoClose={1000} position="bottom-right" />
-        </>
+        </div>
     );
 };
 

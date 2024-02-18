@@ -40,7 +40,7 @@ const Sidebar = ({ handleSignOut }) => {
                         <Row>Mã thành viên: {userData.id}</Row>
                         <Row>{userData.phone}</Row>
                         <Row>
-                            Số tiền:
+                            Số tiền:{' '}
                             {userData?.money?.toLocaleString('vi-VN', {
                                 style: 'currency',
                                 currency: 'VND',

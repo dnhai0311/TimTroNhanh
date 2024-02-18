@@ -24,16 +24,14 @@ const Main = () => {
         }, 50);
     }, [isLoggedIn, dispatch]);
     return (
-        <>
-            <div className={`${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
-                <Header />
-                <div className="w-100 w-md-75 m-auto d-block">
-                    <Outlet />
-                </div>
-                <Footer />
+        <div className={`${isDarkMode ? 'dark-theme' : 'light-theme'}`} style={{ minHeight: '100vh' }}>
+            <Header />
+            <div className="w-100 w-md-75 m-auto d-block">
+                <Outlet />
             </div>
+            <Footer />
             <ToastContainer autoClose={1000} position="bottom-right" />
-        </>
+        </div>
     );
 };
 

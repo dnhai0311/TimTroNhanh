@@ -5,9 +5,9 @@ import Overview from './Overview';
 import Picture from './Picture';
 import { apiUploadImage } from '../../../../services/app';
 import { apiCreatePost, apiUpdatePost } from '../../../../services/post';
-import Loading from '../../../Loading';
+import { Loading } from '../../../../components/';
 import { useNavigate } from 'react-router-dom';
-import { showToastSuccess, showToastError } from '../../../ToastUtil';
+import { showToastSuccess, showToastError } from '../../../../utils/commons/ToastUtil';
 import { toast } from 'react-toastify';
 const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpdate }) => {
     const navigate = useNavigate();

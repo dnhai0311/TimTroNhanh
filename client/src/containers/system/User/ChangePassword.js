@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { apiUpdateUser } from '../../../services/user';
 
 import { useNavigate } from 'react-router-dom';
-import { showToastError, showToastSuccess } from '../../ToastUtil';
+import { showToastError, showToastSuccess } from '../../../utils/commons/ToastUtil';
 
 const ChangePassword = () => {
     const navigate = useNavigate();

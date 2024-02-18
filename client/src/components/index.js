@@ -7,3 +7,6 @@ export { default as ContactItem } from './ContactItem';
 export { default as DropDownManage } from './DropDownManage';
 export { default as AddressFormItem } from './AddressFormItem';
 export { default as InputPost } from './InputPost';
+export { default as Loading } from './Loading';
+export { default as UserBox } from './UserBox';
+export { default as Message } from './Message';

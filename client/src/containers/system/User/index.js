@@ -1,6 +1,6 @@
 export { default as System } from './System';
 export { default as UserManagement } from './UserManagement';
-export { default as Messenger } from './Messenger';
+export { default as Messenger } from './Messenger/Messenger';
 export { default as PostManagement } from './PostManagement/PostManagement';
 export { default as Recharge } from './Recharge';
 export { default as TransactionManagement } from './TransactionManagement';

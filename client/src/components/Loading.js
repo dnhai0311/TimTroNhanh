@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 const Loading = () => {
@@ -9,4 +9,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default memo(Loading);
