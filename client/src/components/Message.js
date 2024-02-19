@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import UserBox from './UserBox';
 
 const Message = ({ isLeft, user, message }) => {
@@ -12,4 +12,4 @@ const Message = ({ isLeft, user, message }) => {
     );
 };
 
-export default Message;
+export default memo(Message);

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import { Message } from '../../../../components';
 import ChatInput from '../../../../components/ChatInput';
 import { useSelector } from 'react-redux';
 import { apiSendMessage } from '../../../../services/message';
 const ChatBox = ({ user, messages }) => {
+    const chatBoxRef = useRef(null);
     const [message, setMessage] = useState('');
     const { userData } = useSelector((state) => state.user);
     const sendMessage = async () => {
@@ -19,9 +20,15 @@ const ChatBox = ({ user, messages }) => {
         }
     };
 
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <>
-            <div className="overflow-auto mb-2" style={{ height: '62vh' }}>
+            <div className="overflow-auto mb-2" style={{ height: '62vh' }} ref={chatBoxRef}>
                 {messages &&
                     Array.isArray(messages) &&
                     messages.map((message) => (
@@ -33,4 +40,4 @@ const ChatBox = ({ user, messages }) => {
     );
 };
 
-export default ChatBox;
+export default memo(ChatBox);

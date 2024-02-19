@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { UserBox } from '../../../../components/';
 import { Link } from 'react-router-dom';
 
@@ -32,4 +32,4 @@ const MessengerSideBar = ({ data }) => {
     );
 };
 
-export default MessengerSideBar;
+export default memo(MessengerSideBar);
