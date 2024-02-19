@@ -7,6 +7,7 @@ import reduxStore from './redux';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import GlobalStyles from './components/GlobalStyles/GlobalStyles';
+import { SocketContextProvider } from './context/SocketContext';
 
 const { store, persistor } = reduxStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,7 +17,9 @@ root.render(
         <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
                 <GlobalStyles>
-                    <App />
+                    <SocketContextProvider>
+                        <App />
+                    </SocketContextProvider>
                 </GlobalStyles>
             </BrowserRouter>
         </PersistGate>

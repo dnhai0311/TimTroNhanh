@@ -1,10 +1,10 @@
-import express from 'express';
 require('dotenv').config();
-import cors from 'cors';
+import express from 'express';
 import initRoutes from './src/routes';
 import connectDB from './src/config/connectDB';
+import { app, server } from './socket/socket';
+import cors from 'cors';
 
-const app = express();
 app.use(
     cors({
         origin: [process.env.CLIENT_URL, process.env.OTHER_URL],
@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 initRoutes(app);
 
 const port = process.env.PORT;
-const listener = app.listen(port, '0.0.0.0', () => {
+const listener = server.listen(port, '0.0.0.0', () => {
     console.log(listener.address().port);
 });
 

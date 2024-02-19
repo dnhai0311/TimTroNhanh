@@ -1,18 +1,14 @@
 import React, { memo } from 'react';
 import avt from '../assets/avt/avt1.jpg';
 import '../containers/system/User/Messenger/Messenger.scss';
-const UserBox = ({ isSelected, isInMessage, user, latestMessage }) => {
+const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline }) => {
     return (
         <div className={`d-flex rounded ${isSelected ? (isInMessage ? '' : 'border-bottom') : 'user-box '}`}>
-            <div className="p-2 avatar-user-box">
+            <div className={`p-2 ${isOnline ? 'online' : ''}`}>
                 <img
                     src={user?.avatar || avt}
                     alt="avatar"
                     className={`border rounded-circle ${isInMessage ? 'small-avatar' : 'large-avatar'}`}
-                    style={{
-                        width: isInMessage ? '40px' : '60px',
-                        height: isInMessage ? '40px' : '60px',
-                    }}
                 />
             </div>
             {isInMessage ? (
@@ -21,7 +17,7 @@ const UserBox = ({ isSelected, isInMessage, user, latestMessage }) => {
                 <div className="d-flex flex-column justify-content-center w-100 fw-bold">
                     <div>{user?.name || 'None'}</div>
                     {isSelected ? (
-                        <div className="text-success fw-normal">Đang hoạt động</div>
+                        <div className="text-success fw-normal">{isOnline ? 'Đang hoạt động' : 'Đã ngoại tuyến'}</div>
                     ) : (
                         <div className="text-truncate w-75">{latestMessage}</div>
                     )}
