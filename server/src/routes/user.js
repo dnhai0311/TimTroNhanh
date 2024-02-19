@@ -4,6 +4,7 @@ import verifyToken from '../middlewares/verifyToken';
 
 const router = express.Router();
 
+router.get('/get', userController.getUser);
 router.use(verifyToken);
 router.get('/current', userController.getCurrentUser);
 router.get('/posts', userController.getAllPosts);

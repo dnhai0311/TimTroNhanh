@@ -1,5 +1,20 @@
 import axiosConfig from '../axiosConfig';
 
+export const apiGetUser = async (id) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/user/get',
+            params: {
+                id,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiGetCurrentUser = async () => {
     try {
         const response = await axiosConfig({

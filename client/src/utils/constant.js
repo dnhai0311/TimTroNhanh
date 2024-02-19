@@ -14,7 +14,8 @@ export const path = {
     TRANSACTION_MANAGEMENT: 'lich-su-giao-dich',
     RECHARGE: 'nap-tien',
     POST_MANAGEMENT: 'tin-dang',
-    MESSENGER: 'tin-nhan',
+    MESSENGER: `tin-nhan`,
+    MESSENGER__USER_ID: `tin-nhan/:userId`,
     CREATE_NEW_POST: 'dang-tin-moi',
     CHANGE_PASSWORD: 'doi-mat-khau',
 };

@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { UserBox } from '../../../../components/';
-const MessengerSideBar = ({ setSelectedUser }) => {
-    const [userList, setUserList] = useState([1, 2, 3, 4, 6, 7, 8, 9, 10]);
+import { Link } from 'react-router-dom';
+
+const MessengerSideBar = ({ data }) => {
+    const [userList, setUserList] = useState();
 
     useEffect(() => {
-        ///call api & set userList
-    }, []);
-
-    const handleSelectUser = (item) => {
-        setSelectedUser(item);
-    };
-
+        data && setUserList(data);
+    }, [data]);
+    // console.log(userList);
     return (
         <div className="messenger-sidebar">
             {userList &&
                 userList.map((item) => {
                     return (
-                        <div key={item} onClick={() => handleSelectUser(item)}>
-                            <UserBox />
-                        </div>
+                        <Link
+                            className="text-decoration-none text-dark"
+                            key={item?.user.id}
+                            to={'/quan-ly/tin-nhan/' + item?.user?.id}
+                        >
+                            <UserBox
+                                user={item?.user}
+                                latestMessage={
+                                    item?.messages.length > 0 ? item.messages[item.messages.length - 1].value : ''
+                                }
+                            />
+                        </Link>
                     );
                 })}
         </div>

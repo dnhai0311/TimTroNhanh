@@ -178,7 +178,7 @@ export const getOnePostService = async (id) => {
                 {
                     model: db.USER,
                     as: 'user',
-                    attributes: ['name', 'phone', 'avatar', 'facebook'],
+                    attributes: ['id', 'name', 'phone', 'avatar', 'facebook'],
                 },
                 {
                     model: db.POST_CATEGORY,

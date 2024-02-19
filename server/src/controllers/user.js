@@ -3,6 +3,19 @@ import { HashPassword } from '../services/auth';
 import { deleteImage } from '../middlewares/cloudinary';
 import { getPublicId } from '../utils/commons/getPublicId';
 
+export const getUser = async (req, res) => {
+    const { id } = req.query;
+    try {
+        const response = await userServices.getUserService(id);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
 export const getCurrentUser = async (req, res) => {
     const { id } = req.user;
     try {

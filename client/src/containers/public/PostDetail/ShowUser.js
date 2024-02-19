@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const ShowUser = ({ detailPost }) => {
+    // console.log(detailPost);
     return (
         <>
             <img
@@ -14,7 +15,12 @@ const ShowUser = ({ detailPost }) => {
             <div className="w-75 text-center py-1 bg-white text-success fw-bold border rounded mb-2">
                 {detailPost.user?.phone}
             </div>
-            <div className="w-75 text-center py-1 bg-white  text-success fw-bold  border rounded mb-3">Nhắn tin</div>
+            <Link
+                to={'/quan-ly/tin-nhan/' + detailPost?.user?.id}
+                className="w-75 text-center py-1 bg-white  text-success fw-bold  border rounded mb-3 text-decoration-none"
+            >
+                Nhắn tin
+            </Link>
         </>
     );
 };

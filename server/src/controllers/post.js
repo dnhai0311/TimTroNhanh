@@ -108,8 +108,8 @@ export const updatePost = async (req, res) => {
             });
         }
         if (id != userId) {
-            console.log(id);
-            console.log(userId);
+            // console.log(id);
+            // console.log(userId);
             return res.status(401).json({
                 err: 1,
                 msg: "user isn't matching",

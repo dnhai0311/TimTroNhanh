@@ -41,8 +41,9 @@ function App() {
                 </Route>
                 <Route element={<PrivateWrapper />}>
                     <Route path={path.SYSTEM} element={<System />}>
-                        <Route path={'*'} element={<UserManagement />} />
+                        <Route path={'*'} element={<UserManagement />} />{' '}
                         <Route path={path.MESSENGER} element={<Messenger />} />
+                        <Route path={path.MESSENGER__USER_ID} element={<Messenger />} />
                         <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
                         <Route path={path.RECHARGE} element={<Recharge />} />
                         <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />

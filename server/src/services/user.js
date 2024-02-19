@@ -14,6 +14,24 @@ export const getAvatar = async (id) => {
     }
 };
 
+export const getUserService = async (id) => {
+    try {
+        const response = await db.USER.findOne({
+            where: { id },
+            raw: true,
+            attributes: ['id', 'name', 'avatar'],
+        });
+
+        return {
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'FAILED TO GET USER',
+            response,
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getCurrentUserService = async (id) => {
     try {
         const response = await db.USER.findOne({

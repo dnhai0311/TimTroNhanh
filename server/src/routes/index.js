@@ -6,6 +6,8 @@ import priceRouter from './price';
 import acreageRouter from './acreage';
 import provinceRouter from './province';
 import districtRouter from './district';
+import messageRouter from './message';
+
 import userRouter from './user';
 
 const initRoutes = (app) => {
@@ -18,6 +20,7 @@ const initRoutes = (app) => {
     app.use('/api/v1/province', provinceRouter);
     app.use('/api/v1/district', districtRouter);
     app.use('/api/v1/user', userRouter);
+    app.use('/api/v1/message', messageRouter);
     return app.use('/', (req, res) => {
         res.send('server on...');
     });

@@ -15,9 +15,9 @@ const PostManagement = () => {
 
     const handleDelete = useCallback(
         async (id) => {
-            const response = await apiDeletePost(id);
+            await apiDeletePost(id);
             setIsSomePostUpdate(!isSomePostUpdate);
-            console.log(response);
+            // console.log(response);
         },
         [isSomePostUpdate],
     );

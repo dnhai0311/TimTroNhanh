@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Message } from '../../../../components';
-import { Form } from 'react-bootstrap';
-import icons from '../../../../utils/icons';
+import ChatInput from '../../../../components/ChatInput';
 import { useSelector } from 'react-redux';
-const ChatBox = ({ messages, otherUser }) => {
-    const { IoSend } = icons;
+import { apiSendMessage } from '../../../../services/message';
+const ChatBox = ({ user, messages }) => {
+    const [message, setMessage] = useState('');
     const { userData } = useSelector((state) => state.user);
+    const sendMessage = async () => {
+        if (message === '') return;
+        const payload = {
+            message,
+            sender: userData.id,
+            receiver: user?.id,
+        };
+        const response = await apiSendMessage(payload);
+        if (response.status === 200) {
+            setMessage('');
+        }
+    };
 
     return (
         <>
             <div className="overflow-auto mb-2" style={{ height: '62vh' }}>
-                <Message />
-                <Message isLeft={true} />
+                {messages &&
+                    Array.isArray(messages) &&
+                    messages.map((message) => (
+                        <Message key={message.id} message={message.value} isLeft={!message.isCurrentUserSender} />
+                    ))}
             </div>
-            <div className="position-relative mb-2">
-                <Form.Control className="p-2" />
-                <div className="position-absolute top-50 end-0 translate-middle">
-                    <IoSend className="text-primary" />
-                </div>
-            </div>
+            <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
         </>
     );
 };
