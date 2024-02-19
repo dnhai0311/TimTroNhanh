@@ -41,7 +41,7 @@ export const getPosts = async (req, res) => {
             minAcreage,
             maxAcreage,
         );
-        postService.updatePostStatus(); //call vu vo
+        //postService.updatePostStatus(); //call vu vo
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

@@ -1,33 +1,35 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class DISTRICT extends Model {
+    class MESSAGE extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            DISTRICT.hasMany(models.ATTRIBUTE, {
-                foreignKey: 'districtId',
-                as: 'attributes',
-            });
-            DISTRICT.belongsTo(models.PROVINCE, {
-                foreignKey: 'provinceId',
+            MESSAGE.belongsTo(models.USER, {
+                foreignKey: 'sender',
                 targetKey: 'id',
-                as: 'province',
+                as: 'sentUser',
+            });
+            MESSAGE.belongsTo(models.USER, {
+                foreignKey: 'receiver',
+                targetKey: 'id',
+                as: 'receiveUser',
             });
         }
     }
-    DISTRICT.init(
+    MESSAGE.init(
         {
+            sender: DataTypes.INTEGER,
+            receiver: DataTypes.INTEGER,
             value: DataTypes.STRING,
-            provinceId: DataTypes.INTEGER,
         },
         {
             sequelize,
-            modelName: 'DISTRICT',
+            modelName: 'MESSAGE',
         },
     );
-    return DISTRICT;
+    return MESSAGE;
 };

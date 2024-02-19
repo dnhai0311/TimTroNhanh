@@ -65,6 +65,18 @@ export const insertService = async () => {
                         value: tenHuyen,
                     },
                 });
+                await db.ATTRIBUTE.create({
+                    id: +idAttribute + 1,
+                    price: +currentPrice,
+                    acreage: +currentAcreage,
+                    address: item?.header?.address,
+                    districtId: districtId.id,
+                });
+
+                await db.IMAGE.create({
+                    id: +idImg + 1,
+                    path: JSON.stringify(item?.images),
+                });
 
                 await db.POST.create({
                     id: +idPost + 1,
@@ -83,19 +95,6 @@ export const insertService = async () => {
                     priceCode: dataPrices.find((price) => price.max > currentPrice && price.min <= currentPrice)?.id,
                     typePostId: Math.floor(Math.random() * totalPostCategory) + 1,
                     expiredAt: expirationDate,
-                });
-
-                await db.ATTRIBUTE.create({
-                    id: +idAttribute + 1,
-                    price: +currentPrice,
-                    acreage: +currentAcreage,
-                    address: item?.header?.address,
-                    districtId: districtId.id,
-                });
-
-                await db.IMAGE.create({
-                    id: +idImg + 1,
-                    path: JSON.stringify(item?.images),
                 });
             }
         }

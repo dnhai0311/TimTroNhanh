@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             price: DataTypes.FLOAT,
             acreage: DataTypes.FLOAT,
             address: DataTypes.STRING,
-            districtId: DataTypes.STRING,
+            districtId: DataTypes.INTEGER,
         },
         {
             sequelize,

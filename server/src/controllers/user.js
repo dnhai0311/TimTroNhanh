@@ -37,7 +37,7 @@ export const updateUser = async (req, res) => {
         if (avatar) {
             const response = await userServices.getAvatar(id);
             const publicId = getPublicId(response.avatar);
-            deleteImage(publicId);
+            publicId !== process.env.ID_DEFAULT_AVATAR && deleteImage(publicId);
             await userServices.updateUserAvatar(id, avatar);
         }
 

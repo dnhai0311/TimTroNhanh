@@ -204,18 +204,6 @@ export const createPostService = async (id, body) => {
         let idPost = await db.POST.max('id');
         let idAttribute = await db.ATTRIBUTE.max('id');
         let idImg = await db.IMAGE.max('id');
-
-        const response = await db.POST.create({
-            id: +idPost + 1,
-            title: body.title,
-            description: body.description,
-            star: 0,
-            attributeId: +idAttribute + 1,
-            categoryCode: body.categoryCode,
-            userId: id,
-            imgsId: +idImg + 1,
-        });
-
         await db.ATTRIBUTE.create({
             id: +idAttribute + 1,
             price: +body.price,
@@ -227,6 +215,17 @@ export const createPostService = async (id, body) => {
         await db.IMAGE.create({
             id: +idImg + 1,
             path: JSON.stringify(body.ImgUrls),
+        });
+
+        const response = await db.POST.create({
+            id: +idPost + 1,
+            title: body.title,
+            description: body.description,
+            star: 0,
+            attributeId: +idAttribute + 1,
+            categoryCode: body.categoryCode,
+            userId: id,
+            imgsId: +idImg + 1,
         });
 
         return {
@@ -241,15 +240,6 @@ export const createPostService = async (id, body) => {
 
 export const updatePostService = async (body) => {
     try {
-        const response = await db.POST.update(
-            {
-                title: body.title,
-                description: body.description,
-                categoryCode: body.categoryCode,
-            },
-            { where: { id: body.idPost } },
-        );
-
         await db.ATTRIBUTE.update(
             {
                 price: +body.price,
@@ -263,6 +253,15 @@ export const updatePostService = async (body) => {
         await db.IMAGE.update(
             {
                 path: JSON.stringify(body.ImgUrls),
+            },
+            { where: { id: body.idPost } },
+        );
+
+        const response = await db.POST.update(
+            {
+                title: body.title,
+                description: body.description,
+                categoryCode: body.categoryCode,
             },
             { where: { id: body.idPost } },
         );

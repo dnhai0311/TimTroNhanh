@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('POST_CATEGORIEs', {
+        await queryInterface.createTable('USERS', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -12,17 +12,27 @@ module.exports = {
             name: {
                 type: Sequelize.STRING,
             },
-            info: {
+            password: {
                 type: Sequelize.STRING,
             },
-            perDay: {
+            phone: {
                 type: Sequelize.STRING,
             },
-            perWeek: {
-                type: Sequelize.STRING,
+            money: {
+                type: Sequelize.FLOAT,
+                defaultValue: 0,
             },
-            perMonth: {
+            facebook: {
                 type: Sequelize.STRING,
+                defaultValue: '',
+            },
+            avatar: {
+                type: Sequelize.STRING,
+                defaultValue: 'https://res.cloudinary.com/dvyprevig/image/upload/v1706766558/we6knbr2twzmc9reocid.png',
+            },
+            type: {
+                type: Sequelize.STRING,
+                defaultValue: 1,
             },
             createdAt: {
                 allowNull: false,
@@ -35,6 +45,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('POST_CATEGORIEs');
+        await queryInterface.dropTable('USERS');
     },
 };

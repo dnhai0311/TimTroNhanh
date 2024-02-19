@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('PROVINCEs', {
+        await queryInterface.createTable('ACREAGES', {
             id: {
                 allowNull: false,
                 primaryKey: true,
@@ -10,6 +10,12 @@ module.exports = {
                 autoIncrement: true,
             },
             value: {
+                type: Sequelize.STRING,
+            },
+            min: {
+                type: Sequelize.STRING,
+            },
+            max: {
                 type: Sequelize.STRING,
             },
             createdAt: {
@@ -23,6 +29,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('PROVINCEs');
+        await queryInterface.dropTable('ACREAGES');
     },
 };
