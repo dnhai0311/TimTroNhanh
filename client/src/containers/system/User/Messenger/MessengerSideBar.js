@@ -25,10 +25,9 @@ const MessengerSideBar = ({ data }) => {
                         >
                             <UserBox
                                 user={item?.user}
-                                latestMessage={
-                                    item?.messages.length > 0 ? item.messages[item.messages.length - 1].value : ''
-                                }
+                                latestMessage={item.messages[item.messages.length - 1].value}
                                 isOnline={onlineUsers.includes(String(item?.user?.id))}
+                                isSeen={item.messages[0].isCurrentUserSender}
                             />
                         </Link>
                     );

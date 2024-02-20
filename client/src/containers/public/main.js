@@ -4,7 +4,6 @@ import Footer from './Footer/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet } from 'react-router-dom';
 
-import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAcreages, getCategories, getPrices } from '../../store/actions/app';
 import { getCurrentUser } from '../../store/actions/user';
@@ -30,7 +29,6 @@ const Main = () => {
                 <Outlet />
             </div>
             <Footer />
-            <ToastContainer autoClose={1000} position="bottom-right" />
         </div>
     );
 };

@@ -13,6 +13,7 @@ export const sendMessage = async (req, res) => {
         const receiverSocketId = getReceiverSocketId(receiver);
         if (receiverSocketId) {
             io.to(receiverSocketId).emit('message', message);
+            io.to(receiverSocketId).emit('receiver', receiver);
         }
         return res.status(200).json(response);
     } catch (error) {

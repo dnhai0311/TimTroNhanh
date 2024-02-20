@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import avt from '../assets/avt/user.png';
 import '../containers/system/User/Messenger/Messenger.scss';
-const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline }) => {
+const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline, isSeen }) => {
     return (
         <div className={`d-flex rounded ${isSelected ? (isInMessage ? '' : 'border-bottom') : 'user-box '}`}>
             <div className={`p-2 ${isOnline ? 'online' : ''}`}>
@@ -19,7 +19,7 @@ const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline }) => 
                     {isSelected ? (
                         <div className="text-success fw-normal">{isOnline ? 'Đang hoạt động' : 'Đã ngoại tuyến'}</div>
                     ) : (
-                        <div className="text-truncate w-75">{latestMessage}</div>
+                        <div className={`text-truncate w-75 ${isSeen ? 'fw-normal' : ''}`}>{latestMessage}</div>
                     )}
                 </div>
             )}

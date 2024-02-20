@@ -23,8 +23,25 @@ import {
 import { path } from './utils/constant';
 import PrivateWrapper from './route/PrivateWrapper';
 import ScrollToTop from './utils/commons/ScrollToTop';
-
+import { ToastContainer } from 'react-toastify';
+import { useSocketContext } from './context/SocketContext';
+import { useEffect } from 'react';
+import { showToastSuccess } from './utils/commons/ToastUtil';
 function App() {
+    const { socket } = useSocketContext();
+    useEffect(() => {
+        if (socket) {
+            socket.on('receiver', (receiver) => {
+                showToastSuccess(`Bạn nhận được tin nhắn mới`);
+            });
+
+            return () => {
+                socket.off('receiver', (receiver) => {
+                    showToastSuccess(`Bạn nhận được tin nhắn mới`);
+                });
+            };
+        }
+    }, [socket]);
     return (
         <>
             <ScrollToTop />
@@ -52,6 +69,7 @@ function App() {
                     </Route>
                 </Route>
             </Routes>
+            <ToastContainer autoClose={1000} position="bottom-right" />
         </>
     );
 }
