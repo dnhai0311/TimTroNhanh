@@ -323,3 +323,68 @@ export const updatePostStatus = async () => {
         throw error;
     }
 };
+
+export const addPostToLiked = async (userId, postId) => {
+    try {
+        const user = await db.USER.findByPk(userId);
+        const post = await db.POST.findByPk(postId);
+        if (!user || !post) {
+            throw new Error('Người dùng hoặc bài đăng không tồn tại');
+        }
+        const isLiked = await user.hasPOST(post);
+        if (isLiked) {
+            removePostFromLiked(userId, postId);
+            return {
+                err: 0,
+                msg: 'Bài đăng đã được xoá vào danh sách thích của người dùng',
+            };
+        }
+        await user.addPOST(post);
+        return {
+            err: 0,
+            msg: 'Bài đăng đã được thêm vào danh sách thích của người dùng',
+        };
+    } catch (error) {
+        console.error('Lỗi khi cập nhật trạng thái yêu thích:', error);
+        throw error;
+    }
+};
+
+export const removePostFromLiked = async (userId, postId) => {
+    try {
+        const user = await db.USER.findByPk(userId);
+        const post = await db.POST.findByPk(postId);
+        if (!user || !post) {
+            throw new Error('Người dùng hoặc bài đăng không tồn tại');
+        }
+        await user.removePOST(post);
+        return {
+            err: 0,
+            msg: 'Bài đăng đã được xoá vào danh sách thích của người dùng',
+        };
+    } catch (error) {
+        console.error('Lỗi khi cập nhật trạng thái yêu thích:', error);
+        throw error;
+    }
+};
+
+export const getLikedPostsByUserId = async (userId) => {
+    try {
+        const user = await db.USER.findByPk(userId, {
+            include: [
+                {
+                    model: db.POST,
+                    through: db.USER_POST,
+                },
+            ],
+        });
+        return {
+            err: 0,
+            msg: 'Danh sách bài đăng yêu thích',
+            response: user.POSTs,
+        };
+    } catch (error) {
+        console.error('Lỗi khi lấy bài đăng yêu thích:', error);
+        throw error;
+    }
+};

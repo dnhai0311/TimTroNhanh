@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
                 targetKey: 'code',
                 as: 'category',
             });
+            POST.belongsToMany(models.USER, { through: models.USER_POST, foreignKey: 'postId' });
         }
     }
     POST.init(

@@ -1,13 +1,21 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import icons from '../utils/icons';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/vi';
+import { useSelector } from 'react-redux';
+import { apiLikePost } from '../services/post';
+import { showToastSuccess } from '../utils/commons/ToastUtil';
 
 const { FaStar, FaHeart } = icons;
 
-const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar }) => {
+const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar, isLiked }) => {
+    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { userData } = useSelector((state) => state.user);
     const [isRed, setIsRed] = useState(false);
+    useEffect(() => {
+        setIsRed(isLiked);
+    }, [isLiked]);
 
     const address = location
         .split(',')
@@ -17,6 +25,14 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
     moment.locale('vi');
     const formattedTime = moment(time).fromNow();
 
+    const handleLikePost = async () => {
+        const response = await apiLikePost(userData.id, id);
+        if (response.status === 200) {
+            showToastSuccess(response.data.msg);
+            setIsRed(!isRed);
+        }
+    };
+
     return (
         <div className="col-12 py-3 border-top border-bottom border-dark post">
             <div className="row gx-4">
@@ -25,13 +41,13 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
                         <img src={img} alt="thumbnail" className=" rounded post-thumb" />
                     </Link>
                     <div className={'position-absolute bottom-0 end-0 '}>
-                        <FaHeart
-                            className={`mx-4 my-2 icon-heart ${isRed ? 'text-danger' : 'text-dark'}`}
-                            fontSize={'25px'}
-                            onClick={() => {
-                                setIsRed(!isRed);
-                            }}
-                        />
+                        {isLoggedIn && (
+                            <FaHeart
+                                className={`mx-4 my-2 icon-heart ${isRed ? 'text-danger' : 'text-dark'}`}
+                                fontSize={'25px'}
+                                onClick={handleLikePost}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="col-8">

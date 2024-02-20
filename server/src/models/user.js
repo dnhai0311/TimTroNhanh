@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'receiver',
                 as: 'receivedMessages',
             });
+            USER.belongsToMany(models.POST, { through: models.USER_POST, foreignKey: 'userId' });
         }
     }
     USER.init(

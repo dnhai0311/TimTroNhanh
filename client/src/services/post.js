@@ -102,3 +102,50 @@ export const apiDeletePost = async (id) => {
         throw error;
     }
 };
+
+export const apiLikePost = async (userId, postId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/post/like',
+            params: {
+                userId,
+                postId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiUnLikePost = async (userId, postId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'delete',
+            url: '/api/v1/post/unlike',
+            params: {
+                userId,
+                postId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetLikedPost = async (userId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/liked-posts',
+            params: {
+                userId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

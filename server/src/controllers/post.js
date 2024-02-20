@@ -152,3 +152,63 @@ export const deletePost = async (req, res) => {
         });
     }
 };
+
+export const likePost = async (req, res) => {
+    const { userId, postId } = req.query;
+    try {
+        if (!userId || !postId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+
+        const response = await postService.addPostToLiked(userId, postId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const unlikePost = async (req, res) => {
+    const { userId, postId } = req.query;
+    try {
+        if (!userId || !postId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+
+        const response = await postService.removePostFromLiked(userId, postId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getLikedPosts = async (req, res) => {
+    const { userId } = req.query;
+    try {
+        if (!userId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+
+        const response = await postService.getLikedPostsByUserId(userId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};

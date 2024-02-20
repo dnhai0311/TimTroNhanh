@@ -6,10 +6,11 @@ import { createSearchParams, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import './ListPost.scss';
 import icons from '../../../utils/icons';
-import { apiGetPosts } from '../../../services/post';
+import { apiGetLikedPost, apiGetPosts } from '../../../services/post';
 
 const ListPost = ({ categoryCode }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
+    const { userData } = useSelector((state) => state.user);
     const { RiSortAsc, RiSortDesc } = icons;
 
     const location = useLocation();
@@ -26,6 +27,8 @@ const ListPost = ({ categoryCode }) => {
 
     const [posts, setPosts] = useState({});
     const [total, setTotal] = useState(0);
+
+    const [likedPosts, setLikedPosts] = useState();
 
     const pageDisplayed = process.env.REACT_APP_PAGE_DISPLAYED;
     const totalPage =
@@ -123,6 +126,28 @@ const ListPost = ({ categoryCode }) => {
         acreageRange.min,
         acreageRange.max,
     ]);
+
+    useEffect(() => {
+        const fetchLikePosts = async () => {
+            const response = await apiGetLikedPost(userData.id);
+            if (response.status === 200) {
+                const likes = response.data.response.map((like) => like.id);
+                setLikedPosts(likes);
+            }
+        };
+        userData?.id && fetchLikePosts();
+    }, [userData?.id, posts]);
+
+    useEffect(() => {
+        if (!likedPosts) return;
+
+        for (const post of posts) {
+            if (likedPosts.includes(post.id)) {
+                post.isLiked = true;
+            }
+        }
+    }, [likedPosts, posts]);
+
     const handlePageClick = (e) => {
         const selectedPage = +e.selected;
         setCurrentPage(selectedPage);
@@ -208,6 +233,7 @@ const ListPost = ({ categoryCode }) => {
                                             phone={item?.user.phone}
                                             id={item?.id}
                                             avatar={item?.user.avatar}
+                                            isLiked={item?.isLiked}
                                         />
                                     );
                                 })}
