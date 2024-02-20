@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.use(verifyToken);
 router.post('/send-message', messageController.sendMessage);
-router.get('/all-messages', messageController.getAllMessage);
+router.get('/all-messages', messageController.getAllMessages);
+router.get('/messages', messageController.getMessages);
 
 export default router;

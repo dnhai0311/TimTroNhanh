@@ -3,7 +3,7 @@ import { Message } from '../../../../components';
 import ChatInput from '../../../../components/ChatInput';
 import { useSelector } from 'react-redux';
 import { apiSendMessage } from '../../../../services/message';
-const ChatBox = ({ user, messages }) => {
+const ChatBox = ({ user, messages, isSendMessage, setIsSendMessage }) => {
     const chatBoxRef = useRef(null);
     const [message, setMessage] = useState('');
     const { userData } = useSelector((state) => state.user);
@@ -16,6 +16,7 @@ const ChatBox = ({ user, messages }) => {
         };
         const response = await apiSendMessage(payload);
         if (response.status === 200) {
+            setIsSendMessage(!isSendMessage);
             setMessage('');
         }
     };
@@ -32,7 +33,12 @@ const ChatBox = ({ user, messages }) => {
                 {messages &&
                     Array.isArray(messages) &&
                     messages.map((message) => (
-                        <Message key={message.id} message={message.value} isLeft={!message.isCurrentUserSender} />
+                        <Message
+                            key={message.id}
+                            message={message.value}
+                            isLeft={!message.isCurrentUserSender}
+                            user={user}
+                        />
                     ))}
             </div>
             <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />

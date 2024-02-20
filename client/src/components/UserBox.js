@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import avt from '../assets/avt/avt1.jpg';
+import avt from '../assets/avt/user.png';
 import '../containers/system/User/Messenger/Messenger.scss';
 const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline }) => {
     return (

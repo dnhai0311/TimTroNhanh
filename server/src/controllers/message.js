@@ -1,3 +1,4 @@
+import { getReceiverSocketId, io } from '../../socket/socket';
 import * as messageService from '../services/message';
 
 export const sendMessage = async (req, res) => {
@@ -9,6 +10,10 @@ export const sendMessage = async (req, res) => {
                 msg: 'missing input',
             });
         const response = await messageService.sendMessageService(req.body);
+        const receiverSocketId = getReceiverSocketId(receiver);
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit('message', message);
+        }
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -18,7 +23,7 @@ export const sendMessage = async (req, res) => {
     }
 };
 
-export const getAllMessage = async (req, res) => {
+export const getAllMessages = async (req, res) => {
     const { id } = req.user;
     try {
         if (!id)
@@ -26,7 +31,27 @@ export const getAllMessage = async (req, res) => {
                 err: 1,
                 msg: 'missing input',
             });
-        const response = await messageService.getAllMessageService(req.user);
+        const response = await messageService.getAllMessagesService(req.user);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getMessages = async (req, res) => {
+    const { id } = req.user;
+    const { otherId } = req.query;
+
+    try {
+        if (!id || !otherId)
+            return res.status(400).json({
+                err: 1,
+                msg: 'missing input',
+            });
+        const response = await messageService.getMessagesService({ id, otherId });
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

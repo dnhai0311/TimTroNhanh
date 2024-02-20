@@ -8,6 +8,7 @@ const MessengerSideBar = ({ data }) => {
     const [userList, setUserList] = useState();
     const { onlineUsers } = useSocketContext();
     const { isDarkMode } = useSelector((state) => state.theme);
+
     useEffect(() => {
         data && setUserList(data);
     }, [data]);
@@ -16,7 +17,6 @@ const MessengerSideBar = ({ data }) => {
         <div className="messenger-sidebar">
             {userList &&
                 userList.map((item) => {
-                    console.log(onlineUsers.includes(+item?.user?.id));
                     return (
                         <Link
                             className={`text-decoration-none ${isDarkMode ? 'text-light' : 'text-dark'}`}

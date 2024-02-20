@@ -13,11 +13,26 @@ export const apiSendMessage = async (payload) => {
     }
 };
 
-export const apiGetAllMessagesCurrent = async (id) => {
+export const apiGetAllMessagesCurrent = async () => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/message/all-messages',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetMessages = async (userId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/message/messages',
+            params: {
+                otherId: userId,
+            },
         });
         return response;
     } catch (error) {
