@@ -44,7 +44,7 @@ export const getAllMessages = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     const { id } = req.user;
-    const { otherId } = req.query;
+    const { otherId, page } = req.query;
 
     try {
         if (!id || !otherId)
@@ -52,7 +52,7 @@ export const getMessages = async (req, res) => {
                 err: 1,
                 msg: 'missing input',
             });
-        const response = await messageService.getMessagesService({ id, otherId });
+        const response = await messageService.getMessagesService({ id, otherId, page });
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
