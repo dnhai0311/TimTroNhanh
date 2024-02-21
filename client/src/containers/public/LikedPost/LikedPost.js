@@ -29,7 +29,7 @@ const LikedPost = () => {
 
         fetchLikedPost();
     }, [userData?.id, page]);
-    console.log(page);
+
     return (
         <>
             <h4 className="m-auto fw-bold py-2 ps-2">Danh sách bài đăng bạn đã yêu thích</h4>

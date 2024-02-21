@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserBox } from '../../../../components';
 import ChatBox from './ChatBox';
 import { useParams } from 'react-router-dom';
@@ -7,15 +7,45 @@ import { apiGetMessages } from '../../../../services/message';
 import { apiGetUser } from '../../../../services/user';
 import icons from '../../../../utils/icons';
 
-const ChatContainer = ({ isSendMessage, setIsSendMessage }) => {
+const ChatContainer = ({ fetchAllMessages }) => {
     const { BiMessageRoundedDetail } = icons;
     const { userId } = useParams();
     const [user, setUser] = useState();
-    const [messages, setMessages] = useState({});
+    const [messages, setMessages] = useState('');
     const { onlineUsers, socket } = useSocketContext();
 
-    const fetchMessages = useCallback(
-        async (userId) => {
+    useEffect(() => {
+        const handleMessage = (newMessage) => {
+            if (newMessage.sender === +userId) {
+                setMessages((prevMessages) => {
+                    const messagesArray = Array.isArray(prevMessages) ? prevMessages : [];
+
+                    return [
+                        ...messagesArray,
+                        {
+                            id: newMessage.value + Math.random().toString(36).substr(2, 9),
+                            value: newMessage.value,
+                            isCurrentUserSender: false,
+                        },
+                    ];
+                });
+            }
+            fetchAllMessages();
+        };
+
+        if (socket) {
+            socket.on('message', (newMessage) => {
+                handleMessage(newMessage);
+            });
+
+            return () => {
+                socket.off('message');
+            };
+        }
+    }, [socket, userId, fetchAllMessages]);
+
+    useEffect(() => {
+        const fetchMessages = async () => {
             const response = await apiGetMessages(userId);
             if (response.status === 200) {
                 setMessages(response.data[0]?.messages);
@@ -24,27 +54,10 @@ const ChatContainer = ({ isSendMessage, setIsSendMessage }) => {
             if (user.status === 200) {
                 setUser(user.data.response);
             }
-        },
-        [setUser, setMessages],
-    );
-
-    useEffect(() => {
-        const handleMessage = () => {
-            userId && fetchMessages(userId);
         };
-
-        if (socket) {
-            socket.on('message', handleMessage);
-
-            return () => {
-                socket.off('message', handleMessage);
-            };
-        }
-    }, [socket, userId, fetchMessages]);
-
-    useEffect(() => {
-        userId && fetchMessages(userId);
-    }, [isSendMessage, userId, fetchMessages]);
+        setMessages('');
+        userId && fetchMessages();
+    }, [userId]);
 
     return (
         <>
@@ -54,8 +67,8 @@ const ChatContainer = ({ isSendMessage, setIsSendMessage }) => {
                     <ChatBox
                         user={user}
                         messages={messages}
-                        isSendMessage={isSendMessage}
-                        setIsSendMessage={setIsSendMessage}
+                        setMessages={setMessages}
+                        fetchAllMessages={fetchAllMessages}
                     />
                 </>
             ) : (

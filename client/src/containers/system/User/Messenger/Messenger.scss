@@ -36,3 +36,10 @@
         transform: rotate(45deg);
     }
 }
+
+.conversation {
+    height: 62vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}

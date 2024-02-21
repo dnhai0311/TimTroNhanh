@@ -31,14 +31,12 @@ function App() {
     const { socket } = useSocketContext();
     useEffect(() => {
         if (socket) {
-            socket.on('receiver', (receiver) => {
+            socket.on('receiver', () => {
                 showToastSuccess(`Bạn nhận được tin nhắn mới`);
             });
 
             return () => {
-                socket.off('receiver', (receiver) => {
-                    showToastSuccess(`Bạn nhận được tin nhắn mới`);
-                });
+                socket.off('receiver');
             };
         }
     }, [socket]);

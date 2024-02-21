@@ -1,25 +1,17 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 import icons from '../utils/icons';
-import debounce from 'lodash.debounce';
 
 const ChatInput = ({ setMessage, sendMessage }) => {
     const { IoSend } = icons;
-    const latestMessage = useRef('');
 
     const handleMessageChange = (event) => {
-        latestMessage.current = event.target.value;
         setMessage(event.target.value);
     };
-
-    const debouncedMessage = debounce(() => {
-        setMessage(latestMessage.current);
-    }, 200);
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            debouncedMessage.flush();
             sendMessage();
             e.target.value = '';
         }

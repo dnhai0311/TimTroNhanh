@@ -25,13 +25,15 @@ export const apiGetAllMessagesCurrent = async () => {
     }
 };
 
-export const apiGetMessages = async (userId) => {
+export const apiGetMessages = async (userId, page, currentTotalMessages) => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/message/messages',
             params: {
                 otherId: userId,
+                page,
+                currentTotalMessages,
             },
         });
         return response;

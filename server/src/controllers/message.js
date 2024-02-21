@@ -12,7 +12,11 @@ export const sendMessage = async (req, res) => {
         const response = await messageService.sendMessageService(req.body);
         const receiverSocketId = getReceiverSocketId(receiver);
         if (receiverSocketId) {
-            io.to(receiverSocketId).emit('message', message);
+            const newMessage = {
+                value: message,
+                sender,
+            };
+            io.to(receiverSocketId).emit('message', newMessage);
             io.to(receiverSocketId).emit('receiver', receiver);
         }
         return res.status(200).json(response);
@@ -44,7 +48,7 @@ export const getAllMessages = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     const { id } = req.user;
-    const { otherId, page } = req.query;
+    const { otherId, page, currentTotalMessages } = req.query;
 
     try {
         if (!id || !otherId)
@@ -52,7 +56,7 @@ export const getMessages = async (req, res) => {
                 err: 1,
                 msg: 'missing input',
             });
-        const response = await messageService.getMessagesService({ id, otherId, page });
+        const response = await messageService.getMessagesService({ id, otherId, page, currentTotalMessages });
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

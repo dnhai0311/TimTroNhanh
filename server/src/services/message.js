@@ -40,7 +40,7 @@ export const getAllMessagesService = async ({ id }) => {
                 },
             ],
             attributes: ['id', 'value', 'sender', 'receiver', 'createdAt'],
-            order: [['createdAt', 'DESC']],
+            order: [['id', 'DESC']],
         });
 
         const groupedMessages = {};
@@ -77,10 +77,10 @@ export const getAllMessagesService = async ({ id }) => {
     }
 };
 
-export const getMessagesService = async ({ id, otherId, page }) => {
+export const getMessagesService = async ({ id, otherId, page, currentTotalMessages }) => {
     try {
         const messages = await db.MESSAGE.findAll({
-            offset: page * 2 * +process.env.PAGE_DISPLAYED || 0,
+            offset: +currentTotalMessages || page * 2 * +process.env.PAGE_DISPLAYED || 0,
             limit: 2 * +process.env.PAGE_DISPLAYED,
             where: {
                 [db.Sequelize.Op.or]: [
@@ -107,7 +107,7 @@ export const getMessagesService = async ({ id, otherId, page }) => {
                 },
             ],
             attributes: ['id', 'value', 'sender', 'receiver'],
-            order: [['createdAt', 'DESC']],
+            order: [['id', 'DESC']],
         });
 
         const groupedMessages = {};
