@@ -135,13 +135,14 @@ export const apiUnLikePost = async (userId, postId) => {
     }
 };
 
-export const apiGetLikedPost = async (userId) => {
+export const apiGetLikedPost = async (userId, page) => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/post/liked-posts',
             params: {
                 userId,
+                page,
             },
         });
         return response;

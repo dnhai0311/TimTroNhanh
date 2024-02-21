@@ -368,20 +368,34 @@ export const removePostFromLiked = async (userId, postId) => {
     }
 };
 
-export const getLikedPostsByUserId = async (userId) => {
+export const getLikedPostsByUserId = async (userId, page) => {
     try {
-        const user = await db.USER.findByPk(userId, {
+        const response = await db.USER_POST.findAll({
+            where: {
+                userId,
+            },
+            offset: page * +process.env.PAGE_DISPLAYED || 0,
+            limit: +process.env.PAGE_DISPLAYED,
             include: [
                 {
                     model: db.POST,
-                    through: db.USER_POST,
+                    as: 'post',
+                    include: [
+                        { model: db.ATTRIBUTE, as: 'attribute', attributes: ['price', 'acreage', 'address'] },
+                        {
+                            model: db.USER,
+                            as: 'user',
+                            attributes: ['name', 'phone', 'avatar'],
+                        },
+                        { model: db.IMAGE, as: 'images', attributes: ['path'] },
+                    ],
                 },
             ],
         });
         return {
             err: 0,
             msg: 'Danh sách bài đăng yêu thích',
-            response: user.POSTs,
+            response: response,
         };
     } catch (error) {
         console.error('Lỗi khi lấy bài đăng yêu thích:', error);

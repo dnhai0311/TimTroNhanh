@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'receivedMessages',
             });
             USER.belongsToMany(models.POST, { through: models.USER_POST, foreignKey: 'userId' });
+            USER.belongsTo(models.USER_POST, {
+                foreignKey: 'id',
+                target: 'userId',
+                as: 'liked_posts',
+            });
         }
     }
     USER.init(

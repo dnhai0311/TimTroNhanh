@@ -194,7 +194,7 @@ export const unlikePost = async (req, res) => {
 };
 
 export const getLikedPosts = async (req, res) => {
-    const { userId } = req.query;
+    const { userId, page } = req.query;
     try {
         if (!userId) {
             return res.status(400).json({
@@ -203,7 +203,7 @@ export const getLikedPosts = async (req, res) => {
             });
         }
 
-        const response = await postService.getLikedPostsByUserId(userId);
+        const response = await postService.getLikedPostsByUserId(userId, page);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

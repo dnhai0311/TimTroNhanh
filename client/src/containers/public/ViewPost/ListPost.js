@@ -25,7 +25,7 @@ const ListPost = ({ categoryCode }) => {
     const [provinceId, setProvinceId] = useState('');
     const [showPage, setShowPage] = useState('4');
 
-    const [posts, setPosts] = useState({});
+    const [posts, setPosts] = useState();
     const [total, setTotal] = useState(0);
 
     const [likedPosts, setLikedPosts] = useState();
@@ -131,7 +131,7 @@ const ListPost = ({ categoryCode }) => {
         const fetchLikePosts = async () => {
             const response = await apiGetLikedPost(userData.id);
             if (response.status === 200) {
-                const likes = response.data.response.map((like) => like.id);
+                const likes = response.data.response.map((like) => like.postId);
                 setLikedPosts(likes);
             }
         };
@@ -140,10 +140,11 @@ const ListPost = ({ categoryCode }) => {
 
     useEffect(() => {
         if (!likedPosts) return;
-
-        for (const post of posts) {
-            if (likedPosts.includes(post.id)) {
-                post.isLiked = true;
+        if (posts) {
+            for (const post of posts) {
+                if (likedPosts.includes(post.id)) {
+                    post.isLiked = true;
+                }
             }
         }
     }, [likedPosts, posts]);
