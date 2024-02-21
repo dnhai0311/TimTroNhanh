@@ -336,16 +336,16 @@ export const addPostToLiked = async (userId, postId) => {
             removePostFromLiked(userId, postId);
             return {
                 err: 0,
-                msg: 'Bài đăng đã được xoá vào danh sách thích của người dùng',
+                msg: 'Đã xoá khỏi danh sách lưu',
             };
         }
         await user.addPOST(post);
         return {
             err: 0,
-            msg: 'Bài đăng đã được thêm vào danh sách thích của người dùng',
+            msg: 'Đã thêm vào danh sách lưu',
         };
     } catch (error) {
-        console.error('Lỗi khi cập nhật trạng thái yêu thích:', error);
+        console.error('Lỗi khi cập nhật trạng thái lưu:', error);
         throw error;
     }
 };
@@ -360,10 +360,43 @@ export const removePostFromLiked = async (userId, postId) => {
         await user.removePOST(post);
         return {
             err: 0,
-            msg: 'Bài đăng đã được xoá vào danh sách thích của người dùng',
+            msg: 'Đã xoá khỏi danh sách lưu',
         };
     } catch (error) {
-        console.error('Lỗi khi cập nhật trạng thái yêu thích:', error);
+        console.error('Lỗi khi cập nhật trạng thái lưu:', error);
+        throw error;
+    }
+};
+
+export const getAllLikedPostsByUserId = async (userId) => {
+    try {
+        const response = await db.USER_POST.findAll({
+            where: {
+                userId,
+            },
+            include: [
+                {
+                    model: db.POST,
+                    as: 'post',
+                    include: [
+                        { model: db.ATTRIBUTE, as: 'attribute', attributes: ['price', 'acreage', 'address'] },
+                        {
+                            model: db.USER,
+                            as: 'user',
+                            attributes: ['name', 'phone', 'avatar'],
+                        },
+                        { model: db.IMAGE, as: 'images', attributes: ['path'] },
+                    ],
+                },
+            ],
+        });
+        return {
+            err: 0,
+            msg: 'Danh sách bài đăng yêu thích',
+            response: response,
+        };
+    } catch (error) {
+        console.error('Lỗi khi lấy bài đăng yêu thích:', error);
         throw error;
     }
 };
@@ -399,6 +432,30 @@ export const getLikedPostsByUserId = async (userId, page) => {
         };
     } catch (error) {
         console.error('Lỗi khi lấy bài đăng yêu thích:', error);
+        throw error;
+    }
+};
+
+export const didUserLikePost = async (userId, postId) => {
+    try {
+        const user = await db.USER.findByPk(userId);
+        const post = await db.POST.findByPk(postId);
+        if (!user || !post) {
+            throw new Error('Người dùng hoặc bài đăng không tồn tại');
+        }
+        const isLiked = await user.hasPOST(post);
+        if (isLiked) {
+            return {
+                err: 0,
+                isLiked: true,
+            };
+        }
+        return {
+            err: 0,
+            isLiked: false,
+        };
+    } catch (error) {
+        console.error('Lỗi khi kiểm tra người dùng có lưu bài đăng hay không:', error);
         throw error;
     }
 };

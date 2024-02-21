@@ -7,9 +7,8 @@ import { useSelector } from 'react-redux';
 import { apiLikePost } from '../services/post';
 import { showToastSuccess } from '../utils/commons/ToastUtil';
 
-const { FaStar, FaHeart } = icons;
-
 const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar, isLiked }) => {
+    const { FaStar, FaHeart } = icons;
     const { isLoggedIn } = useSelector((state) => state.auth);
     const { userData } = useSelector((state) => state.user);
     const [isRed, setIsRed] = useState(false);

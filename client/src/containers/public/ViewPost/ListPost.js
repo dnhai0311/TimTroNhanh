@@ -6,7 +6,7 @@ import { createSearchParams, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import './ListPost.scss';
 import icons from '../../../utils/icons';
-import { apiGetLikedPost, apiGetPosts } from '../../../services/post';
+import { apiGetAllLikedPost, apiGetPosts } from '../../../services/post';
 
 const ListPost = ({ categoryCode }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
@@ -129,9 +129,10 @@ const ListPost = ({ categoryCode }) => {
 
     useEffect(() => {
         const fetchLikePosts = async () => {
-            const response = await apiGetLikedPost(userData.id);
+            const response = await apiGetAllLikedPost(userData.id);
             if (response.status === 200) {
                 const likes = response.data.response.map((like) => like.postId);
+                console.log(likes);
                 setLikedPosts(likes);
             }
         };
@@ -140,7 +141,7 @@ const ListPost = ({ categoryCode }) => {
 
     useEffect(() => {
         if (!likedPosts) return;
-        if (posts) {
+        if (posts.length > 0) {
             for (const post of posts) {
                 if (likedPosts.includes(post.id)) {
                     post.isLiked = true;

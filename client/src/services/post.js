@@ -135,6 +135,21 @@ export const apiUnLikePost = async (userId, postId) => {
     }
 };
 
+export const apiGetAllLikedPost = async (userId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/all-liked-posts',
+            params: {
+                userId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiGetLikedPost = async (userId, page) => {
     try {
         const response = await axiosConfig({
@@ -143,6 +158,22 @@ export const apiGetLikedPost = async (userId, page) => {
             params: {
                 userId,
                 page,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiDidUserLikePost = async (userId, postId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/user-post',
+            params: {
+                userId,
+                postId,
             },
         });
         return response;
