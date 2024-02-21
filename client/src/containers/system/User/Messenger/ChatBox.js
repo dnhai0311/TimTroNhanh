@@ -41,7 +41,7 @@ const ChatBox = ({ user, messages, isSendMessage, setIsSendMessage }) => {
                         />
                     ))}
             </div>
-            <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />
+            <ChatInput setMessage={setMessage} sendMessage={sendMessage} />
         </>
     );
 };

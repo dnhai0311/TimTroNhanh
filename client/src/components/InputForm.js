@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useRef } from 'react';
+import debounce from 'lodash.debounce';
 
 const InputForm = ({
     label,
@@ -16,16 +17,27 @@ const InputForm = ({
     autoFocus,
     autoComplete,
 }) => {
-    const handleChange = (e) => {
+    const latestValue = useRef(value);
+
+    const updateValue = (e) => {
         setValue((prev) => ({
             ...prev,
             [typeValue]: e.target.value,
         }));
+        latestValue.current = e.target.value;
     };
+
+    const debouncedValue = debounce(() => {
+        setValue((prev) => ({
+            ...prev,
+            [typeValue]: latestValue.current,
+        }));
+    }, 200);
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            debouncedValue.flush();
             onSubmit(e);
         }
     };
@@ -42,13 +54,13 @@ const InputForm = ({
                     pattern={pattern}
                     placeholder={placeHolder}
                     className="form-control"
-                    value={value}
-                    onChange={handleChange}
+                    onChange={updateValue}
                     onKeyDown={handleKeyPress}
                     onFocus={() => setInvalidFields([])}
                     autoFocus={autoFocus}
                     autoComplete={autoComplete}
                     name={typeValue}
+                    value={value[typeValue]}
                 />
             </label>
 

@@ -5,8 +5,10 @@ import { useParams } from 'react-router-dom';
 import { useSocketContext } from '../../../../context/SocketContext';
 import { apiGetMessages } from '../../../../services/message';
 import { apiGetUser } from '../../../../services/user';
+import icons from '../../../../utils/icons';
 
 const ChatContainer = ({ isSendMessage, setIsSendMessage }) => {
+    const { BiMessageRoundedDetail } = icons;
     const { userId } = useParams();
     const [user, setUser] = useState();
     const [messages, setMessages] = useState({});
@@ -57,7 +59,10 @@ const ChatContainer = ({ isSendMessage, setIsSendMessage }) => {
                     />
                 </>
             ) : (
-                ''
+                <div className=" h-100 d-flex align-items-center justify-content-center flex-column">
+                    <BiMessageRoundedDetail fontSize={'50px'} />
+                    <h5 className="fw-bold">Hãy chọn một người nào đó để nhắn tin</h5>
+                </div>
             )}
         </>
     );

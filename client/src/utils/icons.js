@@ -22,6 +22,7 @@ import { LuUserSquare } from 'react-icons/lu';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
+import { BiMessageRoundedDetail } from 'react-icons/bi';
 
 const icons = {
     BsChevronRight,
@@ -48,6 +49,7 @@ const icons = {
     FaSignOutAlt,
     FaRegTrashAlt,
     IoSend,
+    BiMessageRoundedDetail,
 };
 
 export default icons;

@@ -118,7 +118,7 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
             showToastErrorAndSetLoading('Giá hoặc diện tích không hợp lệ');
             return;
         }
-        if (imgFiles.length === 0) {
+        if (imgFiles.length < 2) {
             showToastErrorAndSetLoading('Vui lòng đăng ít nhất 1 ảnh về bài đăng của bạn');
             return;
         }

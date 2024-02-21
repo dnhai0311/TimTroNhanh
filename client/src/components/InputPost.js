@@ -1,8 +1,13 @@
 import React, { memo } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import debounce from 'lodash.debounce';
 const InputPost = ({ isDisable, isTextArea, name, value, setValue, isAfter, text, width }) => {
-    // co su dung debounce o day
+    const updateValue = (e) => {
+        if (name === 'Địa chỉ chính xác') setValue(e?.target?.value + ',');
+        else setValue(e?.target?.value);
+    };
+    const debouncedValue = debounce(updateValue, 200);
 
     return (
         <Form.Group className={`${width ? width : 'w-100'} pe-3 mt-3  fw-bold w-50`}>
@@ -12,10 +17,7 @@ const InputPost = ({ isDisable, isTextArea, name, value, setValue, isAfter, text
                     <InputGroup>
                         <Form.Control
                             className="rounded-0 shadow text-right"
-                            onChange={(e) => {
-                                if (name === 'Địa chỉ chính xác') setValue(e.target.value + ',');
-                                else setValue(e.target.value);
-                            }}
+                            onChange={debouncedValue}
                             required
                             as={isTextArea ? 'textarea' : 'input'}
                             rows={8}
