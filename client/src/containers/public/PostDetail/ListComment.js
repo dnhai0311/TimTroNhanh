@@ -8,14 +8,20 @@ const ListComment = ({ userId, postId }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
     const { socket } = useSocketContext();
     const [data, setData] = useState();
+    const [page, setPage] = useState(0);
+    const [isEnd, setIsEnd] = useState(false);
 
     useEffect(() => {
         const fetchRated = async () => {
-            const res = await apiGetRated(postId);
-            setData(res.data.response);
+            const res = await apiGetRated(postId, page);
+            if (res.data.response.length === 0) setIsEnd(true);
+            setData((prevData) => {
+                const newData = Array.isArray(prevData) ? prevData : [];
+                return [...newData, ...res.data.response];
+            });
         };
         postId && fetchRated();
-    }, [postId]);
+    }, [postId, page]);
 
     useEffect(() => {
         const fetchRated = async () => {
@@ -48,6 +54,18 @@ const ListComment = ({ userId, postId }) => {
                     star={item?.star}
                 />
             ))}
+            {isEnd ? (
+                <div className="p-2 text-center">Hết thật rồi...</div>
+            ) : (
+                <div
+                    className="p-2 text-center show-more"
+                    onClick={() => {
+                        setPage(page + 1);
+                    }}
+                >
+                    Hiển thị thêm
+                </div>
+            )}
         </div>
     );
 };

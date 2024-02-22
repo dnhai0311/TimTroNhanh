@@ -466,12 +466,43 @@ export const addPostToRating = async (userId, postId, star, comment) => {
             star,
             comment,
         });
+        await updatePostRating(postId);
         return {
             err: 0,
             msg: 'Đánh giá thành công',
         };
     } catch (error) {
         console.error('Lỗi khi đánh giá', error);
+        throw error;
+    }
+};
+
+const updatePostRating = async (postId) => {
+    try {
+        const ratings = await db.USER_RATE_POST.findAll({
+            where: {
+                postId,
+            },
+        });
+
+        const totalRatings = ratings.length;
+        const totalStars = ratings.reduce((sum, rating) => sum + rating.star, 0);
+        const averageStar = totalRatings > 0 ? totalStars / totalRatings : 0;
+
+        await db.POST.update(
+            {
+                star: averageStar,
+            },
+            {
+                where: {
+                    id: postId,
+                },
+            },
+        );
+
+        console.log('Cập nhật giá trị star thành công');
+    } catch (error) {
+        console.error('Lỗi khi cập nhật giá trị star', error);
         throw error;
     }
 };
