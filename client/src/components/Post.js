@@ -10,7 +10,6 @@ import { showToastSuccess } from '../utils/commons/ToastUtil';
 const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar, isLiked }) => {
     const { FaStar, FaHeart } = icons;
     const { isLoggedIn } = useSelector((state) => state.auth);
-    const { userData } = useSelector((state) => state.user);
     const [isRed, setIsRed] = useState(false);
     useEffect(() => {
         setIsRed(isLiked);
@@ -25,7 +24,7 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
     const formattedTime = moment(time).fromNow();
 
     const handleLikePost = async () => {
-        const response = await apiLikePost(userData.id, id);
+        const response = await apiLikePost(id);
         if (response.status === 200) {
             showToastSuccess(response.data.msg);
             setIsRed(!isRed);

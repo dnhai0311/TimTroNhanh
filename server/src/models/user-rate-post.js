@@ -9,20 +9,21 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            USER_RATE_POST.hasMany(models.USER, {
-                foreignKey: 'id',
-                as: 'user',
+            USER_RATE_POST.belongsTo(models.USER, {
+                foreignKey: 'userId',
+                as: 'rated_user',
             });
-            USER_RATE_POST.hasMany(models.POST, {
-                foreignKey: 'id',
-                as: 'post',
+
+            USER_RATE_POST.belongsTo(models.POST, {
+                foreignKey: 'postId',
+                as: 'rated_post',
             });
         }
     }
     USER_RATE_POST.init(
         {
             userId: DataTypes.INTEGER,
-            postID: DataTypes.INTEGER,
+            postId: DataTypes.INTEGER,
             comment: DataTypes.STRING,
             star: DataTypes.INTEGER,
         },

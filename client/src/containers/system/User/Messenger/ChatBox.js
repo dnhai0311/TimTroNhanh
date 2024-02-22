@@ -16,7 +16,6 @@ const ChatBox = ({ user, messages, setMessages, fetchAllMessages }) => {
         if (message === '') return;
         const payload = {
             message,
-            sender: userData.id,
             receiver: user?.id,
         };
         const response = await apiSendMessage(payload);

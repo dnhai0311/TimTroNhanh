@@ -2,19 +2,21 @@ import { getReceiverSocketId, io } from '../../socket/socket';
 import * as messageService from '../services/message';
 
 export const sendMessage = async (req, res) => {
-    const { message, sender, receiver } = req.body;
+    const { message, receiver } = req.body;
+    const { id } = req.user;
+
     try {
-        if (!message || !receiver || !sender)
+        if (!message || !receiver)
             return res.status(400).json({
                 err: 1,
                 msg: 'missing input',
             });
-        const response = await messageService.sendMessageService(req.body);
+        const response = await messageService.sendMessageService(message, id, receiver);
         const receiverSocketId = getReceiverSocketId(receiver);
         if (receiverSocketId) {
             const newMessage = {
                 value: message,
-                sender,
+                sender: id,
             };
             io.to(receiverSocketId).emit('message', newMessage);
             io.to(receiverSocketId).emit('receiver', receiver);
@@ -31,12 +33,7 @@ export const sendMessage = async (req, res) => {
 export const getAllMessages = async (req, res) => {
     const { id } = req.user;
     try {
-        if (!id)
-            return res.status(400).json({
-                err: 1,
-                msg: 'missing input',
-            });
-        const response = await messageService.getAllMessagesService(req.user);
+        const response = await messageService.getAllMessagesService(id);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -51,7 +48,7 @@ export const getMessages = async (req, res) => {
     const { otherId, page, currentTotalMessages } = req.query;
 
     try {
-        if (!id || !otherId)
+        if (!otherId)
             return res.status(400).json({
                 err: 1,
                 msg: 'missing input',

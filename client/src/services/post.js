@@ -103,13 +103,12 @@ export const apiDeletePost = async (id) => {
     }
 };
 
-export const apiLikePost = async (userId, postId) => {
+export const apiLikePost = async (postId) => {
     try {
         const response = await axiosConfig({
             method: 'post',
             url: '/api/v1/post/like',
             params: {
-                userId,
                 postId,
             },
         });
@@ -119,13 +118,12 @@ export const apiLikePost = async (userId, postId) => {
     }
 };
 
-export const apiUnLikePost = async (userId, postId) => {
+export const apiUnLikePost = async (postId) => {
     try {
         const response = await axiosConfig({
             method: 'delete',
             url: '/api/v1/post/unlike',
             params: {
-                userId,
                 postId,
             },
         });
@@ -135,14 +133,11 @@ export const apiUnLikePost = async (userId, postId) => {
     }
 };
 
-export const apiGetAllLikedPost = async (userId) => {
+export const apiGetAllLikedPost = async () => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/post/all-liked-posts',
-            params: {
-                userId,
-            },
         });
         return response;
     } catch (error) {
@@ -150,13 +145,12 @@ export const apiGetAllLikedPost = async (userId) => {
     }
 };
 
-export const apiGetLikedPost = async (userId, page) => {
+export const apiGetLikedPost = async (page) => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/post/liked-posts',
             params: {
-                userId,
                 page,
             },
         });
@@ -166,13 +160,60 @@ export const apiGetLikedPost = async (userId, page) => {
     }
 };
 
-export const apiDidUserLikePost = async (userId, postId) => {
+export const apiDidUserLikePost = async (postId) => {
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: '/api/v1/post/user-post',
+            url: '/api/v1/post/user-like-post',
             params: {
-                userId,
+                postId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiRatePost = async (postId, star, comment) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/post/rate',
+            params: {
+                postId,
+                star,
+                comment,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetRated = async (postId, page) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/rated-posts',
+            params: {
+                postId,
+                page,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiDidUserRatePost = async (postId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/user-rate-post',
+            params: {
                 postId,
             },
         });

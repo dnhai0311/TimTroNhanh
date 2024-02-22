@@ -326,12 +326,12 @@ export const updatePostStatus = async () => {
 
 export const addPostToLiked = async (userId, postId) => {
     try {
-        const user = await db.USER.findByPk(userId);
-        const post = await db.POST.findByPk(postId);
-        if (!user || !post) {
-            throw new Error('Người dùng hoặc bài đăng không tồn tại');
-        }
-        const isLiked = await user.hasUser_like_post(post);
+        const isLiked = await db.USER_LIKE_POST.findOne({
+            where: {
+                userId,
+                postId,
+            },
+        });
         if (isLiked) {
             removePostFromLiked(userId, postId);
             return {
@@ -339,7 +339,10 @@ export const addPostToLiked = async (userId, postId) => {
                 msg: 'Đã xoá khỏi danh sách lưu',
             };
         }
-        await user.addUser_like_post(post);
+        await db.USER_LIKE_POST.create({
+            userId,
+            postId,
+        });
         return {
             err: 0,
             msg: 'Đã thêm vào danh sách lưu',
@@ -352,18 +355,18 @@ export const addPostToLiked = async (userId, postId) => {
 
 export const removePostFromLiked = async (userId, postId) => {
     try {
-        const user = await db.USER.findByPk(userId);
-        const post = await db.POST.findByPk(postId);
-        if (!user || !post) {
-            throw new Error('Người dùng hoặc bài đăng không tồn tại');
-        }
-        await user.removeUser_like_post(post);
+        await db.USER_LIKE_POST.destroy({
+            where: {
+                userId,
+                postId,
+            },
+        });
+
         return {
             err: 0,
-            msg: 'Đã xoá khỏi danh sách lưu',
+            msg: 'DELETED',
         };
     } catch (error) {
-        console.error('Lỗi khi cập nhật trạng thái lưu:', error);
         throw error;
     }
 };
@@ -377,7 +380,7 @@ export const getAllLikedPostsByUserId = async (userId) => {
             include: [
                 {
                     model: db.POST,
-                    as: 'post',
+                    as: 'liked_post',
                     include: [
                         { model: db.ATTRIBUTE, as: 'attribute', attributes: ['price', 'acreage', 'address'] },
                         {
@@ -412,7 +415,7 @@ export const getLikedPostsByUserId = async (userId, page) => {
             include: [
                 {
                     model: db.POST,
-                    as: 'post',
+                    as: 'liked_post',
                     include: [
                         { model: db.ATTRIBUTE, as: 'attribute', attributes: ['price', 'acreage', 'address'] },
                         {
@@ -438,24 +441,84 @@ export const getLikedPostsByUserId = async (userId, page) => {
 
 export const didUserLikePost = async (userId, postId) => {
     try {
-        const user = await db.USER.findByPk(userId);
-        const post = await db.POST.findByPk(postId);
-        if (!user || !post) {
-            throw new Error('Người dùng hoặc bài đăng không tồn tại');
-        }
-        const isLiked = await user.hasUser_like_post(post);
-        if (isLiked) {
-            return {
-                err: 0,
-                isLiked: true,
-            };
-        }
+        const isLiked = await db.USER_LIKE_POST.findOne({
+            where: {
+                userId,
+                postId,
+            },
+        });
+
         return {
             err: 0,
-            isLiked: false,
+            isLiked,
         };
     } catch (error) {
         console.error('Lỗi khi kiểm tra người dùng có lưu bài đăng hay không:', error);
+        throw error;
+    }
+};
+
+export const addPostToRating = async (userId, postId, star, comment) => {
+    try {
+        await db.USER_RATE_POST.create({
+            userId,
+            postId,
+            star,
+            comment,
+        });
+        return {
+            err: 0,
+            msg: 'Đánh giá thành công',
+        };
+    } catch (error) {
+        console.error('Lỗi khi đánh giá', error);
+        throw error;
+    }
+};
+
+export const didUserRatePost = async (userId, postId) => {
+    try {
+        const isRated = await db.USER_RATE_POST.findOne({
+            where: {
+                userId,
+                postId,
+            },
+        });
+        return {
+            err: 0,
+            isRated,
+        };
+    } catch (error) {
+        console.error('Lỗi khi kiểm tra người dùng có đánh giá bài đăng hay chưa:', error);
+        throw error;
+    }
+};
+
+export const getRatedByPostId = async (postId, page) => {
+    try {
+        const response = await db.USER_RATE_POST.findAll({
+            where: {
+                postId,
+            },
+            include: [
+                {
+                    model: db.USER,
+                    as: 'rated_user',
+                    attributes: ['id', 'name', 'avatar'],
+                },
+            ],
+            offset: page * +process.env.PAGE_DISPLAYED || 0,
+            limit: +process.env.PAGE_DISPLAYED,
+            attributes: ['id', 'star', 'comment'],
+            order: [['id', 'DESC']],
+        });
+        return {
+            err: 0,
+            msg: 'Danh sách đánh giá',
+            response: response,
+        };
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách đánh giá của bài đăng:', error);
         throw error;
     }
 };

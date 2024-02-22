@@ -129,10 +129,10 @@ const ListPost = ({ categoryCode }) => {
 
     useEffect(() => {
         const fetchLikePosts = async () => {
-            const response = await apiGetAllLikedPost(userData.id);
+            const response = await apiGetAllLikedPost();
             if (response.status === 200) {
                 const likes = response.data.response.map((like) => like.postId);
-                console.log(likes);
+
                 setLikedPosts(likes);
             }
         };

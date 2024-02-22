@@ -2,6 +2,7 @@ import * as postService from '../services/post';
 import { getImgsPath } from '../services/image';
 import { filter } from '../utils/commons/filter';
 import { deleteImage } from '../middlewares/cloudinary';
+import { io } from '../../socket/socket';
 
 export const getAllPosts = async (req, res) => {
     try {
@@ -154,16 +155,17 @@ export const deletePost = async (req, res) => {
 };
 
 export const likePost = async (req, res) => {
-    const { userId, postId } = req.query;
+    const { postId } = req.query;
+    const { id } = req.user;
     try {
-        if (!userId || !postId) {
+        if (!postId) {
             return res.status(400).json({
                 err: 1,
                 msg: 'Missing input',
             });
         }
 
-        const response = await postService.addPostToLiked(userId, postId);
+        const response = await postService.addPostToLiked(id, postId);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -174,16 +176,18 @@ export const likePost = async (req, res) => {
 };
 
 export const unlikePost = async (req, res) => {
-    const { userId, postId } = req.query;
+    const { postId } = req.query;
+    const { id } = req.user;
+
     try {
-        if (!userId || !postId) {
+        if (!postId) {
             return res.status(400).json({
                 err: 1,
                 msg: 'Missing input',
             });
         }
 
-        const response = await postService.removePostFromLiked(userId, postId);
+        const response = await postService.removePostFromLiked(id, postId);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -194,16 +198,10 @@ export const unlikePost = async (req, res) => {
 };
 
 export const getAllLikedPosts = async (req, res) => {
-    const { userId } = req.query;
-    try {
-        if (!userId) {
-            return res.status(400).json({
-                err: 1,
-                msg: 'Missing input',
-            });
-        }
+    const { id } = req.user;
 
-        const response = await postService.getAllLikedPostsByUserId(userId);
+    try {
+        const response = await postService.getAllLikedPostsByUserId(id);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -214,16 +212,11 @@ export const getAllLikedPosts = async (req, res) => {
 };
 
 export const getLikedPosts = async (req, res) => {
-    const { userId, page } = req.query;
-    try {
-        if (!userId) {
-            return res.status(400).json({
-                err: 1,
-                msg: 'Missing input',
-            });
-        }
+    const { page } = req.query;
+    const { id } = req.user;
 
-        const response = await postService.getLikedPostsByUserId(userId, page);
+    try {
+        const response = await postService.getLikedPostsByUserId(id, page);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -234,15 +227,81 @@ export const getLikedPosts = async (req, res) => {
 };
 
 export const didUserLikePost = async (req, res) => {
-    const { userId, postId } = req.query;
+    const { postId } = req.query;
+    const { id } = req.user;
+
     try {
-        if (!userId || !postId) {
+        if (!postId) {
             return res.status(400).json({
                 err: 1,
                 msg: 'Missing input',
             });
         }
-        const response = await postService.didUserLikePost(userId, postId);
+        const response = await postService.didUserLikePost(id, postId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const ratePost = async (req, res) => {
+    const { postId, star, comment } = req.query;
+    const { id } = req.user;
+
+    try {
+        if (!postId || !star || !comment) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+
+        const response = await postService.addPostToRating(id, postId, star, comment);
+        io.emit('new-rated', postId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const didUserRatePost = async (req, res) => {
+    const { postId } = req.query;
+    const { id } = req.user;
+
+    try {
+        if (!postId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+        const response = await postService.didUserRatePost(id, postId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getRated = async (req, res) => {
+    const { postId, page } = req.query;
+    try {
+        if (!postId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing input',
+            });
+        }
+
+        const response = await postService.getRatedByPostId(postId, page);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

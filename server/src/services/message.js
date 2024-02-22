@@ -1,6 +1,6 @@
 import db from '../models';
 
-export const sendMessageService = async ({ message, sender, receiver }) => {
+export const sendMessageService = async (message, sender, receiver) => {
     try {
         const response = await db.MESSAGE.create({
             value: message,
@@ -18,7 +18,7 @@ export const sendMessageService = async ({ message, sender, receiver }) => {
     }
 };
 
-export const getAllMessagesService = async ({ id }) => {
+export const getAllMessagesService = async (id) => {
     try {
         const messages = await db.MESSAGE.findAll({
             where: {

@@ -27,7 +27,7 @@ const DetailPost = () => {
 
     useEffect(() => {
         const didUserLikePost = async () => {
-            const response = await apiDidUserLikePost(userData.id, postId);
+            const response = await apiDidUserLikePost(postId);
             if (response.status === 200) {
                 setIsRed(response.data.isLiked);
             }
@@ -36,7 +36,7 @@ const DetailPost = () => {
     }, [userData?.id, postId]);
 
     const handleLikePost = async () => {
-        const response = await apiLikePost(userData.id, postId);
+        const response = await apiLikePost(postId);
         if (response.status === 200) {
             showToastSuccess(response.data.msg);
             setIsRed(!isRed);
@@ -60,7 +60,7 @@ const DetailPost = () => {
                                 <FaHeart fontSize={'20px'} className={isRed ? 'text-danger' : 'text-dark'} />
                             </div>
                         </Container>
-                        <ListComment />
+                        <ListComment userId={userData?.id} postId={postId} />
                     </Col>
                 </Row>
             </Container>

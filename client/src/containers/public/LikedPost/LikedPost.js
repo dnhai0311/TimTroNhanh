@@ -25,9 +25,9 @@ const LikedPost = () => {
             return;
         }
         const fetchLikedPost = async () => {
-            const response = await apiGetLikedPost(userData.id, page);
+            const response = await apiGetLikedPost(page);
             if (response.status === 200) {
-                const allLikedPost = response.data.response.flatMap((item) => item.post);
+                const allLikedPost = response.data.response.flatMap((item) => item.liked_post);
                 if (allLikedPost.length === 0) {
                     showToastSuccess('Đã hiện hết tin bạn đã lưu');
                     return;

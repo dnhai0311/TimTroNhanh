@@ -8,13 +8,14 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            USER_LIKE_POST.hasMany(models.USER, {
-                foreignKey: 'id',
-                as: 'user',
+            USER_LIKE_POST.belongsTo(models.USER, {
+                foreignKey: 'userId',
+                as: 'liked_user',
             });
-            USER_LIKE_POST.hasMany(models.POST, {
-                foreignKey: 'id',
-                as: 'post',
+
+            USER_LIKE_POST.belongsTo(models.POST, {
+                foreignKey: 'postId',
+                as: 'liked_post',
             });
         }
     }

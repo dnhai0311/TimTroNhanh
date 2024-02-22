@@ -3,6 +3,12 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('USER_RATE_POSTS', {
+            id: {
+                allowNull: false,
+                primaryKey: true,
+                type: Sequelize.INTEGER,
+                autoIncrement: true,
+            },
             userId: {
                 type: Sequelize.INTEGER,
                 references: {
