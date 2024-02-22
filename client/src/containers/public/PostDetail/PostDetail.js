@@ -4,6 +4,7 @@ import { apiGetOnePost } from '../../../services/post';
 import { useParams } from 'react-router-dom';
 import ShowUser from './ShowUser';
 import PostInfo from './PostInfo';
+import ListComment from './ListComment';
 import icons from '../../../utils/icons';
 import { apiLikePost, apiDidUserLikePost } from '../../../services/post';
 import { useSelector } from 'react-redux';
@@ -59,6 +60,7 @@ const DetailPost = () => {
                                 <FaHeart fontSize={'20px'} className={isRed ? 'text-danger' : 'text-dark'} />
                             </div>
                         </Container>
+                        <ListComment />
                     </Col>
                 </Row>
             </Container>

@@ -44,11 +44,11 @@ const ChatBox = ({ user, messages, setMessages, fetchAllMessages }) => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
         }
-    }, []);
+    }, [userData?.id]);
 
     useEffect(() => {
         const fetchOldMessages = async () => {
-            const response = await apiGetMessages(user?.id, page, messages.length);
+            const response = await apiGetMessages(user?.id, page, messages?.length);
             if (response.status === 200) {
                 const newMessages = response.data[0]?.messages || [];
                 setMessages((prevMessages) => {
@@ -59,8 +59,7 @@ const ChatBox = ({ user, messages, setMessages, fetchAllMessages }) => {
         };
 
         page > 0 && fetchOldMessages();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page, setMessages, user?.id]);
+    }, [messages?.length, page, setMessages, user?.id]);
 
     return (
         <>

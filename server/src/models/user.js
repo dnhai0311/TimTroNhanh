@@ -20,11 +20,25 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'receiver',
                 as: 'receivedMessages',
             });
-            USER.belongsToMany(models.POST, { through: models.USER_POST, foreignKey: 'userId' });
-            USER.belongsTo(models.USER_POST, {
+            USER.belongsToMany(models.POST, {
+                through: models.USER_LIKE_POST,
+                foreignKey: 'userId',
+                as: 'user_like_post',
+            });
+            USER.belongsTo(models.USER_LIKE_POST, {
                 foreignKey: 'id',
                 target: 'userId',
                 as: 'liked_posts',
+            });
+            USER.belongsToMany(models.POST, {
+                through: models.USER_RATE_POST,
+                foreignKey: 'userId',
+                as: 'user_rate_post',
+            });
+            USER.belongsTo(models.USER_RATE_POST, {
+                foreignKey: 'id',
+                target: 'userId',
+                as: 'rated_posts',
             });
         }
     }

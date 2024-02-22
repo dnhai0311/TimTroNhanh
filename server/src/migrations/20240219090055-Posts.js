@@ -16,7 +16,8 @@ module.exports = {
                 type: Sequelize.TEXT('long'),
             },
             star: {
-                type: Sequelize.STRING,
+                type: Sequelize.FLOAT,
+                defaultValue: 0.0,
             },
             status: {
                 type: Sequelize.ENUM('payment', 'pending', 'approved', 'rejected', 'expired'),

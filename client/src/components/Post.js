@@ -59,13 +59,9 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
                     <div className="px-2 ">
                         {Array(5)
                             .fill()
-                            .map((_, index) =>
-                                index < star ? (
-                                    <FaStar key={index} color="#FFD24E" />
-                                ) : (
-                                    <FaStar key={index} color="#fffff" />
-                                ),
-                            )}
+                            .map((_, index) => (
+                                <FaStar key={index} color={index < star ? '#FFD24E' : ''} value={index} />
+                            ))}
                     </div>
                     <div className="px-2 d-flex justify-content-between">
                         <div className="fw-bold text-success text-truncate ">

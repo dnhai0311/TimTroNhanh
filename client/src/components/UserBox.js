@@ -3,7 +3,7 @@ import avt from '../assets/avt/user.png';
 import '../containers/system/User/Messenger/Messenger.scss';
 const UserBox = ({ isSelected, isInMessage, user, latestMessage, isOnline, isSeen }) => {
     return (
-        <div className={`d-flex rounded ${isSelected ? (isInMessage ? '' : 'border-bottom') : 'user-box '}`}>
+        <div className={`d-flex rounded ${isSelected ? (isInMessage ? '' : 'border-bottom') : 'user-box'}`}>
             <div className={`p-2 ${isOnline ? 'online' : ''}`}>
                 <img
                     src={user?.avatar || avt}

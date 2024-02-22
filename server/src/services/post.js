@@ -331,7 +331,7 @@ export const addPostToLiked = async (userId, postId) => {
         if (!user || !post) {
             throw new Error('Người dùng hoặc bài đăng không tồn tại');
         }
-        const isLiked = await user.hasPOST(post);
+        const isLiked = await user.hasUser_like_post(post);
         if (isLiked) {
             removePostFromLiked(userId, postId);
             return {
@@ -339,7 +339,7 @@ export const addPostToLiked = async (userId, postId) => {
                 msg: 'Đã xoá khỏi danh sách lưu',
             };
         }
-        await user.addPOST(post);
+        await user.addUser_like_post(post);
         return {
             err: 0,
             msg: 'Đã thêm vào danh sách lưu',
@@ -357,7 +357,7 @@ export const removePostFromLiked = async (userId, postId) => {
         if (!user || !post) {
             throw new Error('Người dùng hoặc bài đăng không tồn tại');
         }
-        await user.removePOST(post);
+        await user.removeUser_like_post(post);
         return {
             err: 0,
             msg: 'Đã xoá khỏi danh sách lưu',
@@ -370,7 +370,7 @@ export const removePostFromLiked = async (userId, postId) => {
 
 export const getAllLikedPostsByUserId = async (userId) => {
     try {
-        const response = await db.USER_POST.findAll({
+        const response = await db.USER_LIKE_POST.findAll({
             where: {
                 userId,
             },
@@ -403,7 +403,7 @@ export const getAllLikedPostsByUserId = async (userId) => {
 
 export const getLikedPostsByUserId = async (userId, page) => {
     try {
-        const response = await db.USER_POST.findAll({
+        const response = await db.USER_LIKE_POST.findAll({
             where: {
                 userId,
             },
@@ -443,7 +443,7 @@ export const didUserLikePost = async (userId, postId) => {
         if (!user || !post) {
             throw new Error('Người dùng hoặc bài đăng không tồn tại');
         }
-        const isLiked = await user.hasPOST(post);
+        const isLiked = await user.hasUser_like_post(post);
         if (isLiked) {
             return {
                 err: 0,

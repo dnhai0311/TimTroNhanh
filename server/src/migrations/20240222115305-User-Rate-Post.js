@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('USER_POSTS', {
+        await queryInterface.createTable('USER_RATE_POSTS', {
             userId: {
                 type: Sequelize.INTEGER,
                 references: {
@@ -17,6 +17,12 @@ module.exports = {
                     key: 'id',
                 },
             },
+            comment: {
+                type: Sequelize.STRING,
+            },
+            star: {
+                type: Sequelize.INTEGER,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -28,6 +34,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('USER_POSTS');
+        await queryInterface.dropTable('USER_RATE_POSTS');
     },
 };

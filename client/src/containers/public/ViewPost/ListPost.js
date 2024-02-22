@@ -141,7 +141,7 @@ const ListPost = ({ categoryCode }) => {
 
     useEffect(() => {
         if (!likedPosts) return;
-        if (posts.length > 0) {
+        if (posts?.length > 0) {
             for (const post of posts) {
                 if (likedPosts.includes(post.id)) {
                     post.isLiked = true;

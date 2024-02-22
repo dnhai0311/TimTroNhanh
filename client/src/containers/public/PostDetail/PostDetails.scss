@@ -1,0 +1,6 @@
+.comment {
+    &:not(:last-child) {
+        border-bottom: solid;
+        border-bottom-width: 1px;
+    }
+}

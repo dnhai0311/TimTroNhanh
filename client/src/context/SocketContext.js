@@ -12,9 +12,9 @@ export const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const { userData } = useSelector((state) => state.user);
-    const { isLoggedIn } = useSelector((state) => state.auth);
+
     useEffect(() => {
-        if (isLoggedIn && userData?.id) {
+        if (userData?.id) {
             const socket = io(process.env.REACT_APP_SERVER_URL, {
                 query: {
                     userId: userData.id,

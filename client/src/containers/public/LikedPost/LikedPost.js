@@ -5,11 +5,20 @@ import Post from '../../../components/Post';
 import './LikedPost.scss';
 import { showToastSuccess } from '../../../utils/commons/ToastUtil';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
 
 const LikedPost = () => {
+    const navigate = useNavigate();
+
     const { userData } = useSelector((state) => state.user);
+    const { isLoggedIn } = useSelector((state) => state.auth);
+
     const [likedPosts, setLikedPosts] = useState([]);
     const [page, setPage] = useState(0);
+
+    useEffect(() => {
+        !isLoggedIn && navigate('/login');
+    }, [isLoggedIn, navigate]);
 
     useEffect(() => {
         if (!userData?.id) {
