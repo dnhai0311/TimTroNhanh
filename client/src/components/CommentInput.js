@@ -18,6 +18,7 @@ const CommentInput = ({ userId, postId }) => {
 
     const onClickStar = (index) => {
         setStar(index);
+        inputRef.current.focus();
     };
 
     const submitComment = async () => {

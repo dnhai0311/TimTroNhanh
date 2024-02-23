@@ -4,7 +4,11 @@ import ImageSlider from './ImageSlider';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { useSelector } from 'react-redux';
+import icons from '../../../utils/icons';
+
 const PostInfo = ({ detailPost }) => {
+    const { FaStar } = icons;
+
     const { isDarkMode } = useSelector((state) => state.theme);
     return (
         <>
@@ -14,6 +18,17 @@ const PostInfo = ({ detailPost }) => {
                 </Row>
                 <Row className="mt-4 pt-2">
                     <h3 className="text-danger">{detailPost?.title}</h3>
+                    <div className="mb-1">
+                        {Array(5)
+                            .fill()
+                            .map((_, index) => (
+                                <FaStar
+                                    key={index}
+                                    color={index < detailPost?.star ? '#FFD24E' : ''}
+                                    fontSize={'25px'}
+                                />
+                            ))}
+                    </div>
                     <div className="mb-1">Chuyên mục: {detailPost?.category?.value}</div>
                     <div className="mb-1">Địa chỉ: {detailPost?.attribute?.address}</div>
                     <div className="d-flex">

@@ -186,7 +186,7 @@ export const getOnePostService = async (id) => {
                     attributes: ['name'],
                 },
             ],
-            attributes: ['id', 'title', 'description', 'userId', 'updatedAt', 'expiredAt'],
+            attributes: ['id', 'title', 'description', 'userId', 'star', 'updatedAt', 'expiredAt'],
         });
 
         return {
