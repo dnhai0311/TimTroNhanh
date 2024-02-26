@@ -83,7 +83,7 @@ export const getPostsService = async (
                     attributes: ['name', 'phone', 'avatar'],
                 },
             ],
-            attributes: ['id', 'title', 'description', 'updatedAt', 'star'],
+            attributes: ['id', 'title', 'description', 'updatedAt', 'star', 'postTypeId'],
         };
 
         if (conditions) {
@@ -121,11 +121,16 @@ export const getPostsService = async (
                 '$attribute.district.provinceId$': provinceId,
             };
         }
-
         if (sortType === 'price' || sortType === 'acreage') {
-            queryOptions.order = [['attribute', sortType, sortOrder]];
+            queryOptions.order = [
+                [db.Sequelize.literal(`CASE WHEN postTypeId = 2 THEN 0 ELSE 1 END`)],
+                ['attribute', sortType, sortOrder],
+            ];
         } else {
-            queryOptions.order = [[sortType, sortOrder]];
+            queryOptions.order = [
+                [db.Sequelize.literal(`CASE WHEN postTypeId = 2 THEN 0 ELSE 1 END`)],
+                [sortType, sortOrder],
+            ];
         }
 
         const response = await db.POST.findAndCountAll(queryOptions);

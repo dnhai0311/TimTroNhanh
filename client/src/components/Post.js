@@ -7,7 +7,22 @@ import { useSelector } from 'react-redux';
 import { apiLikePost } from '../services/post';
 import { showToastSuccess } from '../utils/commons/ToastUtil';
 
-const Post = ({ title, price, area, location, star, time, description, uploader, img, phone, id, avatar, isLiked }) => {
+const Post = ({
+    title,
+    price,
+    area,
+    location,
+    star,
+    time,
+    description,
+    uploader,
+    img,
+    phone,
+    id,
+    avatar,
+    isLiked,
+    postType,
+}) => {
     const { FaStar, FaHeart } = icons;
     const { isLoggedIn } = useSelector((state) => state.auth);
     const [isRed, setIsRed] = useState(false);
@@ -32,13 +47,16 @@ const Post = ({ title, price, area, location, star, time, description, uploader,
     };
 
     return (
-        <div className="col-12 py-3 border-top border-bottom border-dark post">
+        <div className="col-12 py-3 border-top border-bottom border-dark post position-relative">
             <div className="row gx-4">
-                <div className="col-4 d-flex position-relative">
+                <div className="col-4 d-flex position-relative p-0">
                     <Link className="w-100" to={`/post/${id}`}>
+                        {postType === +2 && (
+                            <div className="post-hight-light p-1 bg-danger text-light rounded">Tin nổi bật</div>
+                        )}
                         <img src={img} alt="thumbnail" className=" rounded post-thumb" />
                     </Link>
-                    <div className={'position-absolute bottom-0 end-0 '}>
+                    <div className={'position-absolute bottom-0 end-0'}>
                         {isLoggedIn && (
                             <FaHeart
                                 className={`mx-4 my-2 icon-heart ${isRed ? 'text-danger' : 'text-dark'}`}

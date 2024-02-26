@@ -8,7 +8,7 @@ import MyTable from './MyTable';
 
 const MyModal = ({ setIsShowModal, content, data, handleSelect, setDistrict, setProvince, setCategory }) => {
     const { FaArrowLeft } = icons;
-    const maxValue = content === 'Giá' ? '15' : '90';
+    const maxValue = content === 'Giá' ? 15 : 90;
     const unit = content === 'Giá' ? 'triệu/tháng' : 'm²';
 
     const [text, setText] = useState('');
@@ -54,7 +54,11 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect, setDistrict, set
         if (content === 'Giá' || content === 'Diện tích') {
             handleSelect(content, {
                 min: sliderRange[0],
-                max: sliderRange[0] === 0 && sliderRange[1] === maxValue ? '9999' : sliderRange[1],
+                max:
+                    (sliderRange[0] === 0 && sliderRange[1] === maxValue) ||
+                    (sliderRange[0] === maxValue && sliderRange[1] === maxValue)
+                        ? 9999
+                        : sliderRange[1],
                 value: text,
             });
         }
@@ -73,7 +77,7 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect, setDistrict, set
     };
 
     useEffect(() => {
-        if (sliderRange[1] === '9999') {
+        if (sliderRange[1] === 9999) {
             setText(`Trên ${sliderRange[0]} ${unit}`);
             return;
         }
@@ -119,7 +123,7 @@ const MyModal = ({ setIsShowModal, content, data, handleSelect, setDistrict, set
                                             <div
                                                 className="px-3 py-1 bg-primary m-1 border rounded text-light btnFilter"
                                                 onClick={() => {
-                                                    setSliderRange([item.min, item.max]);
+                                                    setSliderRange([+item.min, +item.max]);
                                                 }}
                                             >
                                                 {item.value}

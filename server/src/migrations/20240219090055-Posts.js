@@ -48,7 +48,7 @@ module.exports = {
                     key: 'id',
                 },
             },
-            typePostId: {
+            postTypeId: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'POST_CATEGORIES',

@@ -13,10 +13,10 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             min: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
             },
             max: {
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
             },
             createdAt: {
                 allowNull: false,

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             POST_CATEGORY.hasMany(models.POST, {
-                foreignKey: 'typePostId',
+                foreignKey: 'postTypeId',
                 as: 'posts',
             });
         }

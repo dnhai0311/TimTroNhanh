@@ -93,7 +93,7 @@ export const insertService = async () => {
                         (acreage) => acreage.max > currentAcreage && acreage.min <= currentAcreage,
                     )?.id,
                     priceCode: dataPrices.find((price) => price.max > currentPrice && price.min <= currentPrice)?.id,
-                    typePostId: Math.floor(Math.random() * totalPostCategory) + 1,
+                    postTypeId: Math.floor(Math.random() * totalPostCategory) + 1,
                     expiredAt: expirationDate,
                 });
             }
@@ -112,16 +112,16 @@ export const insertPriceAndAcreageService = () =>
                 await db.PRICE.create({
                     id: item.id,
                     value: item.value,
-                    min: item.min,
-                    max: item.max,
+                    min: +item.min,
+                    max: +item.max,
                 });
             });
             dataAcreages.forEach(async (item) => {
                 await db.ACREAGE.create({
                     id: item.id,
                     value: item.value,
-                    min: item.min,
-                    max: item.max,
+                    min: +item.min,
+                    max: +item.max,
                 });
             });
             resolve('OK');

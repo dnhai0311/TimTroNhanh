@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     PRICE.init(
         {
             value: DataTypes.STRING,
-            min: DataTypes.STRING,
-            max: DataTypes.STRING,
+            min: DataTypes.INTEGER,
+            max: DataTypes.INTEGER,
         },
         {
             sequelize,

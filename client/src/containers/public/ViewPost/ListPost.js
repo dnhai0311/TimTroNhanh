@@ -236,6 +236,7 @@ const ListPost = ({ categoryCode }) => {
                                             id={item?.id}
                                             avatar={item?.user.avatar}
                                             isLiked={item?.isLiked}
+                                            postType={item?.postTypeId}
                                         />
                                     );
                                 })}
