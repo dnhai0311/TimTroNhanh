@@ -25,3 +25,18 @@ export const apiLogin = async (payload) => {
         throw error;
     }
 };
+
+export const apiVerifyTokenFromFirebase = async (idToken) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/otp/verify',
+            params: {
+                idToken,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

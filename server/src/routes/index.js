@@ -7,7 +7,7 @@ import acreageRouter from './acreage';
 import provinceRouter from './province';
 import districtRouter from './district';
 import messageRouter from './message';
-
+import otpRouter from './otp';
 import userRouter from './user';
 
 const initRoutes = (app) => {
@@ -21,6 +21,8 @@ const initRoutes = (app) => {
     app.use('/api/v1/district', districtRouter);
     app.use('/api/v1/user', userRouter);
     app.use('/api/v1/message', messageRouter);
+    app.use('/api/v1/otp', otpRouter);
+
     return app.use('/', (req, res) => {
         res.send('server on...');
     });

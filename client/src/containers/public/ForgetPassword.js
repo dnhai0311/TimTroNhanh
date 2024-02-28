@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button';
 import InputForm from '../../components/InputForm';
 import { showToastError, showToastSuccess } from '../../utils/commons/ToastUtil';
 import { apiGetUser } from '../../services/user';
+import { auth } from '../../firebaseConfig';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { Loading } from '../../components/index';
 
 const ForgetPassword = () => {
     const { isDarkMode } = useSelector((state) => state.theme);
@@ -22,6 +25,8 @@ const ForgetPassword = () => {
     const intervalRef = useRef(null);
 
     const [isShowOTPInput, setIsShowOTPInput] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const otpRef = useRef(null);
 
@@ -91,10 +96,66 @@ const ForgetPassword = () => {
         return invalids;
     };
 
+    const onCaptChaVerify = () => {
+        try {
+            if (auth && !window.recaptchaVerifier) {
+                window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    size: 'invisible',
+                    callback: (response) => {
+                        // reCAPTCHA solved, allow signInWithPhoneNumber.
+                        // ...
+                        //onCaptChaVerifyComplete();
+                    },
+                    'expired-callback': () => {
+                        // Response expired. Ask the user to solve reCAPTCHA again.
+                        // ...
+                    },
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const onCaptChaVerifyComplete = () => {
+        onCaptChaVerify();
+        const phone = '+84' + payload.phone.slice(1);
+        const appVerifier = window.recaptchaVerifier;
+        signInWithPhoneNumber(auth, phone, appVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                window.confirmationResult = confirmationResult;
+                showToastSuccess('Đã gửi OTP');
+                // ...
+            })
+            .catch((error) => {
+                // Error; SMS not sent
+                // ...
+                showToastError('Lỗi: ' + error.message + '. Vui lòng thử lại sau.');
+            });
+    };
+
+    const handleOTPVerify = () => {
+        setLoading(true);
+        if (window.confirmationResult) {
+            window.confirmationResult
+                .confirm(otpRef.current.value)
+                .then((result) => {
+                    setLoading(false);
+                    showToastSuccess('Đã xác nhận OTP');
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    showToastError('OTP không đúng');
+                });
+        }
+    };
+
     const handleOTPSend = () => {
+        onCaptChaVerifyComplete();
         setIsOTPDisabled(true);
         setIsShowOTPInput(true);
-        showToastSuccess('Đã gửi OTP');
         intervalRef.current = setInterval(() => {
             setCountdown((prevCountdown) => prevCountdown - 1);
         }, 1000);
@@ -104,10 +165,6 @@ const ForgetPassword = () => {
             setIsOTPDisabled(false);
             setCountdown(60);
         }, 60000);
-    };
-
-    const handleOTPCheck = () => {
-        showToastSuccess('Đã xác nhận OTP');
     };
 
     useEffect(() => {
@@ -128,6 +185,7 @@ const ForgetPassword = () => {
     return (
         <>
             <div className="p-1 p-md-5 m-3 bg-gray">
+                <div id="recaptcha-container"></div>
                 <div className="d-flex justify-content-center align-items-center">
                     <Form
                         className={`px-5 pt-5 pb-4 rounded login-form text-dark ${
@@ -155,7 +213,7 @@ const ForgetPassword = () => {
                                     onSubmit={handleSubmit}
                                     autoFocus={true}
                                     autoComplete={'phone'}
-                                ></InputForm>
+                                />
                             </div>
                         </Form.Group>
                         {isFind ? (
@@ -165,6 +223,11 @@ const ForgetPassword = () => {
                                         className="px-2 py-1 border rounded mt-1 mb-2 w-25"
                                         ref={otpRef}
                                         maxLength={6}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                            }
+                                        }}
                                     />
                                 ) : null}
                                 <Button
@@ -180,7 +243,9 @@ const ForgetPassword = () => {
                         {otpRef?.current?.value?.length === 6 ? (
                             <Form.Group>
                                 <div className="d-grid mb-2">
-                                    <Button onClick={handleOTPCheck}>Xác thực OTP</Button>
+                                    <Button onClick={handleOTPVerify} disabled={loading}>
+                                        {loading ? <Loading /> : 'Xác thực OTP'}
+                                    </Button>
                                 </div>
                             </Form.Group>
                         ) : (
