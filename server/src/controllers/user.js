@@ -4,9 +4,9 @@ import { deleteImage } from '../middlewares/cloudinary';
 import { getPublicId } from '../utils/commons/getPublicId';
 
 export const getUser = async (req, res) => {
-    const { id } = req.query;
+    const { id, phone } = req.query;
     try {
-        const response = await userServices.getUserService(id);
+        const response = await userServices.getUserService(id, phone);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

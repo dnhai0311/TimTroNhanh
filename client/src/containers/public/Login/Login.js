@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputForm from '../../../components/InputForm';
 import Button from 'react-bootstrap/Button';
 import * as actions from '../../../store/actions';
@@ -208,9 +208,9 @@ const Login = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-6 d-flex justify-content-center">
-                                    <a href="#!" className="text-decoration-none">
+                                    <Link to="/quen-mat-khau" className="text-decoration-none">
                                         Quên mật khẩu?
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         )}

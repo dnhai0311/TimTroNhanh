@@ -9,6 +9,7 @@ import {
     RentalSpace,
     DetailPost,
     LikedPost,
+    ForgetPassword,
 } from './containers/public/index';
 import {
     Messenger,
@@ -47,6 +48,7 @@ function App() {
                 <Route path={path.MAIN} element={<Main />}>
                     <Route path={'*'} element={<Home />} />
                     <Route path={path.LOGIN} element={<Login />} />
+                    <Route path={path.FORGET_PASSWORD} element={<ForgetPassword />} />
                     <Route path={path.RENTAL_ROOM} element={<RentalRoom />} />
                     <Route path={path.RENTAL_HOUSE} element={<RentalHouse />} />
                     <Route path={path.RENTAL_APARTMENT} element={<RentalApartment />} />

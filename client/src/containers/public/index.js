@@ -15,3 +15,4 @@ export { default as DetailPost } from './PostDetail/PostDetail';
 export { default as ListPost } from './ViewPost/ListPost';
 export { default as Sidebar } from './ViewPost/Sidebar';
 export { default as LikedPost } from './LikedPost/LikedPost';
+export { default as ForgetPassword } from './ForgetPassword';

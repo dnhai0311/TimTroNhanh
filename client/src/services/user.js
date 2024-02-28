@@ -1,12 +1,13 @@
 import axiosConfig from '../axiosConfig';
 
-export const apiGetUser = async (id) => {
+export const apiGetUser = async (id, phone) => {
     try {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/user/get',
             params: {
                 id,
+                phone,
             },
         });
         return response;

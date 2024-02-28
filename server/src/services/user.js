@@ -14,10 +14,18 @@ export const getAvatar = async (id) => {
     }
 };
 
-export const getUserService = async (id) => {
+export const getUserService = async (id, phone) => {
     try {
+        const whereCondition = {};
+        if (id !== undefined) {
+            whereCondition[db.Sequelize.Op.or] = [{ id }];
+        }
+        if (phone !== undefined) {
+            whereCondition[db.Sequelize.Op.or] = [...(whereCondition[db.Sequelize.Op.or] || []), { phone }];
+        }
+
         const response = await db.USER.findOne({
-            where: { id },
+            where: whereCondition,
             raw: true,
             attributes: ['id', 'name', 'avatar'],
         });
