@@ -82,3 +82,33 @@ export const updateUser = async (req, res) => {
         });
     }
 };
+
+export const resetPassword = async (req, res) => {
+    const { id, isResetPassword } = req.user;
+    const { newPassword } = req.body;
+    try {
+        if (!newPassword) {
+            return res.status(200).json({
+                success: false,
+                message: 'Vui lòng nhập mật khẩu mới',
+            });
+        }
+        if (isResetPassword) {
+            await userServices.updateUserPassword(id, HashPassword(newPassword));
+            return res.status(200).json({
+                success: true,
+                message: 'Đặt lại mật khẩu thành công',
+            });
+        }
+        return res.status(200).json({
+            success: false,
+            message: 'Không thể đặt lại mật khẩu vì token không chính xác',
+        });
+    } catch (error) {
+        console.error('Failed at controller:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Đặt lại mật khẩu thất bại',
+        });
+    }
+};

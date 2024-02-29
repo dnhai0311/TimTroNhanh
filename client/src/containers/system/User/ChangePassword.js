@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { apiUpdateUser } from '../../../services/user';
+import { apiResetPassword, apiUpdateUser } from '../../../services/user';
 
 import { useNavigate } from 'react-router-dom';
 import { showToastError, showToastSuccess } from '../../../utils/commons/ToastUtil';
 
-const ChangePassword = () => {
+const ChangePassword = ({ isReset }) => {
     const navigate = useNavigate();
     const [oldPassword, setOldPasswordChange] = useState('');
     const [newPassword, setNewPasswordChange] = useState('');
@@ -32,30 +32,44 @@ const ChangePassword = () => {
             e.stopPropagation();
         }
         if (newPassword === reNewPassword) {
-            const response = await apiUpdateUser({ oldPassword, newPassword });
-            if (!response.data.success) {
-                showToastError(response.data.message);
-                return;
+            if (isReset) {
+                const response = await apiResetPassword({ newPassword });
+                if (response.success === true) {
+                    showToastError(response.data.message);
+                    return;
+                }
+                showToastSuccess(response.data.message);
+                navigate('/login');
+            } else {
+                const response = await apiUpdateUser({ oldPassword, newPassword });
+                if (response.success === true) {
+                    showToastError(response.data.message);
+                    return;
+                }
+                showToastSuccess(response.data.message);
+                navigate('/quan-ly/thong-tin-tai-khoan');
             }
-            showToastSuccess(response.data.message);
-            navigate('/quan-ly/thong-tin-tai-khoan');
         }
     };
     return (
         <>
-            <h3 className="py-3 px-5 border-bottom">Đổi mật khẩu</h3>
-            <Form className="w-50 m-auto" onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Mật khẩu cũ</Form.Label>
-                    <Form.Control
-                        type="password"
-                        onChange={handleOldPasswordChange}
-                        autoComplete="password"
-                        minLength={6}
-                        maxLength={20}
-                        required
-                    />
-                </Form.Group>
+            <h3 className={`py-3 px-5 border-bottom ${isReset ? 'text-center' : ''}`}>
+                {isReset ? 'Đặt lại mật khẩu' : 'Đổi mật khẩu'}
+            </h3>
+            <Form className={`${isReset ? 'w-100' : 'w-50'} m-auto`} onSubmit={handleSubmit}>
+                {!isReset && (
+                    <Form.Group className="mb-3">
+                        <Form.Label>Mật khẩu cũ</Form.Label>
+                        <Form.Control
+                            type="password"
+                            onChange={handleOldPasswordChange}
+                            autoComplete="password"
+                            minLength={6}
+                            maxLength={20}
+                            required
+                        />
+                    </Form.Group>
+                )}
                 <Form.Group className="mb-3">
                     <Form.Label>Mật khẩu mới</Form.Label>
                     <Form.Control

@@ -23,6 +23,14 @@ const authReducer = (state = initState, action) => {
                 token: action.data,
                 msg: 'Đăng nhập thành công',
             };
+        case actionTypes.VERIFY_TOKEN_FROM_FIREBASE_SUCCESS:
+            return {
+                ...state,
+                isLoggedIn: false,
+                token: action.data,
+                msg: 'Đặt lại mật khẩu',
+            };
+        case actionTypes.VERIFY_TOKEN_FROM_FIREBASE_FAIL:
         case actionTypes.REGISTER_FAIL:
         case actionTypes.LOGIN_FAIL:
             return {

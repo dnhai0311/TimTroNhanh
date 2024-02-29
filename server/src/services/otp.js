@@ -8,7 +8,7 @@ export const verifyOTPService = async (phone) => {
             where: { phone },
         });
 
-        const token = jwt.sign({ id: user.id, phone: user.phone }, process.env.SECRET_KEY, {
+        const token = jwt.sign({ id: user.id, phone: user.phone, isResetPassword: true }, process.env.SECRET_KEY, {
             expiresIn: '2d',
         });
 

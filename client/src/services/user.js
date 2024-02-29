@@ -41,6 +41,19 @@ export const apiUpdateUser = async (payload) => {
     }
 };
 
+export const apiResetPassword = async (payload) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: '/api/v1/user/reset-password',
+            data: payload,
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiGetAllPosts = async () => {
     try {
         const response = await axiosConfig({

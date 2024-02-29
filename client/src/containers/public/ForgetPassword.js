@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import InputForm from '../../components/InputForm';
 import { showToastError, showToastSuccess } from '../../utils/commons/ToastUtil';
@@ -8,8 +8,10 @@ import { apiGetUser } from '../../services/user';
 import { auth } from '../../firebaseConfig';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { Loading } from '../../components/index';
-
+import { verifyTokenFromFirebase } from '../../store/actions/auth';
+import ChangePassword from '../system/User/ChangePassword';
 const ForgetPassword = () => {
+    const dispatch = useDispatch();
     const { isDarkMode } = useSelector((state) => state.theme);
 
     const [validated, setValidated] = useState(false);
@@ -18,6 +20,7 @@ const ForgetPassword = () => {
     const [payload, setPayload] = useState({
         phone: '',
     });
+
     const [isFind, setIsFind] = useState(false);
 
     const [isOTPDisabled, setIsOTPDisabled] = useState(false);
@@ -27,6 +30,8 @@ const ForgetPassword = () => {
     const [isShowOTPInput, setIsShowOTPInput] = useState(false);
 
     const [loading, setLoading] = useState(false);
+
+    const [isVerify, setIsVerify] = useState(false);
 
     const otpRef = useRef(null);
 
@@ -144,6 +149,16 @@ const ForgetPassword = () => {
                 .then((result) => {
                     setLoading(false);
                     showToastSuccess('Đã xác nhận OTP');
+                    const user = result.user;
+                    user.getIdToken()
+                        .then((idToken) => {
+                            dispatch(verifyTokenFromFirebase(idToken)).then(() => {
+                                setIsVerify(true);
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Error getting ID token:', error.message);
+                        });
                 })
                 .catch((error) => {
                     setLoading(false);
@@ -187,75 +202,91 @@ const ForgetPassword = () => {
             <div className="p-1 p-md-5 m-3 bg-gray">
                 <div id="recaptcha-container"></div>
                 <div className="d-flex justify-content-center align-items-center">
-                    <Form
-                        className={`px-5 pt-5 pb-4 rounded login-form text-dark ${
-                            isDarkMode ? 'light-theme' : 'bg-light'
-                        }`}
-                        noValidate
-                        validated={validated}
-                    >
-                        <Form.Group>
-                            <h3 className="text-center ">Quên mật khẩu</h3>
-                        </Form.Group>
-                        <Form.Group>
-                            <div className="mb-1">
-                                <InputForm
-                                    label={'Số điện thoại'}
-                                    type={'text'}
-                                    typeValue={'phone'}
-                                    placeHolder={'Nhập số điện thoại'}
-                                    value={payload.phone}
-                                    setValue={setPayload}
-                                    invalidFields={invalidFields}
-                                    setInvalidFields={setInvalidFields}
-                                    pattern={'[0]{1}[0-9]{9,10}'}
-                                    maxLength={11}
-                                    onSubmit={handleSubmit}
-                                    autoFocus={true}
-                                    autoComplete={'phone'}
-                                />
-                            </div>
-                        </Form.Group>
-                        {isFind ? (
-                            <div className={`d-flex align-items-center ${isShowOTPInput ? '' : 'justify-content-end'}`}>
-                                {isShowOTPInput ? (
-                                    <input
-                                        className="px-2 py-1 border rounded mt-1 mb-2 w-25"
-                                        ref={otpRef}
-                                        maxLength={6}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                e.preventDefault();
-                                            }
-                                        }}
-                                    />
-                                ) : null}
-                                <Button
-                                    onClick={handleOTPSend}
-                                    disabled={isOTPDisabled}
-                                    className="bg-light text-primary p-1 border-light ms-1"
-                                >
-                                    {isOTPDisabled ? `${countdown} giây để gửi lại` : 'Gửi mã '}
-                                </Button>
-                            </div>
-                        ) : null}
-
-                        {otpRef?.current?.value?.length === 6 ? (
+                    {!isVerify ? (
+                        <Form
+                            className={`px-5 pt-5 pb-4 rounded login-form text-dark ${
+                                isDarkMode ? 'light-theme' : 'bg-light'
+                            }`}
+                            noValidate
+                            validated={validated}
+                        >
                             <Form.Group>
-                                <div className="d-grid mb-2">
-                                    <Button onClick={handleOTPVerify} disabled={loading}>
-                                        {loading ? <Loading /> : 'Xác thực OTP'}
+                                <h3 className="text-center ">{isVerify ? 'Đặt lại mật khẩu' : 'Quên mật khẩu'}</h3>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <div className="mb-1">
+                                    <InputForm
+                                        label={'Số điện thoại'}
+                                        type={'text'}
+                                        typeValue={'phone'}
+                                        placeHolder={'Nhập số điện thoại'}
+                                        value={payload.phone}
+                                        setValue={setPayload}
+                                        invalidFields={invalidFields}
+                                        setInvalidFields={setInvalidFields}
+                                        pattern={'[0]{1}[0-9]{9,10}'}
+                                        maxLength={11}
+                                        onSubmit={handleSubmit}
+                                        autoFocus={true}
+                                        autoComplete={'phone'}
+                                    />
+                                </div>
+                            </Form.Group>
+                            {isFind ? (
+                                <div
+                                    className={`d-flex align-items-center ${
+                                        isShowOTPInput ? '' : 'justify-content-end'
+                                    }`}
+                                >
+                                    {isShowOTPInput ? (
+                                        <input
+                                            className="px-2 py-1 border rounded mt-1 mb-2 w-25"
+                                            ref={otpRef}
+                                            maxLength={6}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    handleOTPVerify();
+                                                }
+                                            }}
+                                        />
+                                    ) : null}
+                                    <Button
+                                        onClick={handleOTPSend}
+                                        disabled={isOTPDisabled}
+                                        className="bg-light text-primary p-1 border-light ms-1"
+                                    >
+                                        {isOTPDisabled ? `${countdown} giây để gửi lại` : 'Gửi mã '}
                                     </Button>
                                 </div>
-                            </Form.Group>
-                        ) : (
-                            <Form.Group>
-                                <div className="d-grid mb-2">
-                                    <Button onClick={handleSubmit}>Tìm</Button>
-                                </div>
-                            </Form.Group>
-                        )}
-                    </Form>
+                            ) : null}
+
+                            {otpRef?.current?.value?.length === 6 ? (
+                                <Form.Group>
+                                    <div className="d-grid mb-2">
+                                        <Button onClick={handleOTPVerify} disabled={loading}>
+                                            {loading ? <Loading /> : 'Xác thực OTP'}
+                                        </Button>
+                                    </div>
+                                </Form.Group>
+                            ) : (
+                                <Form.Group>
+                                    <div className="d-grid mb-2">
+                                        <Button onClick={handleSubmit}>Tìm</Button>
+                                    </div>
+                                </Form.Group>
+                            )}
+                        </Form>
+                    ) : (
+                        <div
+                            className={`px-5 pt-5 pb-4 rounded login-form text-dark ${
+                                isDarkMode ? 'light-theme' : 'bg-light'
+                            }`}
+                        >
+                            <ChangePassword isReset={true} />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiLogin, apiRegister } from '../../services/auth';
+import { apiLogin, apiRegister, apiVerifyTokenFromFirebase } from '../../services/auth';
 
 export const register = (payload) => async (dispatch) => {
     try {
@@ -42,6 +42,29 @@ export const login = (payload) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: actionTypes.LOGIN_FAIL,
+            data: null,
+        });
+    }
+};
+
+export const verifyTokenFromFirebase = (idToken) => async (dispatch) => {
+    try {
+        const response = await apiVerifyTokenFromFirebase(idToken);
+
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.VERIFY_TOKEN_FROM_FIREBASE_SUCCESS,
+                data: response.data.token,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.VERIFY_TOKEN_FROM_FIREBASE_FAIL,
+                data: response.data.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.VERIFY_TOKEN_FROM_FIREBASE_FAIL,
             data: null,
         });
     }
