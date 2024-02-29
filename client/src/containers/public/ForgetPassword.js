@@ -10,9 +10,12 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { Loading } from '../../components/index';
 import { verifyTokenFromFirebase } from '../../store/actions/auth';
 import ChangePassword from '../system/User/ChangePassword';
+import { useNavigate } from 'react-router-dom';
 const ForgetPassword = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isDarkMode } = useSelector((state) => state.theme);
+    const { isLoggedIn } = useSelector((state) => state.auth);
 
     const [validated, setValidated] = useState(false);
     const [invalidFields, setInvalidFields] = useState([]);
@@ -197,6 +200,10 @@ const ForgetPassword = () => {
     useEffect(() => {
         setIsFind(false);
     }, [payload]);
+
+    useEffect(() => {
+        if (isLoggedIn) navigate('/');
+    }, [isLoggedIn, navigate]);
     return (
         <>
             <div className="p-1 p-md-5 m-3 bg-gray">
