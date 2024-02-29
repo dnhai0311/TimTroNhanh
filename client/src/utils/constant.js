@@ -14,7 +14,7 @@ export const path = {
     SYSTEM: '/quan-ly/*',
     USER_MANAGEMENT: 'thong-tin-tai-khoan',
     TRANSACTION_MANAGEMENT: 'lich-su-giao-dich',
-    RECHARGE: 'nap-tien',
+    DEPOSIT: 'nap-tien',
     POST_MANAGEMENT: 'tin-dang',
     MESSENGER: `tin-nhan`,
     MESSENGER__USER_ID: `tin-nhan/:userId`,

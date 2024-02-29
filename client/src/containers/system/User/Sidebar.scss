@@ -9,6 +9,8 @@
         cursor: pointer;
         border-radius: 5px;
         padding: 10px 3px;
+        transition: all 0.1s;
+
         &:hover {
             background-color: gray;
             opacity: 0.9;

@@ -12,3 +12,4 @@ export { default as UserBox } from './UserBox';
 export { default as Message } from './Message';
 export { default as Comment } from './Comment';
 export { default as CommentInput } from './CommentInput';
+export { default as DepositBox } from './DepositBox';

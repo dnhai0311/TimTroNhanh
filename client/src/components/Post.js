@@ -25,6 +25,7 @@ const Post = ({
 }) => {
     const { FaStar, FaHeart } = icons;
     const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isDarkMode } = useSelector((state) => state.theme);
     const [isRed, setIsRed] = useState(false);
     useEffect(() => {
         setIsRed(isLiked);
@@ -47,7 +48,11 @@ const Post = ({
     };
 
     return (
-        <div className="col-12 py-3 border-top border-bottom border-dark post position-relative">
+        <div
+            className={`col-12 py-3 border-top border-bottom post position-relative ${
+                isDarkMode ? ' border-light' : ' border-dark'
+            }`}
+        >
             <div className="row gx-4">
                 <div className="col-4 d-flex position-relative p-0">
                     <Link className="w-100" to={`/post/${id}`}>

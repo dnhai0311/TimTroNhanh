@@ -76,7 +76,7 @@ const Picture = ({ imgFiles, setImgFiles, isUpdate }) => {
                         <Row className="d-flex flex-wrap">
                             {selectedImages.map((imageUrl, index) => (
                                 <Col sm={3} key={index}>
-                                    <div className="position-relative border shadow mt-3">
+                                    <div className="position-relative border rounded shadow mt-3">
                                         <img
                                             key={index}
                                             src={imageUrl}

@@ -26,6 +26,8 @@ $color-blue: #007aff;
                 height: 15px;
                 & + label {
                     color: black;
+                    transition: all 0.1s;
+
                     &:hover {
                         color: $color-blue;
                         opacity: 0.7;
@@ -48,6 +50,8 @@ $color-blue: #007aff;
         }
         .btnFilter {
             cursor: pointer;
+            transition: all 0.1s;
+
             &:hover {
                 opacity: 0.9;
             }

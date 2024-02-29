@@ -2,8 +2,7 @@
 
 .ListPost {
     height: fit-content;
-    .pageTab {
-    }
+
     .sort-tab {
         padding: 5px 20px;
         margin: 5px;
@@ -23,6 +22,7 @@
 
 .post {
     height: 250px;
+    transition: box-shadow 0.2s;
     .post-thumb {
         margin-left: 10px;
         width: 95%;
@@ -30,6 +30,10 @@
     }
     .post-item {
         max-width: 190px;
+    }
+    &:hover {
+        border-color: gray;
+        box-shadow: 0 0 10px rgba(171, 149, 149, 0.5);
     }
 }
 
@@ -48,6 +52,8 @@
 }
 
 .icon-heart {
+    transition: all 0.1s;
+
     :hover {
         color: $color-red;
     }

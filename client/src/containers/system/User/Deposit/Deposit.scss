@@ -1,0 +1,24 @@
+.deposit-box {
+    width: 30%;
+    margin-bottom: 5%;
+    border: 3px solid #f2f2f2;
+    transition: box-shadow 0.3s;
+
+    &:not(:nth-child(3n)) {
+        margin-right: 5%;
+    }
+
+    &:hover {
+        border-color: gray;
+        box-shadow: 0 0 10px rgba(44, 33, 33, 0.5);
+    }
+}
+
+.deposit-sidebar-item {
+    transition: all 0.1s;
+
+    &:hover {
+        background-color: gray;
+        opacity: 0.9;
+    }
+}

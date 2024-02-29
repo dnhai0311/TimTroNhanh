@@ -3,6 +3,8 @@ $color-blue: #0d6efd;
 
 .navItem {
     background-color: $color-blue;
+    transition: all 0.1s;
+
     &:hover {
         background-color: $color-red;
     }

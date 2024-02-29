@@ -1,5 +1,7 @@
 .btnOnTop {
     z-index: 1;
+    transition: all 0.1s;
+
     :hover {
         opacity: 0.6;
     }

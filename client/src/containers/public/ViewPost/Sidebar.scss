@@ -8,6 +8,8 @@
         color: gray;
         font-weight: lighter;
         font-size: 15px;
+        transition: all 0.1s;
+
         &:hover {
             color: red;
             cursor: pointer;

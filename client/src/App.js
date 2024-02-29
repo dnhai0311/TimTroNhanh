@@ -14,7 +14,7 @@ import {
 import {
     Messenger,
     PostManagement,
-    Recharge,
+    Deposit,
     System,
     TransactionManagement,
     UserManagement,
@@ -62,7 +62,7 @@ function App() {
                         <Route path={path.MESSENGER} element={<Messenger />} />
                         <Route path={path.MESSENGER__USER_ID} element={<Messenger />} />
                         <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
-                        <Route path={path.RECHARGE} element={<Recharge />} />
+                        <Route path={path.DEPOSIT} element={<Deposit />} />
                         <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />
                         <Route path={path.TRANSACTION_MANAGEMENT} element={<TransactionManagement />} />
