@@ -4,10 +4,13 @@ import { apiVNPayReturn } from '../../../../services/payment';
 import { showToastError, showToastSuccess } from '../../../../utils/commons/ToastUtil';
 import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../../../store/actions/user';
+import { formatToVND } from '../../../../utils/commons/formatToVND';
+
 const Status = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const [queryParams, setQueryParams] = useState({});
+    const [isTrue, setIsTrue] = useState(true);
 
     useEffect(() => {
         const handleCheckParams = async () => {
@@ -17,6 +20,7 @@ const Status = () => {
                 showToastSuccess(response.data.Message);
             } else {
                 showToastError(response.data.Message);
+                setIsTrue(false);
             }
         };
         const searchParams = new URLSearchParams(location.search);
@@ -28,7 +32,21 @@ const Status = () => {
         handleCheckParams();
     }, [dispatch, location.search]);
 
-    return <div></div>;
+    return (
+        <div>
+            {isTrue ? (
+                <>
+                    <h5>Bạn đã nạp thành công số tiền</h5>
+                    <div className="d-flex align-items-end">
+                        <h4 className="text-success">{formatToVND(queryParams['vnp_Amount'] / 100)}</h4>
+                        <h5 className="ps-2">vào tài khoản</h5>
+                    </div>
+                </>
+            ) : (
+                <h3 className="text-danger">Phát hiện bất thường</h3>
+            )}
+        </div>
+    );
 };
 
 export default Status;
