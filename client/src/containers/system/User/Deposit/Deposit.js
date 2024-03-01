@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import DepositContainer from './DepositContainer';
 import DepositSideBar from './DepositSideBar';
+import { Outlet } from 'react-router-dom';
 
 const Deposit = () => {
     return (
@@ -10,7 +10,7 @@ const Deposit = () => {
             <Container className="px-5 py-3">
                 <Row>
                     <Col sm={9}>
-                        <DepositContainer />
+                        <Outlet />
                     </Col>
                     <Col sm={3}>
                         <DepositSideBar />

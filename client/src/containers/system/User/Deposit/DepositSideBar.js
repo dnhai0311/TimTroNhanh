@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { formatToVND } from '../../../../utils/commons/formatToVND';
 
 const DepositSideBar = () => {
     const navigate = useNavigate();
@@ -16,12 +17,7 @@ const DepositSideBar = () => {
         <div>
             <div className="p-3 border rounded">
                 Số dư tài khoản
-                <h5 className="text-success">
-                    {userData?.money?.toLocaleString('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND',
-                    })}
-                </h5>
+                <h5 className="text-success">{formatToVND(userData?.money)}</h5>
             </div>
             {menuItems.map((item) => (
                 <div

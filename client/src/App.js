@@ -15,11 +15,14 @@ import {
     Messenger,
     PostManagement,
     Deposit,
+    DepositContainer,
     System,
     TransactionManagement,
     UserManagement,
     CreateNewPost,
     ChangePassword,
+    Momo,
+    VNPay,
 } from './containers/system/User/index';
 import { path } from './utils/constant';
 import PrivateWrapper from './route/PrivateWrapper';
@@ -62,7 +65,11 @@ function App() {
                         <Route path={path.MESSENGER} element={<Messenger />} />
                         <Route path={path.MESSENGER__USER_ID} element={<Messenger />} />
                         <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
-                        <Route path={path.DEPOSIT} element={<Deposit />} />
+                        <Route path={path.DEPOSIT} element={<Deposit />}>
+                            <Route path={'*'} element={<DepositContainer />} />
+                            <Route path={path.MOMO} element={<Momo />} />
+                            <Route path={path.VNPAY} element={<VNPay />} />
+                        </Route>
                         <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />
                         <Route path={path.TRANSACTION_MANAGEMENT} element={<TransactionManagement />} />

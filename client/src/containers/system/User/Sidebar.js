@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Sidebar.scss';
@@ -6,11 +6,11 @@ import icons from '../../../utils/icons';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ThemeToggle from '../../public/Header/ThemeToggle';
-
+import { formatToVND } from '../../../utils/commons/formatToVND';
 const Sidebar = ({ handleSignOut }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const category = location.pathname.split('/').pop();
+    const [category, setCategory] = useState(location.pathname.split('/').pop());
     const { userData } = useSelector((state) => state.user);
     const { FaRegFileAlt, MdOutlineMessage, MdPayment, LiaHistorySolid, LuUserSquare, FaSignOutAlt } = icons;
 
@@ -21,6 +21,10 @@ const Sidebar = ({ handleSignOut }) => {
         navigate(rowName);
     };
 
+    useEffect(() => {
+        setCategory(location.pathname.split('/')[2]);
+        setActiveRow(category);
+    }, [category, location.pathname]);
     return (
         <>
             <Container>
@@ -39,13 +43,7 @@ const Sidebar = ({ handleSignOut }) => {
                         <Row className="fw-bold">{userData.name}</Row>
                         <Row>Mã thành viên: {userData.id}</Row>
                         <Row>{userData.phone}</Row>
-                        <Row>
-                            Số tiền:{' '}
-                            {userData?.money?.toLocaleString('vi-VN', {
-                                style: 'currency',
-                                currency: 'VND',
-                            })}
-                        </Row>
+                        <Row>Số tiền: {formatToVND(userData?.money)}</Row>
                     </Col>
                 </Row>
                 <Row className="mt-2 mb-2">
@@ -53,7 +51,6 @@ const Sidebar = ({ handleSignOut }) => {
                         <Button
                             onClick={() => {
                                 navigate('dang-tin-moi');
-                                setActiveRow('tin-dang');
                             }}
                             className="bg-success"
                         >
