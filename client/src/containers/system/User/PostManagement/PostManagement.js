@@ -23,7 +23,7 @@ const PostManagement = () => {
     );
 
     const memoizedData = useMemo(() => {
-        return posts.map((post) => ({
+        return posts?.map((post) => ({
             postId: post.postId,
             postImg: JSON.parse(post.postImg)[0],
             title: post.title,
@@ -65,23 +65,14 @@ const PostManagement = () => {
             {
                 accessorKey: 'price',
                 header: 'Giá',
-                cell: (props) => {
-                    return <span>{props.getValue()}</span>;
-                },
             },
             {
                 accessorKey: 'updatedAt',
                 header: 'Ngày cập nhật',
-                cell: (props) => {
-                    return <span>{props.getValue()}</span>;
-                },
             },
             {
                 accessorKey: 'expiredAt',
                 header: 'Ngày hết hạn',
-                cell: (props) => {
-                    return <span>{props.getValue()}</span>;
-                },
             },
             {
                 accessorKey: 'status',

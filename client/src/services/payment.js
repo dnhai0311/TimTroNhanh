@@ -25,3 +25,15 @@ export const apiVNPayReturn = async (params) => {
         throw error;
     }
 };
+
+export const apiGetAllPaymentsFromUser = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/payment/all-payments-from-user',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

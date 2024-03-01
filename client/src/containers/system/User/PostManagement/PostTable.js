@@ -10,7 +10,7 @@ import { useState, useEffect, memo } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
-const PostTable = ({ data, columns, total }) => {
+const PostTable = ({ data, columns, total, isPayment }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
     const [sorting, setSorting] = useState([]);
     const [filtering, setFiltering] = useState('');
@@ -81,7 +81,7 @@ const PostTable = ({ data, columns, total }) => {
                 </div>
                 <div className="d-flex justify-content-center align-items-center ms-2">
                     <Form.Text className={`text-center ${isDarkMode ? 'text-light' : ''}`}>
-                        Lọc bài đăng theo trạng thái
+                        Lọc {isPayment ? 'giao dịch' : ' bài đăng'} theo trạng thái
                     </Form.Text>
                     <Form.Control
                         as="select"
@@ -92,11 +92,21 @@ const PostTable = ({ data, columns, total }) => {
                         }}
                     >
                         <option value={''}>Tất cả</option>
-                        <option>payment</option>
-                        <option>pending</option>
-                        <option>approved</option>
-                        <option>rejected</option>
-                        <option>expired</option>
+                        {isPayment ? (
+                            <>
+                                <option value="pending">Đợi hoàn thành</option>
+                                <option value="success">Thành công</option>
+                                <option value="failure">Thất bại</option>
+                            </>
+                        ) : (
+                            <>
+                                <option value="payment">Đợi thanh toán</option>
+                                <option value="pending">Chờ duyệt</option>
+                                <option value="approved">Chấp nhận</option>
+                                <option value="rejected">Từ chối</option>
+                                <option value="expired">Hết hạn</option>
+                            </>
+                        )}
                     </Form.Control>
                 </div>
             </div>

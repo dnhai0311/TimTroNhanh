@@ -9,7 +9,7 @@ import { Loading } from '../../../../components/';
 import { useNavigate } from 'react-router-dom';
 import { showToastSuccess, showToastError } from '../../../../utils/commons/ToastUtil';
 import { toast } from 'react-toastify';
-const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpdate }) => {
+const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpdate, isPayment, postId }) => {
     const navigate = useNavigate();
 
     const [provinceSelected, setProvinceSelected] = useState({
@@ -21,7 +21,6 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
         id: 0,
         value: '',
     });
-
     const [exactlyAddress, setExactlyAddress] = useState('');
     const [address, setAddress] = useState('');
     const [categorySelected, setCategorySelected] = useState({});
@@ -85,10 +84,10 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
 
     const createPost = async (payload) => {
         const response = await apiCreatePost(payload);
-
+        const postId = response.data.response.id;
         if (response.status === 200) {
             showToastSuccessAndSetLoading('Đăng bài thành công');
-            navigate('/quan-ly/tin-dang');
+            navigate(`/quan-ly/thanh-toan/${postId}`);
         } else {
             showToastErrorAndSetLoading(response.data.response.msg);
         }
@@ -178,7 +177,22 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
                             {isLoading ? <Loading /> : <span>{isUpdate ? 'Cập nhật' : 'Đăng bài'}</span>}
                         </Button>
                     </Col>
-                    <Col md={4}>map</Col>
+                    <Col md={4}>
+                        <div className="mb-3">Map</div>
+                        {isPayment && (
+                            <div>
+                                <h5>Bạn có muốn thanh toán ngay?</h5>
+                                <Button
+                                    variant="success"
+                                    onClick={() => {
+                                        navigate(`/quan-ly/thanh-toan/${postId}`);
+                                    }}
+                                >
+                                    Có!!!
+                                </Button>
+                            </div>
+                        )}
+                    </Col>
                 </Row>
             </Container>
         </>

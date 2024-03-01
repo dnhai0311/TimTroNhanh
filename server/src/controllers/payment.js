@@ -35,7 +35,7 @@ export const createVNPayPaymentURL = async (req, res) => {
         let date = new Date();
 
         let createDate = moment(date).format('YYYYMMDDHHmmss');
-        let orderId = moment(date).format('DDHHmmss');
+        let orderId = moment(date).format('DDHHmmss') + id;
         let amount = req.body.amount || '5000';
         let bankCode = req.body.bankCode || 'NCB';
         let orderInfo = req.body.orderDescription || 'Thông tin đơn hàng cho đơn' + orderId;
@@ -148,6 +148,19 @@ export const vnpayReturn = async (req, res) => {
         } else {
             res.status(200).json({ RspCode: '97', Message: 'Kiểm tra thất bại' });
         }
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getAllPayments = async (req, res) => {
+    const { id } = req.user;
+    try {
+        const response = await paymentService.getAllPaymentsFromUserId(id);
+        return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
             err: -1,

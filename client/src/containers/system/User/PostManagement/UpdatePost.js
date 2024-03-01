@@ -35,6 +35,8 @@ const UpdatePost = ({ isShow, setIsShow, selectedPostId, isSomePostUpdate, setIs
                     dataPost={selectedPost}
                     isSomePostUpdate={isSomePostUpdate}
                     setIsSomePostUpdate={setIsSomePostUpdate}
+                    isPayment={selectedPost.status === 'payment' || selectedPost.status === 'expired'}
+                    postId={selectedPost.id}
                 />
             </Modal.Body>
         </Modal>

@@ -45,3 +45,23 @@ export const updatePaymentStatus = async (id, status) => {
         throw error;
     }
 };
+
+export const getAllPaymentsFromUserId = async (userId) => {
+    try {
+        const response = await db.PAYMENT.findAndCountAll({
+            raw: true,
+            where: {
+                userId,
+            },
+            attributes: ['id', 'amount', 'type', 'status', 'createdAt', 'updatedAt'],
+        });
+
+        return {
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'FAILED TO GET PAYMENT FORM USER',
+            response,
+        };
+    } catch (error) {
+        throw error;
+    }
+};

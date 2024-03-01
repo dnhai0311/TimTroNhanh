@@ -24,6 +24,7 @@ import {
     Momo,
     VNPay,
     Status,
+    Payment,
 } from './containers/system/User/index';
 import { path } from './utils/constant';
 import PrivateWrapper from './route/PrivateWrapper';
@@ -74,7 +75,8 @@ function App() {
                         </Route>
                         <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />
-                        <Route path={path.TRANSACTION_MANAGEMENT} element={<TransactionManagement />} />
+                        <Route path={path.TRANSACTION_MANAGEMENT} element={<TransactionManagement />} />{' '}
+                        <Route path={path.PAYMENT__POST_ID} element={<Payment />} />
                     </Route>
                 </Route>
             </Routes>
