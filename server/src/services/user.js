@@ -125,6 +125,21 @@ export const updateUserPassword = async (id, newPassword) => {
     }
 };
 
+export const updateUserMoney = async (id, type, amount) => {
+    try {
+        const user = await db.USER.findOne({ where: { id } });
+        let currentMoney;
+        if (type === 'Nạp tiền') {
+            currentMoney = user.money + amount;
+        } else {
+            currentMoney = user.money - amount;
+        }
+        await db.USER.update({ money: currentMoney }, { where: { id } });
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const checkPassword = async (userId, enteredPassword) => {
     try {
         const user = await db.USER.findOne({

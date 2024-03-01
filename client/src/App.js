@@ -23,6 +23,7 @@ import {
     ChangePassword,
     Momo,
     VNPay,
+    Status,
 } from './containers/system/User/index';
 import { path } from './utils/constant';
 import PrivateWrapper from './route/PrivateWrapper';
@@ -69,6 +70,7 @@ function App() {
                             <Route path={'*'} element={<DepositContainer />} />
                             <Route path={path.MOMO} element={<Momo />} />
                             <Route path={path.VNPAY} element={<VNPay />} />
+                            <Route path={path.STATUS} element={<Status />} />
                         </Route>
                         <Route path={path.CREATE_NEW_POST} element={<CreateNewPost />} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />

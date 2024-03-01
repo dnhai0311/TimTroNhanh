@@ -17,6 +17,7 @@ export const path = {
     DEPOSIT: 'nap-tien',
     MOMO: 'momo',
     VNPAY: 'vnpay',
+    STATUS: 'trang-thai',
     POST_MANAGEMENT: 'tin-dang',
     MESSENGER: `tin-nhan`,
     MESSENGER__USER_ID: `tin-nhan/:userId`,

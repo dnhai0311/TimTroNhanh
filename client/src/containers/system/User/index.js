@@ -6,6 +6,7 @@ export { default as Deposit } from './Deposit/Deposit';
 export { default as DepositContainer } from './Deposit/DepositContainer';
 export { default as Momo } from './Deposit/Momo';
 export { default as VNPay } from './Deposit/VNPay';
+export { default as Status } from './Deposit/Status';
 export { default as TransactionManagement } from './TransactionManagement';
 export { default as Sidebar } from './Sidebar';
 export { default as CreateNewPost } from './CreateNewPost/CreateNewPost';

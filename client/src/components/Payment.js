@@ -3,8 +3,9 @@ import { Button, Form } from 'react-bootstrap';
 import { formatToVND } from '../utils/commons/formatToVND';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useNavigate } from 'react-router-dom';
+import { showToastError } from '../utils/commons/ToastUtil';
 
-const Payment = ({ name }) => {
+const Payment = ({ name, handleCreate }) => {
     const navigate = useNavigate();
 
     const radioOptions = [50000, 100000, 200000, 500000, 1000000];
@@ -23,6 +24,18 @@ const Payment = ({ name }) => {
     const handleCustomAmountChange = (event) => {
         const value = event.target.value.replace(/\D/g, '');
         setAmount(value === '' ? null : parseInt(value, 10));
+    };
+
+    const handlePressContinue = () => {
+        const payload = {
+            amount,
+            type: 'Nạp tiền',
+        };
+        if (amount < 5000) {
+            showToastError('Số tiền nhập phải hơn 5.000 đ');
+        } else {
+            handleCreate(payload);
+        }
     };
 
     return (
@@ -62,10 +75,18 @@ const Payment = ({ name }) => {
                         placeholder="Nhập số tiền"
                         value={amount === null ? '' : formatAmount(amount)}
                         onChange={handleCustomAmountChange}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handlePressContinue();
+                            }
+                        }}
                     />
                     <InputGroup.Text id="basic-addon1">vnđ</InputGroup.Text>
                 </InputGroup>
-                <Button className="w-100 mt-3">Tiếp tục</Button>
+                <Button className="w-100 mt-3" onClick={handlePressContinue}>
+                    Tiếp tục
+                </Button>
             </Form>
         </>
     );

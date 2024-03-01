@@ -8,7 +8,7 @@ import cors from 'cors';
 app.use(
     cors({
         origin: [process.env.CLIENT_URL, process.env.OTHER_URL],
-        // origin: "*",
+        // origin: '*',
         method: ['POST', 'GET', 'PUT', 'DELETE'],
     }),
 );

@@ -1,0 +1,47 @@
+import db from '../models';
+
+export const createPayment = async (id, userId, type, amount) => {
+    try {
+        const response = await db.PAYMENT.create({
+            id,
+            userId,
+            type,
+            amount,
+        });
+
+        return {
+            err: response ? 0 : 1,
+            msg: response ? 'OK' : 'FAILED TO CREATE POST',
+            response,
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const isDeposited = async (id) => {
+    try {
+        const response = await db.PAYMENT.findByPk(id);
+
+        if (response.status === 'pending') {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Lỗi khi cập nhật trạng thái:', error);
+        throw error;
+    }
+};
+
+export const updatePaymentStatus = async (id, status) => {
+    try {
+        await db.PAYMENT.update({ status }, { where: { id } });
+        return {
+            err: 0,
+            msg: 'Cập nhật trạng thái Thành công',
+        };
+    } catch (error) {
+        console.error('Lỗi khi cập nhật trạng thái:', error);
+        throw error;
+    }
+};

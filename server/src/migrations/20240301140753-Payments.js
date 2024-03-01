@@ -2,37 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('USERS', {
+        await queryInterface.createTable('PAYMENTS', {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
             },
-            name: {
-                type: Sequelize.STRING,
-            },
-            password: {
-                type: Sequelize.STRING,
-            },
-            phone: {
-                type: Sequelize.STRING,
-            },
-            money: {
+            userId: {
                 type: Sequelize.INTEGER,
-                defaultValue: 0,
+                references: {
+                    model: 'USERS',
+                    key: 'id',
+                },
             },
-            facebook: {
-                type: Sequelize.STRING,
-                defaultValue: '',
-            },
-            avatar: {
-                type: Sequelize.STRING,
-                defaultValue: 'https://res.cloudinary.com/dvyprevig/image/upload/v1706766558/we6knbr2twzmc9reocid.png',
+            amount: {
+                type: Sequelize.INTEGER,
             },
             type: {
                 type: Sequelize.STRING,
-                defaultValue: 1,
+            },
+            status: {
+                type: Sequelize.ENUM('pending', 'success', 'failure'),
+                defaultValue: 'pending',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -45,6 +38,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('USERS');
+        await queryInterface.dropTable('PAYMENTS');
     },
 };
