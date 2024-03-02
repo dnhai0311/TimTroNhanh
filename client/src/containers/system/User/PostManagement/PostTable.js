@@ -94,6 +94,8 @@ const PostTable = ({ data, columns, total, isPayment }) => {
                         <option value={''}>Tất cả</option>
                         {isPayment ? (
                             <>
+                                <option>Nạp tiền</option>
+                                <option>Thanh toán</option>
                                 <option value="pending">Đợi hoàn thành</option>
                                 <option value="success">Thành công</option>
                                 <option value="failure">Thất bại</option>

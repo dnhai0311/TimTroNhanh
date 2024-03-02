@@ -1,12 +1,13 @@
 import db from '../models';
 
-export const createPayment = async (id, userId, type, amount) => {
+export const createPayment = async (id, userId, type, amount, status) => {
     try {
         const response = await db.PAYMENT.create({
             id,
             userId,
             type,
             amount,
+            status: status || 'pending',
         });
 
         return {

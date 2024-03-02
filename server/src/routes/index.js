@@ -10,6 +10,7 @@ import messageRouter from './message';
 import otpRouter from './otp';
 import userRouter from './user';
 import paymentRouter from './payment';
+import postCategoryRouter from './post-category';
 
 const initRoutes = (app) => {
     app.use('/api/v1/auth', authRouter);
@@ -24,6 +25,7 @@ const initRoutes = (app) => {
     app.use('/api/v1/message', messageRouter);
     app.use('/api/v1/otp', otpRouter);
     app.use('/api/v1/payment', paymentRouter);
+    app.use('/api/v1/post-category', postCategoryRouter);
 
     return app.use('/', (req, res) => {
         res.send('server on...');

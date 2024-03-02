@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     POST_CATEGORY.init(
         {
-            name: DataTypes.STRING,
+            value: DataTypes.STRING,
             info: DataTypes.STRING,
             perDay: DataTypes.STRING,
             perWeek: DataTypes.STRING,

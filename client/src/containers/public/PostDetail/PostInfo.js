@@ -76,7 +76,7 @@ const PostInfo = ({ detailPost }) => {
                                 </tr>
                                 <tr>
                                     <td>Gói tin</td>
-                                    <td>{detailPost?.postCategory?.name}</td>
+                                    <td>{detailPost?.postCategory?.value}</td>
                                 </tr>
                                 <tr>
                                     <td>Ngày đăng</td>

@@ -13,6 +13,24 @@ export const apiCreateVNPayPayment = async (payload) => {
     }
 };
 
+export const apiCheckOut = async (postId, typePostId, amount, day) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/payment/check-out',
+            params: {
+                postId,
+                typePostId,
+                amount,
+                day,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiVNPayReturn = async (params) => {
     try {
         const response = await axiosConfig({

@@ -23,5 +23,5 @@ export const path = {
     MESSENGER__USER_ID: `tin-nhan/:userId`,
     CREATE_NEW_POST: 'dang-tin-moi',
     CHANGE_PASSWORD: 'doi-mat-khau',
-    PAYMENT__POST_ID: `thanh-toan/:postId`,
+    CHECKOUT__POST_ID: `thanh-toan/:postId`,
 };

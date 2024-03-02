@@ -129,12 +129,23 @@ export const updateUserMoney = async (id, type, amount) => {
     try {
         const user = await db.USER.findOne({ where: { id } });
         let currentMoney;
-        if (type === 'Nạp tiền') {
+        if (type === '0') {
             currentMoney = user.money + amount;
-        } else {
+        } else if (type === '1') {
             currentMoney = user.money - amount;
         }
+        if (currentMoney < 0)
+            return {
+                err: 0,
+                success: false,
+                msg: 'Số tiền  không đủ',
+            };
         await db.USER.update({ money: currentMoney }, { where: { id } });
+        return {
+            err: 0,
+            success: true,
+            msg: 'Thành công',
+        };
     } catch (error) {
         throw error;
     }

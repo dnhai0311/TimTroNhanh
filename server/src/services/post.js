@@ -188,7 +188,7 @@ export const getOnePostService = async (id) => {
                 {
                     model: db.POST_CATEGORY,
                     as: 'postCategory',
-                    attributes: ['name'],
+                    attributes: ['value'],
                 },
             ],
             attributes: ['id', 'title', 'description', 'userId', 'star', 'status', 'updatedAt', 'expiredAt'],
@@ -555,6 +555,36 @@ export const getRatedByPostId = async (postId, page) => {
         };
     } catch (error) {
         console.error('Lỗi khi lấy danh sách đánh giá của bài đăng:', error);
+        throw error;
+    }
+};
+
+export const didUserCreatePost = async (userId, postId) => {
+    try {
+        const isCreate = await db.POST.findOne({
+            where: {
+                id: postId,
+                userId,
+            },
+        });
+
+        return {
+            err: 0,
+            isCreate,
+        };
+    } catch (error) {
+        console.error('Lỗi khi kiểm tra người dùng có lưu bài đăng hay không:', error);
+        throw error;
+    }
+};
+
+export const checkOutPost = async (postId, day, typePostId) => {
+    try {
+        const expirationDate = new Date();
+        expirationDate.setUTCDate(expirationDate.getUTCDate() + +day);
+        await db.POST.update({ expiredAt: expirationDate, status: 'pending', typePostId }, { where: { id: postId } });
+    } catch (error) {
+        console.error('Lỗi khi cập nhật ngày hết hạn', error);
         throw error;
     }
 };

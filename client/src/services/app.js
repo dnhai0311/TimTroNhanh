@@ -37,6 +37,18 @@ export const apiGetAcreages = async () => {
     }
 };
 
+export const apiGetPostCategories = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post-category/all',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiGetAllDistricts = async (provinceId) => {
     try {
         const response = await axiosConfig({

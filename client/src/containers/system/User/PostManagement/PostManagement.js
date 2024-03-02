@@ -68,7 +68,7 @@ const PostManagement = () => {
             },
             {
                 accessorKey: 'updatedAt',
-                header: 'Ngày cập nhật',
+                header: 'Ngày tạo',
             },
             {
                 accessorKey: 'expiredAt',

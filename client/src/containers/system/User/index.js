@@ -11,4 +11,4 @@ export { default as TransactionManagement } from './TransactionManagement';
 export { default as Sidebar } from './Sidebar';
 export { default as CreateNewPost } from './CreateNewPost/CreateNewPost';
 export { default as ChangePassword } from './ChangePassword';
-export { default as Payment } from './Payment';
+export { default as Checkout } from './Checkout';

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../../../store/actions/user';
 import { formatToVND } from '../../../../utils/commons/formatToVND';
 
-const Status = () => {
+const Status = ({ isCheckout }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const [queryParams, setQueryParams] = useState({});
@@ -36,11 +36,19 @@ const Status = () => {
         <div>
             {isTrue ? (
                 <>
-                    <h5>Bạn đã nạp thành công số tiền</h5>
-                    <div className="d-flex align-items-end">
-                        <h4 className="text-success">{formatToVND(queryParams['vnp_Amount'] / 100)}</h4>
-                        <h5 className="ps-2">vào tài khoản</h5>
-                    </div>
+                    {!isCheckout ? (
+                        <>
+                            <h5>Bạn đã nạp thành công số tiền</h5>
+                            <div className="d-flex align-items-end">
+                                <h4 className="text-success">{formatToVND(queryParams['vnp_Amount'] / 100)}</h4>
+                                <h5 className="ps-2">vào tài khoản</h5>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <h5>Bạn đã thanh toán bài viết thành công</h5>
+                        </>
+                    )}
                 </>
             ) : (
                 <h3 className="text-danger">Phát hiện bất thường</h3>

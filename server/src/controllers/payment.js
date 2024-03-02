@@ -1,7 +1,8 @@
 const moment = require('moment');
 import * as paymentService from '../services/payment';
 import { updateUserMoney } from '../services/user';
-
+import { checkOutPost } from '../services/post';
+import { type } from 'os';
 function sortObject(obj) {
     let sorted = {};
     let str = [];
@@ -30,17 +31,18 @@ export const createVNPayPaymentURL = async (req, res) => {
         let tmnCode = process.env.vnp_TmnCode;
         let secretKey = process.env.vnp_HashSecret;
         let vnpUrl = process.env.vnp_Url;
-        let returnUrl = process.env.vnp_ReturnUrl;
 
         let date = new Date();
 
         let createDate = moment(date).format('YYYYMMDDHHmmss');
         let orderId = moment(date).format('DDHHmmss') + id;
-        let amount = req.body.amount || '5000';
+        let amount = req.body.amount;
         let bankCode = req.body.bankCode || 'NCB';
-        let orderInfo = req.body.orderDescription || 'Thông tin đơn hàng cho đơn' + orderId;
-        let orderType = req.body.type || 'other';
+        let orderInfo = req.body.orderDescription;
+        let orderType = req.body.type;
         let locale = req.body.language || 'vn';
+
+        let returnUrl = orderType === 'Nạp tiền' ? process.env.vnp_ReturnUrl : process.env.other_vnp_ReturnUrl;
 
         let currCode = 'VND';
         let vnp_Params = {};
@@ -88,7 +90,7 @@ export const vnpayReturn = async (req, res) => {
         let orderId = vnp_Params['vnp_TxnRef'];
         let rspCode = vnp_Params['vnp_ResponseCode'];
         let amount = +vnp_Params['vnp_Amount'] / 100;
-        console.log(amount);
+        let orderInfo = vnp_Params['vnp_OrderInfo'];
 
         delete vnp_Params['vnp_SecureHash'];
         delete vnp_Params['vnp_SecureHashType'];
@@ -119,9 +121,22 @@ export const vnpayReturn = async (req, res) => {
                             //paymentStatus = '1'
                             // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                             const isDeposited = await paymentService.isDeposited(orderId);
+                            let orderType = orderInfo.split(' ')[0];
 
-                            if (isDeposited) {
-                                await updateUserMoney(id, 'Nạp tiền', amount);
+                            if (isDeposited && orderType === '0') {
+                                await updateUserMoney(id, orderType, amount);
+                            } else if (isDeposited && orderType === '1') {
+                                const postId = orderInfo.split(' ')[1];
+                                const number = orderInfo.split(' ')[2];
+                                const per = orderInfo.split(' ')[3];
+                                const typePostId = orderInfo.split(' ')[4];
+                                const dayMappings = {
+                                    1: 1,
+                                    2: 7,
+                                    3: 30,
+                                };
+                                let day = number * (dayMappings[per] || 1);
+                                await checkOutPost(postId, day, typePostId);
                             }
                             await paymentService.updatePaymentStatus(orderId, 'success');
 
@@ -161,6 +176,36 @@ export const getAllPayments = async (req, res) => {
     try {
         const response = await paymentService.getAllPaymentsFromUserId(id);
         return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const checkOutPostAndUpdateMoney = async (req, res) => {
+    const { id } = req.user;
+    const { postId, typePostId, amount, day } = req.query;
+    try {
+        if (!postId || !typePostId || !amount || !day) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'missing input',
+            });
+        }
+        const user = await updateUserMoney(id, '1', amount);
+        if (user.success === false) {
+            return res.status(200).json(user);
+        }
+        await checkOutPost(postId, day, typePostId);
+        let orderId = moment(new Date()).format('DDHHmmss') + id;
+        await paymentService.createPayment(orderId, id, 'Thanh toán', amount, 'success');
+
+        return res.status(200).json({
+            err: 0,
+            msg: 'Success',
+        });
     } catch (error) {
         return res.status(500).json({
             err: -1,

@@ -65,3 +65,18 @@ export const apiGetAllPosts = async () => {
         throw error;
     }
 };
+
+export const apiDidUserCreatePost = async (postId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/user-create-post',
+            params: {
+                postId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

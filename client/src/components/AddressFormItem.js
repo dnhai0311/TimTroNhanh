@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
-const AddressFormItem = ({ name, values, setValue, value }) => {
+const AddressFormItem = ({ name, values, setValue, value, isPayment }) => {
     const [selectedOption, setSelectedOption] = useState(value ? JSON.stringify(value) : '');
     const [isSettingValue, setIsSettingValue] = useState(false);
 
@@ -22,7 +22,7 @@ const AddressFormItem = ({ name, values, setValue, value }) => {
 
     return (
         <>
-            <Form.Group className="w-100 w-md-50 pe-3 fw-bold">
+            <Form.Group className={`w-100 pe-3 fw-bold ${isPayment ? 'w-md-33' : 'w-md-50'}`}>
                 <Form.Label>{name}</Form.Label>
                 <Form.Control
                     as="select"
@@ -41,6 +41,9 @@ const AddressFormItem = ({ name, values, setValue, value }) => {
                                     id: item.id,
                                     code: item.code,
                                     value: item.value,
+                                    perDay: item.perDay,
+                                    perWeek: item.perWeek,
+                                    perMonth: item.perMonth,
                                 })}
                             >
                                 {item.value}

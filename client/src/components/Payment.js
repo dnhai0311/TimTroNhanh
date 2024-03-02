@@ -28,6 +28,7 @@ const Payment = ({ name, handleCreate }) => {
 
     const handlePressContinue = () => {
         const payload = {
+            orderDescription: '0 ',
             amount,
             type: 'Nạp tiền',
         };
