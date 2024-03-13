@@ -2,7 +2,7 @@ const moment = require('moment');
 import * as paymentService from '../services/payment';
 import { updateUserMoney } from '../services/user';
 import { checkOutPost } from '../services/post';
-import { type } from 'os';
+
 function sortObject(obj) {
     let sorted = {};
     let str = [];
@@ -120,12 +120,12 @@ export const vnpayReturn = async (req, res) => {
                             //thanh cong
                             //paymentStatus = '1'
                             // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
-                            const isDeposited = await paymentService.isDeposited(orderId);
+                            const isTopUped = await paymentService.isTopUped(orderId);
                             let orderType = orderInfo.split(' ')[0];
 
-                            if (isDeposited && orderType === '0') {
+                            if (isTopUped && orderType === '0') {
                                 await updateUserMoney(id, orderType, amount);
-                            } else if (isDeposited && orderType === '1') {
+                            } else if (isTopUped && orderType === '1') {
                                 const postId = orderInfo.split(' ')[1];
                                 const number = orderInfo.split(' ')[2];
                                 const per = orderInfo.split(' ')[3];
@@ -146,7 +146,7 @@ export const vnpayReturn = async (req, res) => {
                             //paymentStatus = '2'
                             // Ở đây cập nhật trạng thái giao dịch thanh toán thất bại vào CSDL của bạn
                             await paymentService.updatePaymentStatus(orderId, 'failure');
-                            res.status(200).json({ RspCode: '00', Message: 'Nạp tiền thành công' });
+                            res.status(200).json({ RspCode: '00', Message: 'Nạp tiền/ thanh toán không thành công' });
                         }
                     } else {
                         res.status(200).json({

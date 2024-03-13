@@ -1,18 +1,18 @@
 import React, { memo } from 'react';
-import '../containers/system/User/Deposit/Deposit.scss';
+import '../containers/system/User/TopUp/TopUp.scss';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const DepositBox = ({ image, name, path }) => {
+const TopUpBox = ({ image, name, path }) => {
     const navigate = useNavigate();
 
     const { isDarkMode } = useSelector((state) => state.theme);
 
-    const handleClick = (item) => {
+    const handleClick = () => {
         navigate(path);
     };
     return (
-        <div className="rounded mt-3 deposit-box d-flex flex-column justify-content-between" onClick={handleClick}>
+        <div className="rounded mt-3 top-up-box d-flex flex-column justify-content-between" onClick={handleClick}>
             <div className="d-flex justify-content-center py-4">
                 <img src={image} alt="thumbnail-method" width={'60px'} height={'60px'} />
             </div>
@@ -23,4 +23,4 @@ const DepositBox = ({ image, name, path }) => {
     );
 };
 
-export default memo(DepositBox);
+export default memo(TopUpBox);

@@ -5,7 +5,7 @@ require('dotenv').config();
 
 export const HashPassword = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-export const RegisterService = async ({ name, phone, password }) => {
+export const RegisterService = async ({ name, phone, password, isHost }) => {
     try {
         const [user, created] = await db.USER.findOrCreate({
             where: { phone },
@@ -13,6 +13,7 @@ export const RegisterService = async ({ name, phone, password }) => {
                 name,
                 phone,
                 password: HashPassword(password),
+                type: isHost ? '1' : '0',
             },
         });
 
@@ -32,24 +33,46 @@ export const RegisterService = async ({ name, phone, password }) => {
     }
 };
 
-export const LoginService = async ({ phone, password }) => {
+export const LoginService = async ({ name, phone, password }) => {
     try {
-        const user = await db.USER.findOne({
-            where: { phone },
-        });
+        let user;
+        if (!name) {
+            user = await db.USER.findOne({
+                where: { phone },
+            });
+        } else {
+            user = await db.ADMIN.findOne({
+                where: { name },
+            });
+        }
 
         const isPasswordCorrect = user && bcrypt.compareSync(password, user.password);
-
+        console.log(HashPassword(password));
         const token = isPasswordCorrect
-            ? jwt.sign({ id: user.id, phone: user.phone }, process.env.SECRET_KEY, {
-                  expiresIn: '2d',
-              })
+            ? jwt.sign(
+                  {
+                      id: user.id,
+                      [name ? 'name' : 'phone']: name || user.phone,
+                      ...(name ? { isAdmin: true } : {}),
+                  },
+                  process.env.SECRET_KEY,
+                  {
+                      expiresIn: '2d',
+                  },
+              )
             : null;
 
         return {
             err: token ? 0 : 2,
-            msg: token ? 'Đăng nhập thành công' : user ? 'Mật khẩu không đúng' : 'Sai số điện thoại',
+            msg: token
+                ? 'Đăng nhập thành công'
+                : user
+                ? 'Mật khẩu không đúng'
+                : name
+                ? 'Sai tên tài khoản admin'
+                : 'Sai số điện thoại',
             token: token,
+            isAdmin: name ? true : false,
         };
     } catch (error) {
         throw error;

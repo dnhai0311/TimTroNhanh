@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import DepositSideBar from './DepositSideBar';
+import TopUpSideBar from './TopUpSideBar';
 import { Outlet } from 'react-router-dom';
 
-const Deposit = () => {
+const TopUp = () => {
     return (
         <>
             <h3 className="py-3 px-5 border-bottom">Nạp tiền</h3>
@@ -13,7 +13,7 @@ const Deposit = () => {
                         <Outlet />
                     </Col>
                     <Col sm={3}>
-                        <DepositSideBar />
+                        <TopUpSideBar />
                     </Col>
                 </Row>
             </Container>
@@ -21,4 +21,4 @@ const Deposit = () => {
     );
 };
 
-export default Deposit;
+export default TopUp;

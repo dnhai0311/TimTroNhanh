@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { apiCreateVNPayPayment } from '../../../services/payment';
 import { showToastError, showToastSuccess } from '../../../utils/commons/ToastUtil';
-import Status from './Deposit/Status';
+import Status from './TopUp/Status';
 import { apiDidUserCreatePost } from '../../../services/user';
 import { apiCheckOut } from '../../../services/payment';
 import { useDispatch } from 'react-redux';

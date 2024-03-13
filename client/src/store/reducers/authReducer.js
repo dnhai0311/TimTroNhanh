@@ -22,6 +22,7 @@ const authReducer = (state = initState, action) => {
                 isLoggedIn: true,
                 token: action.data,
                 msg: 'Đăng nhập thành công',
+                isAdmin: action.isAdmin,
             };
         case actionTypes.VERIFY_TOKEN_FROM_FIREBASE_SUCCESS:
             return {
@@ -46,6 +47,7 @@ const authReducer = (state = initState, action) => {
                 isLoggedIn: false,
                 token: null,
                 msg: '',
+                isAdmin: false,
             };
         case actionTypes.SET_MSG:
             return {

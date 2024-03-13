@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { formatToVND } from '../../../../utils/commons/formatToVND';
 
-const DepositSideBar = () => {
+const TopUpSideBar = () => {
     const navigate = useNavigate();
     const { userData } = useSelector((state) => state.user);
     const menuItems = [
@@ -22,7 +22,7 @@ const DepositSideBar = () => {
             {menuItems.map((item) => (
                 <div
                     key={item.name}
-                    className="btn w-100 text-center py-1 mt-2 border rounded bg-secondary text-light deposit-sidebar-item"
+                    className="btn w-100 text-center py-1 mt-2 border rounded bg-secondary text-light top-up-sidebar-item"
                     onClick={() => handleClick(item)}
                 >
                     {item.name}
@@ -32,4 +32,4 @@ const DepositSideBar = () => {
     );
 };
 
-export default DepositSideBar;
+export default TopUpSideBar;

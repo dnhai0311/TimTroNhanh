@@ -20,7 +20,7 @@ export const createPayment = async (id, userId, type, amount, status) => {
     }
 };
 
-export const isDeposited = async (id) => {
+export const isTopUped = async (id) => {
     try {
         const response = await db.PAYMENT.findByPk(id);
 

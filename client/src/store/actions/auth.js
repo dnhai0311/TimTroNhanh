@@ -32,6 +32,7 @@ export const login = (payload) => async (dispatch) => {
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
                 data: response.data.token,
+                isAdmin: response.data.isAdmin,
             });
         } else {
             dispatch({

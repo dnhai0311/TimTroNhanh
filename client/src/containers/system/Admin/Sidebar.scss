@@ -1,0 +1,19 @@
+.admin-sidebar {
+    background: linear-gradient(to bottom, #4277f0, #254cab);
+    .admin-sidebar-item {
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 3px;
+        display: flex;
+        align-items: center;
+        transition: all 0.1s;
+        &:hover {
+            background-color: #254cab;
+            opacity: 0.9;
+        }
+    }
+    .active {
+        background-color: #254cab;
+        font-weight: bold;
+    }
+}

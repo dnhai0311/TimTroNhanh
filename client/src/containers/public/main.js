@@ -7,10 +7,11 @@ import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAcreages, getCategories, getPrices } from '../../store/actions/app';
 import { getCurrentUser } from '../../store/actions/user';
+import { logout } from '../../store/actions';
 
 const Main = () => {
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isLoggedIn, isAdmin } = useSelector((state) => state.auth);
     const { isDarkMode } = useSelector((state) => state.theme);
     useEffect(() => {
         dispatch(getAcreages());
@@ -18,10 +19,14 @@ const Main = () => {
         dispatch(getCategories());
     }, [dispatch]);
     useEffect(() => {
+        if (isAdmin) {
+            dispatch(logout());
+            return;
+        }
         setTimeout(() => {
             isLoggedIn && dispatch(getCurrentUser());
         }, 50);
-    }, [isLoggedIn, dispatch]);
+    }, [isLoggedIn, isAdmin, dispatch]);
     return (
         <div className={`${isDarkMode ? 'dark-theme' : 'light-theme'}`} style={{ minHeight: '100vh' }}>
             <Header />

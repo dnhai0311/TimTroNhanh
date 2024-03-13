@@ -1,5 +1,5 @@
 import React from 'react';
-import { Payment } from '../../../../components/';
+import { Payment } from '../../../../components';
 import { apiCreateVNPayPayment } from '../../../../services/payment';
 
 const VNPay = () => {

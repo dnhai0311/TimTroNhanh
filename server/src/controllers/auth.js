@@ -19,13 +19,22 @@ export const Register = async (req, res) => {
 };
 
 export const Login = async (req, res) => {
-    const { phone, password } = req.body;
+    const { name, phone, password } = req.body;
     try {
-        if (!phone || !password)
+        if (!password) {
             return res.status(400).json({
                 err: 1,
-                msg: 'missing input',
+                msg: 'Password is missing',
             });
+        }
+
+        if (!name && !phone) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Name or phone is missing',
+            });
+        }
+        name ? console.log('admin logging in: ', name) : '';
         const response = await authService.LoginService(req.body);
         return res.status(200).json(response);
     } catch (error) {

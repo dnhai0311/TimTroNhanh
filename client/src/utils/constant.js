@@ -11,10 +11,10 @@ export const path = {
     DETAIL_POST__POST_ID: `post/:postId`,
     LIKED_POST: 'tin-da-luu',
 
-    SYSTEM: '/quan-ly/*',
+    SYSTEM: '/quan-ly',
     USER_MANAGEMENT: 'thong-tin-tai-khoan',
     TRANSACTION_MANAGEMENT: 'lich-su-giao-dich',
-    DEPOSIT: 'nap-tien',
+    TOP_UP: 'nap-tien',
     MOMO: 'momo',
     VNPAY: 'vnpay',
     STATUS: 'trang-thai',
@@ -24,4 +24,10 @@ export const path = {
     CREATE_NEW_POST: 'dang-tin-moi',
     CHANGE_PASSWORD: 'doi-mat-khau',
     CHECKOUT__POST_ID: `thanh-toan/:postId`,
+
+    ADMIN: '/admin',
+    ADMIN_LOGIN: '/admin-login',
+    ADMIN_USER_MANAGEMENT: 'users',
+    ADMIN_POST_MANAGEMENT: 'posts',
+    ADMIN_TRANSACTION_MANAGEMENT: 'transactions',
 };

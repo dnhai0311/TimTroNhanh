@@ -14,8 +14,8 @@ import {
 import {
     Messenger,
     PostManagement,
-    Deposit,
-    DepositContainer,
+    TopUp,
+    TopUpContainer,
     System,
     TransactionManagement,
     UserManagement,
@@ -26,8 +26,16 @@ import {
     Status,
     Checkout,
 } from './containers/system/User/index';
+import {
+    Admin,
+    LoginAdmin,
+    Dashboard,
+    AdminUserManagement,
+    AdminPostManagement,
+    AdminTransactionsManagement,
+} from './containers/system/Admin/index';
 import { path } from './utils/constant';
-import PrivateWrapper from './route/PrivateWrapper';
+import { PrivateWrapper, AdminWrapper } from './route/index';
 import ScrollToTop from './utils/commons/ScrollToTop';
 import { ToastContainer } from 'react-toastify';
 import { useSocketContext } from './context/SocketContext';
@@ -51,7 +59,7 @@ function App() {
             <ScrollToTop />
             <Routes>
                 <Route path={path.MAIN} element={<Main />}>
-                    <Route path={'*'} element={<Home />} />
+                    <Route path={'*'} element={<Home />} index />
                     <Route path={path.LOGIN} element={<Login />} />
                     <Route path={path.FORGET_PASSWORD} element={<ForgetPassword />} />
                     <Route path={path.RENTAL_ROOM} element={<RentalRoom />} />
@@ -63,12 +71,12 @@ function App() {
                 </Route>
                 <Route element={<PrivateWrapper />}>
                     <Route path={path.SYSTEM} element={<System />}>
-                        <Route path={'*'} element={<UserManagement />} />{' '}
+                        <Route path={'*'} element={<UserManagement />} index />
                         <Route path={path.MESSENGER} element={<Messenger />} />
                         <Route path={path.MESSENGER__USER_ID} element={<Messenger />} />
                         <Route path={path.POST_MANAGEMENT} element={<PostManagement />} />
-                        <Route path={path.DEPOSIT} element={<Deposit />}>
-                            <Route path={'*'} element={<DepositContainer />} />
+                        <Route path={path.TOP_UP} element={<TopUp />}>
+                            <Route path={'*'} element={<TopUpContainer />} index />
                             <Route path={path.MOMO} element={<Momo />} />
                             <Route path={path.VNPAY} element={<VNPay />} />
                             <Route path={path.STATUS} element={<Status />} />
@@ -77,6 +85,15 @@ function App() {
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword />} />
                         <Route path={path.TRANSACTION_MANAGEMENT} element={<TransactionManagement />} />{' '}
                         <Route path={path.CHECKOUT__POST_ID} element={<Checkout />} />
+                    </Route>
+                </Route>
+                <Route path={path.ADMIN_LOGIN} element={<LoginAdmin />} />
+                <Route element={<AdminWrapper />}>
+                    <Route path={path.ADMIN} element={<Admin />}>
+                        <Route path="*" element={<Dashboard />} index />
+                        <Route path={path.ADMIN_USER_MANAGEMENT} element={<AdminUserManagement />} />
+                        <Route path={path.ADMIN_POST_MANAGEMENT} element={<AdminPostManagement />} />
+                        <Route path={path.ADMIN_TRANSACTION_MANAGEMENT} element={<AdminTransactionsManagement />} />
                     </Route>
                 </Route>
             </Routes>

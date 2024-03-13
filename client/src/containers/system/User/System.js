@@ -12,11 +12,17 @@ import { getCurrentUser } from '../../../store/actions/user';
 
 const System = () => {
     const dispatch = useDispatch();
+    const { isAdmin } = useSelector((state) => state.auth);
+
     const { isDarkMode } = useSelector((state) => state.theme);
     useEffect(() => {
+        if (isAdmin) {
+            dispatch(actions.logout());
+            return;
+        }
         dispatch(getCategories());
         dispatch(getCurrentUser());
-    }, [dispatch]);
+    }, [dispatch, isAdmin]);
 
     const handleSignOut = () => {
         dispatch(actions.logout());

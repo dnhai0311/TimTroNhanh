@@ -17,6 +17,7 @@ const Login = () => {
     const { isLoggedIn, msg, update } = useSelector((state) => state.auth);
     const { isDarkMode } = useSelector((state) => state.theme);
 
+    const [isHost, setIsHost] = useState(false);
     const [isRegister, setIsRegister] = useState(location.state?.flag);
     const [validated, setValidated] = useState(false);
     const [invalidFields, setInvalidFields] = useState([]);
@@ -25,6 +26,7 @@ const Login = () => {
         name: '',
         phone: '',
         password: '',
+        isHost: false,
     });
 
     useEffect(() => {
@@ -33,9 +35,9 @@ const Login = () => {
             name: '',
             phone: '',
             password: '',
+            isHost: false,
         });
     }, [location.state?.flag]);
-
     useEffect(() => {
         isLoggedIn && navigate('/');
     }, [isLoggedIn, navigate]);
@@ -190,7 +192,25 @@ const Login = () => {
                                 ></InputForm>
                             </div>
                         </Form.Group>
-
+                        {isRegister && (
+                            <Form.Group className="d-flex justify-content-center py-1">
+                                <Form.Check
+                                    type="checkbox"
+                                    id="isHost"
+                                    checked={isHost}
+                                    onChange={() => {
+                                        setIsHost(!isHost);
+                                        setPayload({
+                                            ...payload,
+                                            isHost: !isHost,
+                                        });
+                                    }}
+                                />
+                                <Form.Label htmlFor="isHost" className="ms-2">
+                                    Bạn có phải là chủ trọ?
+                                </Form.Label>
+                            </Form.Group>
+                        )}
                         {!isRegister && (
                             <div className="row mb-2">
                                 <div className="col-md-6 d-flex justify-content-center">
