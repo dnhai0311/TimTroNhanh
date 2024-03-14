@@ -23,6 +23,11 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { BiMessageRoundedDetail } from 'react-icons/bi';
+import { LuClipboardCheck } from 'react-icons/lu';
+import { FaMoneyCheckDollar } from 'react-icons/fa6';
+import { MdOutlineCategory } from 'react-icons/md';
+import { BiCategory } from 'react-icons/bi';
+import { MdOutlineDashboard } from 'react-icons/md';
 
 const icons = {
     BsChevronRight,
@@ -50,6 +55,11 @@ const icons = {
     FaRegTrashAlt,
     IoSend,
     BiMessageRoundedDetail,
+    LuClipboardCheck,
+    FaMoneyCheckDollar,
+    BiCategory,
+    MdOutlineCategory,
+    MdOutlineDashboard,
 };
 
 export default icons;

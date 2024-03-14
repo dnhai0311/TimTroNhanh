@@ -3,7 +3,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import icons from '../../../utils/icons';
 
 const Sidebar = () => {
-    const { FaRegFileAlt, MdPayment, LiaHistorySolid, LuUserSquare } = icons;
+    const {
+        FaRegFileAlt,
+        MdPayment,
+        LiaHistorySolid,
+        LuUserSquare,
+        LuClipboardCheck,
+        FaMoneyCheckDollar,
+        MdOutlineCategory,
+        BiCategory,
+        MdOutlineDashboard,
+    } = icons;
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -82,22 +92,22 @@ const Sidebar = () => {
             name: 'posts',
             label: 'Quản lý bài đăng',
             icon: <FaRegFileAlt />,
-            subItems: [{ name: 'approve-posts', label: 'Duyệt bài' }],
+            subItems: [{ name: 'approve-posts', label: 'Duyệt bài', icon: <LuClipboardCheck /> }],
         },
         {
             name: 'transactions',
             label: 'Quản lý giao dịch',
             icon: <LiaHistorySolid />,
             subItems: [
-                { name: 'top-up', label: 'Lịch sử nạp tiền' },
+                { name: 'top-up', label: 'Lịch sử nạp tiền', icon: <FaMoneyCheckDollar /> },
                 { name: 'payment', label: 'Lịch sử thanh toán', icon: <MdPayment /> },
             ],
         },
     ];
 
     const optionItems = [
-        { name: 'categories', label: 'Loại cho thuê' },
-        { name: 'post-categories', label: 'Loại tin đăng' },
+        { name: 'categories', label: 'Loại cho thuê', icon: <BiCategory /> },
+        { name: 'post-categories', label: 'Loại tin đăng', icon: <MdOutlineCategory /> },
     ];
 
     return (
@@ -109,7 +119,8 @@ const Sidebar = () => {
                 }`}
                 onClick={() => navigateAndSetActiveRow('dashboard')}
             >
-                Tổng quan
+                <MdOutlineDashboard />
+                <span className="ms-1">Tổng quan</span>
             </div>
             {renderSidebarItems(adminManagementItems, 'Quản lý')}
             {renderSidebarItems(optionItems, 'Tuỳ chọn')}
