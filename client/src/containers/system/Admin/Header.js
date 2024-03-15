@@ -7,7 +7,7 @@ const Header = () => {
         dispatch(logout());
     };
     return (
-        <div className="p-3 bg-light text-end text-danger fw-bold show-more" onClick={handleLogout}>
+        <div className="p-3 text-end text-danger fw-bold show-more" onClick={handleLogout}>
             Đăng xuất
         </div>
     );

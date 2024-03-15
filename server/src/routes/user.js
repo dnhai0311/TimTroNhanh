@@ -11,5 +11,6 @@ router.get('/posts', userController.getAllPosts);
 router.put('/update', userController.updateUser);
 router.put('/reset-password', userController.resetPassword);
 router.get('/total', userController.getTotalUsersByType);
+router.get('/all', userController.getAllUsers);
 
 export default router;

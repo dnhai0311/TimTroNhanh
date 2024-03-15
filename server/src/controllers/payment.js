@@ -171,7 +171,7 @@ export const vnpayReturn = async (req, res) => {
     }
 };
 
-export const getAllPayments = async (req, res) => {
+export const getAllPaymentsFromUserId = async (req, res) => {
     const { id } = req.user;
     try {
         const response = await paymentService.getAllPaymentsFromUserId(id);
@@ -241,6 +241,24 @@ export const getTotalPaymentsByMonth = async (req, res) => {
                 msg: 'Bạn không phải administrator',
             });
         const response = await paymentService.getTotalPaymentsByMonth();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getAllPayments = async (req, res) => {
+    const { isAdmin } = req.user;
+    try {
+        if (!isAdmin)
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+        const response = await paymentService.getAllPayments();
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({

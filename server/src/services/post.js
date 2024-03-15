@@ -2,39 +2,45 @@ import db from '../models';
 
 export const getAllPostsService = async () => {
     try {
-        const response = await db.POST.findAll({
+        const response = await db.POST.findAndCountAll({
             raw: true,
-            nest: true,
+            attributes: [
+                ['id', 'postId'],
+                [db.Sequelize.literal('images.path'), 'postImg'],
+                'title',
+                [db.Sequelize.literal('attribute.price'), 'price'],
+                'updatedAt',
+                'expiredAt',
+                'status',
+            ],
             include: [
+                {
+                    model: db.USER,
+                    as: 'user',
+                    attributes: [],
+                },
                 {
                     model: db.IMAGE,
                     as: 'images',
-                    attributes: ['path'],
+                    attributes: [],
                 },
                 {
                     model: db.ATTRIBUTE,
                     as: 'attribute',
-                    attributes: ['price', 'acreage', 'address'],
-                },
-                {
-                    model: db.USER,
-                    as: 'user',
-                    attributes: ['name', 'phone'],
+                    attributes: [],
                 },
             ],
-            attributes: ['id', 'title', 'description', 'updatedAt', 'star'],
         });
 
         return {
             err: response ? 0 : 1,
-            msg: response ? 'OK' : 'FAILED TO GET POST',
+            msg: response ? 'OK' : 'FAILED TO GET POST FORM USER',
             response,
         };
     } catch (error) {
         throw error;
     }
 };
-
 export const getPostsService = async (
     page,
     conditions,

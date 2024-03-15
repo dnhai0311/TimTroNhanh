@@ -11,7 +11,7 @@ const Admin = () => {
                 <Col sm="3" className="admin-sidebar text-light" style={{ minHeight: '100vh' }}>
                     <Sidebar />
                 </Col>
-                <Col sm="9" className="p-0">
+                <Col sm="9" className="p-0 bg-light">
                     <Header />
                     <Outlet />
                 </Col>

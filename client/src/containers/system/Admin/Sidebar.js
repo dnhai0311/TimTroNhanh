@@ -5,11 +5,9 @@ import icons from '../../../utils/icons';
 const Sidebar = () => {
     const {
         FaRegFileAlt,
-        MdPayment,
         LiaHistorySolid,
         LuUserSquare,
         LuClipboardCheck,
-        FaMoneyCheckDollar,
         MdOutlineCategory,
         BiCategory,
         FaChartPie,
@@ -99,11 +97,7 @@ const Sidebar = () => {
             name: 'transactions',
             label: 'Quản lý giao dịch',
             icon: <LiaHistorySolid />,
-            subItems: [
-                { name: 'revenue', label: 'Doanh thu', icon: <FaChartBar /> },
-                { name: 'top-up', label: 'Lịch sử nạp tiền', icon: <FaMoneyCheckDollar /> },
-                { name: 'payment', label: 'Lịch sử thanh toán', icon: <MdPayment /> },
-            ],
+            subItems: [{ name: 'revenue', label: 'Doanh thu', icon: <FaChartBar /> }],
         },
     ];
 

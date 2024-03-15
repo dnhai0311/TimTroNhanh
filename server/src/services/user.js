@@ -179,3 +179,15 @@ export const getTotalUsersByType = async () => {
         throw error;
     }
 };
+
+export const getAllUsers = async () => {
+    try {
+        const response = await db.USER.findAndCountAll({
+            raw: true,
+            attributes: ['id', 'name', 'phone', 'avatar', 'type'],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

@@ -10,7 +10,7 @@ import { useState, useEffect, memo } from 'react';
 import { Container, Form, Table } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
-const PostTable = ({ data, columns, total, isPayment }) => {
+const PostTable = ({ data, columns, total, isPayment, isAdmin }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
     const [sorting, setSorting] = useState([]);
     const [filtering, setFiltering] = useState('');
@@ -80,36 +80,52 @@ const PostTable = ({ data, columns, total, isPayment }) => {
                     </Form.Control>
                 </div>
                 <div className="d-flex justify-content-center align-items-center ms-2">
-                    <Form.Text className={`text-center ${isDarkMode ? 'text-light' : ''}`}>
-                        Lọc {isPayment ? 'giao dịch' : ' bài đăng'} theo trạng thái
-                    </Form.Text>
-                    <Form.Control
-                        as="select"
-                        value={filtering}
-                        onChange={(e) => {
-                            setFiltering(e.target.value);
-                            setCurrentPage(0);
-                        }}
-                    >
-                        <option value={''}>Tất cả</option>
-                        {isPayment ? (
-                            <>
-                                <option>Nạp tiền</option>
-                                <option>Thanh toán</option>
-                                <option value="pending">Đợi hoàn thành</option>
-                                <option value="success">Thành công</option>
-                                <option value="failure">Thất bại</option>
-                            </>
-                        ) : (
-                            <>
-                                <option value="payment">Đợi thanh toán</option>
-                                <option value="pending">Chờ duyệt</option>
-                                <option value="approved">Chấp nhận</option>
-                                <option value="rejected">Từ chối</option>
-                                <option value="expired">Hết hạn</option>
-                            </>
-                        )}
-                    </Form.Control>
+                    {isAdmin ? (
+                        <>
+                            <Form.Text className={`text-center ${isDarkMode ? 'text-light' : ''}`}>Tìm kiếm</Form.Text>
+                            <Form.Control
+                                as="input"
+                                value={filtering}
+                                onChange={(e) => {
+                                    setFiltering(e.target.value);
+                                    setCurrentPage(0);
+                                }}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Form.Text className={`text-center ${isDarkMode ? 'text-light' : ''}`}>
+                                Lọc {isPayment ? 'giao dịch' : ' bài đăng'} theo trạng thái
+                            </Form.Text>
+                            <Form.Control
+                                as="select"
+                                value={filtering}
+                                onChange={(e) => {
+                                    setFiltering(e.target.value);
+                                    setCurrentPage(0);
+                                }}
+                            >
+                                <option value={''}>Tất cả</option>
+                                {isPayment ? (
+                                    <>
+                                        <option>Nạp tiền</option>
+                                        <option>Thanh toán</option>
+                                        <option value="pending">Đợi hoàn thành</option>
+                                        <option value="success">Thành công</option>
+                                        <option value="failure">Thất bại</option>
+                                    </>
+                                ) : (
+                                    <>
+                                        <option value="payment">Đợi thanh toán</option>
+                                        <option value="pending">Chờ duyệt</option>
+                                        <option value="approved">Chấp nhận</option>
+                                        <option value="rejected">Từ chối</option>
+                                        <option value="expired">Hết hạn</option>
+                                    </>
+                                )}
+                            </Form.Control>
+                        </>
+                    )}
                 </div>
             </div>
             <Table striped bordered hover responsive variant={isDarkMode ? 'dark' : ''}>

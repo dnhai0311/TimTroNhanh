@@ -101,7 +101,7 @@ const Dashboard = () => {
             setTrans(formatLabelsAndData(trans.data));
             setTotalTrans(formatLabelsAndData(totalTrans.data));
         };
-        fetchData();
+        setTimeout(() => fetchData(), 200);
     }, []);
 
     const userData = {

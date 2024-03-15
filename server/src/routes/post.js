@@ -4,7 +4,6 @@ import verifyToken from '../middlewares/verifyToken';
 
 const router = express.Router();
 
-router.get('/all', postController.getAllPosts);
 router.get('/get', postController.getPosts);
 router.get('/get-one', postController.getOnePost);
 router.get('/rated-posts', postController.getRated);
@@ -22,5 +21,6 @@ router.get('/user-like-post', postController.didUserLikePost);
 router.get('/user-rate-post', postController.didUserRatePost);
 router.get('/user-create-post', postController.didUserCreatePost);
 router.get('/total', postController.getTotalPostsByStatus);
+router.get('/all', postController.getAllPosts);
 
 export default router;

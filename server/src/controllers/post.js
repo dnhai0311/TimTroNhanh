@@ -5,7 +5,14 @@ import { deleteImage } from '../middlewares/cloudinary';
 import { io } from '../../socket/socket';
 
 export const getAllPosts = async (req, res) => {
+    const { isAdmin } = req.user;
     try {
+        if (!isAdmin)
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+
         const response = await postService.getAllPostsService();
         return res.status(200).json(response);
     } catch (error) {

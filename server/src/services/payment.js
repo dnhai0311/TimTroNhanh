@@ -98,3 +98,21 @@ export const getTotalPaymentsByMonth = async () => {
         throw error;
     }
 };
+
+export const getAllPayments = async () => {
+    try {
+        const response = await db.PAYMENT.findAndCountAll({
+            nested: true,
+            include: [
+                {
+                    model: db.USER,
+                    as: 'user',
+                    attributes: ['name'],
+                },
+            ],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

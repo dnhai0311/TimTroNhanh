@@ -127,6 +127,7 @@ export const apiGetTotalUsersByType = async () => {
         throw error;
     }
 };
+
 export const apiGetTotalPostsByStatus = async () => {
     try {
         const response = await axiosConfig({
@@ -155,6 +156,30 @@ export const apiGetTotalPaymentsByMonth = async () => {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/payment/month',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetAllUsers = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/user/all',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetAllPayments = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/payment/all',
         });
         return response;
     } catch (error) {
