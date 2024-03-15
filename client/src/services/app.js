@@ -115,3 +115,49 @@ export const apiUploadImage = async (data) => {
         throw error;
     }
 };
+
+export const apiGetTotalUsersByType = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/user/total',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+export const apiGetTotalPostsByStatus = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/post/total',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+export const apiGetTotalPaymentsByStatus = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/payment/total',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetTotalPaymentsByMonth = async () => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/payment/month',
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

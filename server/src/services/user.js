@@ -167,3 +167,15 @@ export const checkPassword = async (userId, enteredPassword) => {
         throw error;
     }
 };
+
+export const getTotalUsersByType = async () => {
+    try {
+        const response = await db.USER.findAll({
+            attributes: ['type', [db.sequelize.fn('COUNT', 'type'), 'count']],
+            group: ['type'],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

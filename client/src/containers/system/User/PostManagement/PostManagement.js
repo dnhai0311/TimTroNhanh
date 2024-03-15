@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import PostTable from './PostTable';
 import { Container, Row, Button } from 'react-bootstrap';
-import { apiGetAllPosts } from '../../../../services/user';
+import { apiGetAllPostsByUser } from '../../../../services/user';
 import moment from 'moment';
 import UpdatePost from './UpdatePost';
 import { apiDeletePost } from '../../../../services/post';
@@ -113,7 +113,7 @@ const PostManagement = () => {
 
     useEffect(() => {
         const fetchAllPosts = async () => {
-            const response = await apiGetAllPosts();
+            const response = await apiGetAllPostsByUser();
             setPosts(response.data.response.rows);
             setTotal(response.data.response.count);
         };

@@ -213,3 +213,39 @@ export const checkOutPostAndUpdateMoney = async (req, res) => {
         });
     }
 };
+
+export const getTotalPaymentsByStatus = async (req, res) => {
+    const { isAdmin } = req.user;
+    try {
+        if (!isAdmin)
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+        const response = await paymentService.getTotalPaymentsByStatus();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const getTotalPaymentsByMonth = async (req, res) => {
+    const { isAdmin } = req.user;
+    try {
+        if (!isAdmin)
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+        const response = await paymentService.getTotalPaymentsByMonth();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};

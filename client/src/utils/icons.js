@@ -27,7 +27,8 @@ import { LuClipboardCheck } from 'react-icons/lu';
 import { FaMoneyCheckDollar } from 'react-icons/fa6';
 import { MdOutlineCategory } from 'react-icons/md';
 import { BiCategory } from 'react-icons/bi';
-import { MdOutlineDashboard } from 'react-icons/md';
+import { FaChartPie } from 'react-icons/fa';
+import { FaChartBar } from 'react-icons/fa';
 
 const icons = {
     BsChevronRight,
@@ -59,7 +60,8 @@ const icons = {
     FaMoneyCheckDollar,
     BiCategory,
     MdOutlineCategory,
-    MdOutlineDashboard,
+    FaChartPie,
+    FaChartBar,
 };
 
 export default icons;

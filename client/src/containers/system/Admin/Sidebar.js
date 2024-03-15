@@ -12,7 +12,8 @@ const Sidebar = () => {
         FaMoneyCheckDollar,
         MdOutlineCategory,
         BiCategory,
-        MdOutlineDashboard,
+        FaChartPie,
+        FaChartBar,
     } = icons;
     const navigate = useNavigate();
     const location = useLocation();
@@ -99,6 +100,7 @@ const Sidebar = () => {
             label: 'Quản lý giao dịch',
             icon: <LiaHistorySolid />,
             subItems: [
+                { name: 'revenue', label: 'Doanh thu', icon: <FaChartBar /> },
                 { name: 'top-up', label: 'Lịch sử nạp tiền', icon: <FaMoneyCheckDollar /> },
                 { name: 'payment', label: 'Lịch sử thanh toán', icon: <MdPayment /> },
             ],
@@ -119,7 +121,7 @@ const Sidebar = () => {
                 }`}
                 onClick={() => navigateAndSetActiveRow('dashboard')}
             >
-                <MdOutlineDashboard />
+                <FaChartPie />
                 <span className="ms-1">Tổng quan</span>
             </div>
             {renderSidebarItems(adminManagementItems, 'Quản lý')}

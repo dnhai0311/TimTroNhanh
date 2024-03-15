@@ -21,5 +21,6 @@ router.get('/liked-posts', postController.getLikedPosts);
 router.get('/user-like-post', postController.didUserLikePost);
 router.get('/user-rate-post', postController.didUserRatePost);
 router.get('/user-create-post', postController.didUserCreatePost);
+router.get('/total', postController.getTotalPostsByStatus);
 
 export default router;

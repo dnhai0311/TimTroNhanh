@@ -66,3 +66,35 @@ export const getAllPaymentsFromUserId = async (userId) => {
         throw error;
     }
 };
+
+export const getTotalPaymentsByStatus = async () => {
+    try {
+        const response = await db.PAYMENT.findAll({
+            attributes: ['status', [db.sequelize.fn('COUNT', 'status'), 'count']],
+            group: ['status'],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getTotalPaymentsByMonth = async () => {
+    try {
+        const response = await db.PAYMENT.findAll({
+            attributes: [
+                [db.sequelize.literal("DATE_FORMAT(updatedAt, '%Y-%m')"), 'month'],
+                'type',
+                'status',
+                [db.sequelize.fn('SUM', db.sequelize.col('amount')), 'totalAmount'],
+            ],
+            where: {
+                status: 'success',
+            },
+            group: ['month', 'type', 'status'],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

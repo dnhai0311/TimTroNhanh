@@ -54,7 +54,7 @@ export const apiResetPassword = async (payload) => {
     }
 };
 
-export const apiGetAllPosts = async () => {
+export const apiGetAllPostsByUser = async () => {
     try {
         const response = await axiosConfig({
             method: 'get',

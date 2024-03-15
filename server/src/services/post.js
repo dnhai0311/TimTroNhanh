@@ -588,3 +588,15 @@ export const checkOutPost = async (postId, day, typePostId) => {
         throw error;
     }
 };
+
+export const getTotalPostsByStatus = async () => {
+    try {
+        const response = await db.POST.findAll({
+            attributes: ['status', [db.sequelize.fn('COUNT', 'status'), 'count']],
+            group: ['status'],
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
