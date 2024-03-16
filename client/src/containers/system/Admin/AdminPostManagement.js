@@ -78,7 +78,7 @@ const AdminPostManagement = () => {
     }, []);
     return (
         <>
-            <h3 className="py-3 px-5 border-bottom">Quản lý người dùng</h3>
+            <h3 className="py-3 px-5 border-bottom">Quản lý bài đăng</h3>
             <PostTable columns={columns} data={memoizedData} total={total} isAdmin={true} />
         </>
     );

@@ -32,7 +32,12 @@ module.exports = {
             },
             type: {
                 type: Sequelize.STRING,
-                defaultValue: 1,
+                defaultValue: 0,
+            },
+            status: {
+                type: Sequelize.ENUM('active', 'disable'),
+                defaultValue: 'active',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

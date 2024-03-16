@@ -45,9 +45,15 @@ export const LoginService = async ({ name, phone, password }) => {
                 where: { name },
             });
         }
-
         const isPasswordCorrect = user && bcrypt.compareSync(password, user.password);
-        console.log(HashPassword(password));
+
+        if (user.status === 'disable') {
+            return {
+                err: 1,
+                msg: 'Tài khoản đã bị khóa',
+            };
+        }
+
         const token = isPasswordCorrect
             ? jwt.sign(
                   {

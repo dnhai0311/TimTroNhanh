@@ -148,3 +148,23 @@ export const getAllUsers = async (req, res) => {
         });
     }
 };
+
+export const updateUserStatus = async (req, res) => {
+    const { userId } = req.params;
+    const { isAdmin } = req.user;
+    try {
+        if (!isAdmin) {
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+        }
+        const response = await userServices.updateUserStatus(userId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};

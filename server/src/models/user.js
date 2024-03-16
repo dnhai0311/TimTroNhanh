@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
             facebook: DataTypes.STRING,
             avatar: DataTypes.STRING,
             type: DataTypes.STRING,
+            status: {
+                type: DataTypes.ENUM('active', 'disable'),
+                defaultValue: 'active',
+            },
         },
         {
             sequelize,

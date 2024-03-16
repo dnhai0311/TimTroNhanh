@@ -80,3 +80,15 @@ export const apiDidUserCreatePost = async (postId) => {
         throw error;
     }
 };
+
+export const apiUpdateUserStatus = async (userId) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: `/api/v1/user/${userId}/update-status`,
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

@@ -184,9 +184,22 @@ export const getAllUsers = async () => {
     try {
         const response = await db.USER.findAndCountAll({
             raw: true,
-            attributes: ['id', 'name', 'phone', 'avatar', 'type'],
+            attributes: ['id', 'name', 'phone', 'avatar', 'type', 'status'],
         });
         return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateUserStatus = async (id) => {
+    try {
+        const user = await db.USER.findByPk(id);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        user.status = user.status === 'active' ? 'disable' : 'active';
+        await user.save();
     } catch (error) {
         throw error;
     }
