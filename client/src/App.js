@@ -93,6 +93,7 @@ function App() {
                         <Route path="*" element={<Dashboard />} index />
                         <Route path={path.ADMIN_USER_MANAGEMENT} element={<AdminUserManagement />} />
                         <Route path={path.ADMIN_POST_MANAGEMENT} element={<AdminPostManagement />} />
+                        <Route path={path.APPROVE_POST} element={<AdminPostManagement isApproved={true} />} />
                         <Route path={path.ADMIN_TRANSACTION_MANAGEMENT} element={<AdminTransactionsManagement />} />
                     </Route>
                 </Route>

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { apiGetRated } from '../../../services/post';
 import { useSocketContext } from '../../../context/SocketContext';
 
-const ListComment = ({ userId, postId }) => {
+const ListComment = ({ userId, postId, isAdmin }) => {
     const { isDarkMode } = useSelector((state) => state.theme);
     const { socket } = useSocketContext();
     const [data, setData] = useState();
@@ -44,7 +44,7 @@ const ListComment = ({ userId, postId }) => {
     return (
         <div className={`w-100 mt-2 border p-2 ${isDarkMode ? '' : 'bg-light'}`}>
             <h6 className="fw-bold border-bottom py-1 m-0">Đánh giá</h6>
-            <CommentInput userId={userId} postId={postId} />
+            <CommentInput userId={userId} postId={postId} isAdmin={isAdmin} />
             {data?.map((item) => (
                 <Comment
                     key={item?.id}

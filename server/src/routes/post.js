@@ -22,5 +22,6 @@ router.get('/user-rate-post', postController.didUserRatePost);
 router.get('/user-create-post', postController.didUserCreatePost);
 router.get('/total', postController.getTotalPostsByStatus);
 router.get('/all', postController.getAllPosts);
+router.put('/:postId/update-status', postController.updatePostStatus);
 
 export default router;

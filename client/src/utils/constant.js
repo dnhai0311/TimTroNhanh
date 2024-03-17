@@ -29,5 +29,6 @@ export const path = {
     ADMIN_LOGIN: '/admin-login',
     ADMIN_USER_MANAGEMENT: 'users',
     ADMIN_POST_MANAGEMENT: 'posts',
+    APPROVE_POST: 'approve-posts',
     ADMIN_TRANSACTION_MANAGEMENT: 'transactions',
 };

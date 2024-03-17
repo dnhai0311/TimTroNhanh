@@ -91,7 +91,6 @@ const Sidebar = () => {
             name: 'posts',
             label: 'Quản lý bài đăng',
             icon: <FaRegFileAlt />,
-            subItems: [{ name: 'approve-posts', label: 'Duyệt bài', icon: <LuClipboardCheck /> }],
         },
         {
             name: 'transactions',
@@ -102,6 +101,7 @@ const Sidebar = () => {
     ];
 
     const optionItems = [
+        { name: 'approve-posts', label: 'Duyệt bài', icon: <LuClipboardCheck /> },
         { name: 'categories', label: 'Loại cho thuê', icon: <BiCategory /> },
         { name: 'post-categories', label: 'Loại tin đăng', icon: <MdOutlineCategory /> },
     ];

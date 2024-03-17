@@ -90,7 +90,7 @@ const AdminUserManagement = () => {
                                 className="btn-warning mb-3"
                                 onClick={() => handleUpdateUserStatus(props.row.original.id)}
                             >
-                                {props.row.original.status === 'Hoạt động' ? 'Ẩn' : 'Mở'}
+                                {props.row.original.status === 'Hoạt động' ? 'Khoá' : 'Mở'}
                             </Button>
                             <Button className="btn-danger" disabled>
                                 Xoá

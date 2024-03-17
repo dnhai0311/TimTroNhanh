@@ -4,7 +4,7 @@ import icons from '../utils/icons';
 import { showToastSuccess, showToastError } from '../utils/commons/ToastUtil';
 import { apiRatePost, apiDidUserRatePost } from '../services/post';
 
-const CommentInput = ({ userId, postId }) => {
+const CommentInput = ({ userId, postId, isAdmin }) => {
     const { FaStar } = icons;
 
     const [star, setStar] = useState(0);
@@ -59,28 +59,32 @@ const CommentInput = ({ userId, postId }) => {
 
     return (
         <>
-            <Form.Control
-                className="pt-2 pb-3 mt-2 overflow-hidden"
-                placeholder={!isUserRated ? 'Viết đánh giá' : 'Bạn đã đánh giá tin đăng này'}
-                as="textarea"
-                onInput={handleTextareaInput}
-                onKeyDown={handleEnterPress}
-                ref={inputRef}
-                disabled={isUserRated}
-            />
-            <div className="text-end">
-                {!isUserRated &&
-                    Array(5)
-                        .fill()
-                        .map((_, index) => (
-                            <FaStar
-                                key={index}
-                                color={index < star ? '#FFD24E' : ''}
-                                value={index}
-                                onClick={() => onClickStar(index + 1)}
-                            />
-                        ))}
-            </div>
+            {!isAdmin && (
+                <>
+                    <Form.Control
+                        className="pt-2 pb-3 mt-2 overflow-hidden"
+                        placeholder={!isUserRated ? 'Viết đánh giá' : 'Bạn đã đánh giá tin đăng này'}
+                        as="textarea"
+                        onInput={handleTextareaInput}
+                        onKeyDown={handleEnterPress}
+                        ref={inputRef}
+                        disabled={isUserRated}
+                    />
+                    <div className="text-end">
+                        {!isUserRated &&
+                            Array(5)
+                                .fill()
+                                .map((_, index) => (
+                                    <FaStar
+                                        key={index}
+                                        color={index < star ? '#FFD24E' : ''}
+                                        value={index}
+                                        onClick={() => onClickStar(index + 1)}
+                                    />
+                                ))}
+                    </div>
+                </>
+            )}
         </>
     );
 };

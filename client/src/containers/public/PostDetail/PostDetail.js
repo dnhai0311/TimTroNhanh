@@ -10,7 +10,7 @@ import { apiLikePost, apiDidUserLikePost } from '../../../services/post';
 import { useSelector } from 'react-redux';
 import { showToastSuccess } from '../../../utils/commons/ToastUtil';
 
-const DetailPost = () => {
+const DetailPost = ({ id, isAdmin }) => {
     const { userData } = useSelector((state) => state.user);
     const { FaHeart } = icons;
     const { postId } = useParams();
@@ -22,8 +22,12 @@ const DetailPost = () => {
             const response = await apiGetOnePost(postId);
             setDetailPost(response.data.response);
         };
-        postId && fetchDetailPost(postId);
-    }, [postId]);
+        if (!isAdmin) {
+            postId && fetchDetailPost(postId);
+            return;
+        }
+        id && fetchDetailPost(id);
+    }, [id, isAdmin, postId]);
 
     useEffect(() => {
         const didUserLikePost = async () => {
@@ -53,14 +57,16 @@ const DetailPost = () => {
                     <Col lg={4}>
                         <Container className="bg-success d-flex flex-column justify-content-center align-items-center border rounded position-relative">
                             <ShowUser detailPost={detailPost} />
-                            <div
-                                className="position-fixed bottom-0 mb-4  bg-light p-3 border rounded-circle"
-                                onClick={handleLikePost}
-                            >
-                                <FaHeart fontSize={'20px'} className={isRed ? 'text-danger' : 'text-dark'} />
-                            </div>
+                            {!isAdmin && (
+                                <div
+                                    className="position-fixed bottom-0 mb-4  bg-light p-3 border rounded-circle"
+                                    onClick={handleLikePost}
+                                >
+                                    <FaHeart fontSize={'20px'} className={isRed ? 'text-danger' : 'text-dark'} />
+                                </div>
+                            )}
                         </Container>
-                        <ListComment userId={userData?.id} postId={postId} />
+                        <ListComment userId={userData?.id} postId={postId || id} isAdmin={isAdmin} />
                     </Col>
                 </Row>
             </Container>

@@ -23,8 +23,8 @@ module.exports = {
                 type: Sequelize.STRING,
             },
             status: {
-                type: Sequelize.ENUM('pending', 'success', 'failure'),
-                defaultValue: 'pending',
+                type: Sequelize.ENUM('payment', 'success', 'failure'),
+                defaultValue: 'payment',
                 allowNull: false,
             },
             createdAt: {

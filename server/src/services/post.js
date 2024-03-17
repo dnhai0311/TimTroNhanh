@@ -1,9 +1,11 @@
 import db from '../models';
 
-export const getAllPostsService = async () => {
+export const getAllPostsService = async (status) => {
     try {
+        const conditions = status ? { status } : {};
         const response = await db.POST.findAndCountAll({
             raw: true,
+            where: conditions,
             attributes: [
                 ['id', 'postId'],
                 [db.Sequelize.literal('images.path'), 'postImg'],
@@ -11,6 +13,7 @@ export const getAllPostsService = async () => {
                 [db.Sequelize.literal('attribute.price'), 'price'],
                 'updatedAt',
                 'expiredAt',
+                [db.Sequelize.literal('user.name'), 'userName'],
                 'status',
             ],
             include: [
@@ -308,7 +311,7 @@ export const deletePostService = async (id) => {
     }
 };
 
-export const updatePostStatus = async () => {
+export const updateAllPostsStatus = async () => {
     try {
         const expiredPosts = await db.POST.findAll({
             where: {
@@ -602,6 +605,19 @@ export const getTotalPostsByStatus = async () => {
             group: ['status'],
         });
         return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updatePostStatus = async (id, status) => {
+    try {
+        const post = await db.POST.findByPk(id);
+        if (!post) {
+            throw new Error('Post not found');
+        }
+        post.status = status;
+        await post.save();
     } catch (error) {
         throw error;
     }

@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
             amount: DataTypes.INTEGER,
             type: DataTypes.STRING,
             status: {
-                type: DataTypes.ENUM('pending', 'success', 'failure'),
-                defaultValue: 'pending',
+                type: DataTypes.ENUM('payment', 'success', 'failure'),
+                defaultValue: 'payment',
             },
         },
         {

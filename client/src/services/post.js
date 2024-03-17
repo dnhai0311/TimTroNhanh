@@ -1,10 +1,14 @@
 import axiosConfig from '../axiosConfig';
 
-export const apiGetAllPosts = async () => {
+export const apiGetAllPosts = async (status) => {
     try {
+        console.log(status);
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/post/all',
+            params: {
+                status,
+            },
         });
         return response;
     } catch (error) {
@@ -215,6 +219,21 @@ export const apiDidUserRatePost = async (postId) => {
             url: '/api/v1/post/user-rate-post',
             params: {
                 postId,
+            },
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiUpdatePostStatus = async (postId, status) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: `/api/v1/post/${postId}/update-status`,
+            params: {
+                status,
             },
         });
         return response;

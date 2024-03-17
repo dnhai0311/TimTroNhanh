@@ -6,6 +6,7 @@ import { io } from '../../socket/socket';
 
 export const getAllPosts = async (req, res) => {
     const { isAdmin } = req.user;
+    const { status } = req.query;
     try {
         if (!isAdmin)
             return res.status(403).json({
@@ -13,7 +14,7 @@ export const getAllPosts = async (req, res) => {
                 msg: 'Bạn không phải administrator',
             });
 
-        const response = await postService.getAllPostsService();
+        const response = await postService.getAllPostsService(status);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
@@ -349,6 +350,27 @@ export const getTotalPostsByStatus = async (req, res) => {
             });
 
         const response = await postService.getTotalPostsByStatus();
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Failed at controller ' + error,
+        });
+    }
+};
+
+export const updatePostStatus = async (req, res) => {
+    const { postId } = req.params;
+    const { status } = req.query;
+    const { isAdmin } = req.user;
+    try {
+        if (!isAdmin) {
+            return res.status(403).json({
+                err: 1,
+                msg: 'Bạn không phải administrator',
+            });
+        }
+        const response = await postService.updatePostStatus(postId, status);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
