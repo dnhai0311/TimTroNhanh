@@ -5,9 +5,17 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { useSelector } from 'react-redux';
 import icons from '../../../utils/icons';
-
+import GoogleMapReact from 'google-map-react';
 const PostInfo = ({ detailPost }) => {
     const { FaStar } = icons;
+
+    const defaultProps = {
+        center: {
+            lat: 10.99835602,
+            lng: 77.01502627,
+        },
+        zoom: 11,
+    };
 
     const { isDarkMode } = useSelector((state) => state.theme);
     return (
@@ -90,7 +98,7 @@ const PostInfo = ({ detailPost }) => {
                         </Table>
                     </div>
                     <div>
-                        <h4>Thông tin liên hệ</h4>{' '}
+                        <h4>Thông tin liên hệ</h4>
                         <Table striped responsive variant={isDarkMode ? 'dark' : ''}>
                             <tbody>
                                 <tr>
@@ -109,6 +117,14 @@ const PostInfo = ({ detailPost }) => {
                         </Table>
                     </div>
                 </Row>
+
+                <div style={{ height: '60vh', width: '100%' }}>
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: process.env.REACT_APP_API_GOOGLE_MAP }}
+                        defaultCenter={defaultProps.center}
+                        defaultZoom={defaultProps.zoom}
+                    ></GoogleMapReact>
+                </div>
             </Container>
         </>
     );

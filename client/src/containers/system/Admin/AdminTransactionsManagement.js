@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import * as apis from '../../../services/index';
 import PostTable from '../User/PostManagement/PostTable';
-import moment from 'moment';
 import { formatToVND } from '../../../utils/commons/formatToVND';
 
 const AdminTransactionsManagement = () => {
