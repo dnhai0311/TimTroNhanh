@@ -9,6 +9,8 @@ import { Loading } from '../../../../components/';
 import { useNavigate } from 'react-router-dom';
 import { showToastSuccess, showToastError } from '../../../../utils/commons/ToastUtil';
 import { toast } from 'react-toastify';
+import { OpenLayerMap } from '../../../../components/index';
+
 const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpdate, isPayment, postId }) => {
     const navigate = useNavigate();
 
@@ -178,7 +180,9 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
                         </Button>
                     </Col>
                     <Col md={4}>
-                        <div className="mb-3">Map</div>
+                        <div className="mb-3">
+                            <OpenLayerMap address={exactlyAddress} />
+                        </div>
                         {isPayment && (
                             <div>
                                 <h5>Bạn có muốn thanh toán ngay?</h5>

@@ -14,3 +14,4 @@ export { default as Comment } from './Comment';
 export { default as CommentInput } from './CommentInput';
 export { default as TopUpBox } from './TopUpBox';
 export { default as Payment } from './Payment';
+export { default as OpenLayerMap } from './OpenLayerMap';

@@ -186,3 +186,14 @@ export const apiGetAllPayments = async () => {
         throw error;
     }
 };
+
+export const apiGetCoord = async (address) => {
+    try {
+        const response = await axios.get(
+            `https://nominatim.openstreetmap.org/search?q=${address}&format=json&addressdetails=1&limit=1`,
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
