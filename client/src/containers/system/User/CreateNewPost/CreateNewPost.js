@@ -151,7 +151,7 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
             <h3 className="border-bottom py-3 px-5">{isUpdate ? 'Cập nhật bài đăng' : 'Đăng tin mới'}</h3>
             <Container className="px-5">
                 <Row className="py-3">
-                    <Col md={8}>
+                    <Col lg={8}>
                         <AddressForm
                             provinceSelected={provinceSelected}
                             setProvinceSelected={setProvinceSelected}
@@ -175,11 +175,15 @@ const CreateNewPost = ({ isUpdate, dataPost, isSomePostUpdate, setIsSomePostUpda
                             setAcreage={setAcreage}
                         />
                         <Picture imgFiles={imgFiles} setImgFiles={setImgFiles} isUpdate={isUpdate} />
-                        <Button className="w-100 p-2 mt-3 bg-success fw-bold" id="submitButton" onClick={handleSubmit}>
+                        <Button
+                            className="w-100 p-2 mt-3 bg-success fw-bold mb-3"
+                            id="submitButton"
+                            onClick={handleSubmit}
+                        >
                             {isLoading ? <Loading /> : <span>{isUpdate ? 'Cập nhật' : 'Đăng bài'}</span>}
                         </Button>
                     </Col>
-                    <Col md={4}>
+                    <Col lg={4}>
                         <div className="mb-3">
                             <OpenLayerMap address={exactlyAddress} />
                         </div>

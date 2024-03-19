@@ -11,7 +11,7 @@ const Messenger = () => {
 
     const viewPort = UseViewport();
     const showBothComponents = viewPort > 768;
-    console.log(viewPort);
+
     const fetchAllMessages = async () => {
         const response = await apiGetAllMessagesCurrent();
         if (response.status === 200) {

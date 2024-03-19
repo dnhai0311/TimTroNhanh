@@ -2,7 +2,9 @@
 
 .sidebar {
     position: static;
+    display: none !important;
     @include respond-to($breakpoint-small) {
+        display: block !important;
         position: fixed;
     }
     .sidebar-item {
