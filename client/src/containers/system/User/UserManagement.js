@@ -86,7 +86,7 @@ const UserManagement = () => {
     return (
         <>
             <h3 className="py-3 px-5 border-bottom">Thông tin cá nhân</h3>
-            <Form className="w-50 m-auto" onSubmit={handleSubmit}>
+            <Form className="w-md-50 m-auto" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label>Mã thành viên</Form.Label>
                     <Form.Control placeholder={userData?.id || ''} disabled />

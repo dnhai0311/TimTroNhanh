@@ -9,10 +9,10 @@ const TopUp = () => {
             <h3 className="py-3 px-5 border-bottom">Nạp tiền</h3>
             <Container className="px-5 py-3">
                 <Row>
-                    <Col sm={9}>
+                    <Col lg={9}>
                         <Outlet />
                     </Col>
-                    <Col sm={3}>
+                    <Col lg={3}>
                         <TopUpSideBar />
                     </Col>
                 </Row>

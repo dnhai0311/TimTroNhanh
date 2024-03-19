@@ -7,7 +7,7 @@ import { apiGetMessages } from '../../../../services/message';
 import { apiGetUser } from '../../../../services/user';
 import icons from '../../../../utils/icons';
 
-const ChatContainer = ({ fetchAllMessages }) => {
+const ChatContainer = ({ fetchAllMessages, setIsChatting }) => {
     const { BiMessageRoundedDetail } = icons;
     const { userId } = useParams();
     const [user, setUser] = useState();
@@ -63,7 +63,13 @@ const ChatContainer = ({ fetchAllMessages }) => {
         <>
             {userId ? (
                 <>
-                    <UserBox isSelected={true} user={user} isOnline={onlineUsers.includes(userId)} />
+                    <UserBox
+                        isSelected={true}
+                        user={user}
+                        isOnline={onlineUsers.includes(userId)}
+                        isBack={true}
+                        setIsChatting={setIsChatting}
+                    />
                     <ChatBox
                         user={user}
                         messages={messages}

@@ -32,11 +32,16 @@ const System = () => {
             <Navigation handleGotoTop={() => {}} />
             <Container fluid>
                 <Row>
-                    <Col sm={3} className={`d-block sidebar h-100 ${isDarkMode ? 'dark-theme' : 'light-theme'} `}>
+                    <Col
+                        sm={5}
+                        md={4}
+                        lg={3}
+                        className={`d-block sidebar h-100 ${isDarkMode ? 'dark-theme' : 'light-theme'} `}
+                    >
                         <Sidebar handleSignOut={handleSignOut} />
                     </Col>
-                    <Col className="d-none d-sm-block" sm={3}></Col>
-                    <Col sm={9}>
+                    <Col className="d-none d-sm-block" sm={5} md={4} lg={3}></Col>
+                    <Col sm={7} md={8} lg={9}>
                         <Outlet />
                     </Col>
                 </Row>

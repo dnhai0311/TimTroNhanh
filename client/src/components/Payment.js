@@ -54,7 +54,7 @@ const Payment = ({ name, handleCreate }) => {
             </div>
             <div className="mt-3">Chọn nhanh số tiền cần nạp</div>
             <Form className="mt-2">
-                <div className="d-flex">
+                <div className="d-flex flex-wrap">
                     {radioOptions.map((option) => (
                         <Form.Check
                             key={option}

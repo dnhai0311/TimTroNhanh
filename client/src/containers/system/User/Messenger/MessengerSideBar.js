@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSocketContext } from '../../../../context/SocketContext';
 import { useSelector } from 'react-redux';
 
-const MessengerSideBar = ({ data }) => {
+const MessengerSideBar = ({ data, setIsChatting }) => {
     const [userList, setUserList] = useState();
     const { onlineUsers } = useSocketContext();
     const { isDarkMode } = useSelector((state) => state.theme);
@@ -22,6 +22,9 @@ const MessengerSideBar = ({ data }) => {
                             className={`text-decoration-none ${isDarkMode ? 'text-light' : 'text-dark'}`}
                             key={item?.user.id}
                             to={'/quan-ly/tin-nhan/' + item?.user?.id}
+                            onClick={() => {
+                                setIsChatting(true);
+                            }}
                         >
                             <UserBox
                                 user={item?.user}
