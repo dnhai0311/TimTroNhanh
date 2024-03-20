@@ -10,7 +10,7 @@ const InputPost = ({ isDisable, isTextArea, name, value, setValue, isAfter, text
     const debouncedValue = debounce(updateValue, 200);
 
     return (
-        <Form.Group className={`${width ? width : 'w-100'} pe-3 mt-3  fw-bold w-50`}>
+        <Form.Group className={`${width ? width : 'w-100'} pe-3 mt-3  fw-bold w-100 w-sm-50`}>
             <Form.Label>{name}</Form.Label>
             {!isDisable ? (
                 <>

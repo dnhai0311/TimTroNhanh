@@ -3,13 +3,13 @@ import MessengerSideBar from './MessengerSideBar';
 import ChatContainer from './ChatContainer';
 import { Row, Col, Container } from 'react-bootstrap';
 import { apiGetAllMessagesCurrent } from '../../../../services/message';
-import { UseViewport } from '../../../../components/index';
+import { useViewport } from '../../../../components/index';
 
 const Messenger = () => {
     const [data, setData] = useState();
     const [isChatting, setIsChatting] = useState(false);
 
-    const viewPort = UseViewport();
+    const viewPort = useViewport();
     const showBothComponents = viewPort > 768;
 
     const fetchAllMessages = async () => {

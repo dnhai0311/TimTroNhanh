@@ -2,11 +2,10 @@
 
 .sidebar {
     position: static;
-    display: none !important;
     @include respond-to($breakpoint-small) {
-        display: block !important;
         position: fixed;
     }
+
     .sidebar-item {
         cursor: pointer;
         border-radius: 5px;
@@ -17,16 +16,53 @@
             background-color: gray;
             opacity: 0.9;
         }
+
         .col {
             display: flex;
             align-items: center;
+
             span {
                 padding-left: 7px;
             }
         }
     }
+
     .active {
         background-color: gray;
         font-weight: bold;
+    }
+
+    .menu-span {
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 3px;
+        transition: all 0.1s;
+        display: block;
+        border: 1px solid #0077cc;
+        background-color: #66bb6a;
+
+        &:hover {
+            background-color: #4caf50;
+            border-color: #005b9f;
+            opacity: 0.9;
+        }
+
+        .menu-toggle {
+            border: 2px solid #0077cc;
+            background-color: #007700;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .col {
+            display: flex;
+            align-items: center;
+
+            span {
+                padding-left: 7px;
+                color: #fff;
+            }
+        }
     }
 }
