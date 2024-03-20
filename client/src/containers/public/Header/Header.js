@@ -121,7 +121,7 @@ const Header = () => {
                                 <DropDownManage handleSignOut={handleSignOut} />
                             </>
                         )}
-                        <ThemeToggle className={'ms-2'} />
+                        <ThemeToggle className={'ms-1'} />
                     </Navbar>
                 </div>
             </Navbar>

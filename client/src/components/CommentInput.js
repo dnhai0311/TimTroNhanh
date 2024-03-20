@@ -1,16 +1,14 @@
 import React, { memo, useState, useRef, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import icons from '../utils/icons';
 import { showToastSuccess, showToastError } from '../utils/commons/ToastUtil';
 import { apiRatePost, apiDidUserRatePost } from '../services/post';
+import '../containers/public/PostDetail/ListComment.scss';
 
 const CommentInput = ({ userId, postId, isAdmin }) => {
-    const { FaStar } = icons;
-
     const [star, setStar] = useState(0);
     const inputRef = useRef(null);
     const [isUserRated, setIsUserRated] = useState(false);
-
+    console.log(star);
     const handleTextareaInput = (e) => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
@@ -70,17 +68,15 @@ const CommentInput = ({ userId, postId, isAdmin }) => {
                         ref={inputRef}
                         disabled={isUserRated}
                     />
-                    <div className="text-end">
+                    <div className="rating">
                         {!isUserRated &&
                             Array(5)
                                 .fill()
                                 .map((_, index) => (
-                                    <FaStar
-                                        key={index}
-                                        color={index < star ? '#FFD24E' : ''}
-                                        value={index}
-                                        onClick={() => onClickStar(index + 1)}
-                                    />
+                                    <React.Fragment key={index}>
+                                        <input value={index} name="rating" id={`star${index}`} type="radio" />
+                                        <label htmlFor={`star${index}`} onClick={() => onClickStar(5 - index)}></label>
+                                    </React.Fragment>
                                 ))}
                     </div>
                 </>
