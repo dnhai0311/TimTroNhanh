@@ -7,7 +7,7 @@ export const createPayment = async (id, userId, type, amount, status) => {
             userId,
             type,
             amount,
-            status: status || 'pending',
+            status: status || 'payment',
         });
 
         return {
@@ -24,7 +24,7 @@ export const isTopUped = async (id) => {
     try {
         const response = await db.PAYMENT.findByPk(id);
 
-        if (response.status === 'pending') {
+        if (response.status === 'payment') {
             return true;
         }
         return false;

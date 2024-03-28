@@ -91,7 +91,6 @@ export const vnpayReturn = async (req, res) => {
         let rspCode = vnp_Params['vnp_ResponseCode'];
         let amount = +vnp_Params['vnp_Amount'] / 100;
         let orderInfo = vnp_Params['vnp_OrderInfo'];
-
         delete vnp_Params['vnp_SecureHash'];
         delete vnp_Params['vnp_SecureHashType'];
 
@@ -122,7 +121,7 @@ export const vnpayReturn = async (req, res) => {
                             // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
                             const isTopUped = await paymentService.isTopUped(orderId);
                             let orderType = orderInfo.split(' ')[0];
-
+                            console.log(isTopUped && orderType === '0');
                             if (isTopUped && orderType === '0') {
                                 await updateUserMoney(id, orderType, amount);
                             } else if (isTopUped && orderType === '1') {
