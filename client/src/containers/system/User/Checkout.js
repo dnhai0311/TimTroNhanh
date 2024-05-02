@@ -140,7 +140,7 @@ const Checkout = () => {
             if (!postId) return;
             if (postId === 'trang-thai') return;
             const response = await apiDidUserCreatePost(postId);
-            if (response.data.isCreate.status !== 'payment') {
+            if (response.data.isCreate.status !== 'payment' && response.data.isCreate.status !== 'expired') {
                 showToastError('Bài viết này đã thanh toán');
                 navigate('/quan-ly/tin-dang');
             }

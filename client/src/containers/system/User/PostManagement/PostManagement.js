@@ -92,7 +92,7 @@ const PostManagement = () => {
                                         setSelectedPost(props.row.original.postId);
                                     }}
                                 >
-                                    Sửa
+                                    {props.row.original.status === 'expired' ? 'Gia hạn' : 'Sửa'}
                                 </Button>
                                 <Button
                                     className="w-100 my-1 bg-danger"

@@ -57,6 +57,7 @@ const OpenLayerMap = ({ address }) => {
 
     useEffect(() => {
         const handleSearch = async () => {
+            if (address === '') return;
             const response = await apiGetCoord(address);
             if (response.data && response.data.length > 0) {
                 const { lat, lon } = response.data[0];

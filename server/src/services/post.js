@@ -59,10 +59,10 @@ export const getPostsService = async (
     try {
         const queryOptions = {
             where: {
-                // status: 'approved',
-                // expiredAt: {
-                //     [db.Sequelize.Op.gt]: db.Sequelize.literal('NOW()'),
-                // },
+                status: 'approved',
+                expiredAt: {
+                    [db.Sequelize.Op.gt]: db.Sequelize.literal('NOW()'),
+                },
             },
             raw: true,
             nest: true,
